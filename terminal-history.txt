@@ -1,0 +1,4 @@
+    1  history>terminal-history.txt
+    2  git add .
+    3  cd ~/AI-SW-Basic
+    4  history > terminal-history.txt

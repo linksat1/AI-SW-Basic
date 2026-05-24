@@ -1059,6 +1059,64 @@ crontab -e
 
 저장: `Ctrl + O` → `Enter` → `Ctrl + X`
 
+
+실행결과
+agent-admin@b1-lab:~/agent-app$ whoami
+agent-admin
+agent-admin@b1-lab:~/agent-app$ sudo su - agent-admin
+[sudo] password for agent-admin: 
+agent-admin@b1-lab:~$ pgrep -f agent-app-linux-x86
+1312
+1313
+agent-admin@b1-lab:~$ crontab -e
+no crontab for agent-admin - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+
+Choose 1-3 [1]: 1
+crontab: installing new crontab
+agent-admin@b1-lab:~$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+* * * * * /home/agent-admin/agent-app/bin/monitor.sh >> /var/log/agent-app/monitor_cron.log 2>&1
+agent-admin@b1-lab:~$ tail -f /var/log/agent-app/monitor.log
+[2026-05-24 19:05:55] PID:1312 CPU:0.0% MEM:3.7% DISK_USED:1%
+[2026-05-24 19:08:41] PID:1312 CPU:0.0% MEM:4.5% DISK_USED:1%
+[2026-05-24 19:11:06] PID:1312 CPU:0.0% MEM:4.0% DISK_USED:1%
+[2026-05-24 19:16:31] PID:1312 CPU:0.0% MEM:3.4% DISK_USED:1%
+[2026-05-24 20:23:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:24:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:25:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:26:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+
+
+![alt text](image-4.png)
+
+
 ### 9.2 crontab 등록 확인
 
 ```bash
@@ -1083,6 +1141,8 @@ tail -f /var/log/agent-app/monitor.log
 ```
 
 ---
+매분마다 새출이 추가되는것을 확인함
+
 
 ## 10. 최종 확인 체크리스트
 
@@ -1139,6 +1199,68 @@ su - agent-admin -c "crontab -l"
 # ✅ 12. 로그 누적 확인
 tail -20 /var/log/agent-app/monitor.log
 ```
+결과
+agent-admin@b1-lab:~$ grep "^Port" /etc/ssh/sshd_config
+Port 20022
+agent-admin@b1-lab:~$ sudo ufw status
+[sudo] password for agent-admin: 
+Status: active
+
+To                         Action      From
+--                         ------      ----
+20022/tcp                  ALLOW       Anywhere                  
+15034/tcp                  ALLOW       Anywhere                  
+20022/tcp (v6)             ALLOW       Anywhere (v6)             
+15034/tcp (v6)             ALLOW       Anywhere (v6)             
+
+agent-admin@b1-lab:~$ id agent-admin && id agent-dev && id agent-test
+uid=1000(agent-admin) gid=1002(agent-admin) groups=1002(agent-admin),27(sudo),1000(agent-common),1001(agent-core)
+uid=1001(agent-dev) gid=1003(agent-dev) groups=1003(agent-dev),1000(agent-common),1001(agent-core)
+uid=1002(agent-test) gid=1004(agent-test) groups=1004(agent-test),1000(agent-common)
+agent-admin@b1-lab:~$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+* * * * * /home/agent-admin/agent-app/bin/monitor.sh >> /var/log/agent-app/monitor_cron.log 2>&1
+agent-admin@b1-lab:~$ tail -20 /var/log/agent-app/monitor.log
+[2026-05-24 19:05:55] PID:1312 CPU:0.0% MEM:3.7% DISK_USED:1%
+[2026-05-24 19:08:41] PID:1312 CPU:0.0% MEM:4.5% DISK_USED:1%
+[2026-05-24 19:11:06] PID:1312 CPU:0.0% MEM:4.0% DISK_USED:1%
+[2026-05-24 19:16:31] PID:1312 CPU:0.0% MEM:3.4% DISK_USED:1%
+[2026-05-24 20:23:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:24:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:25:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:26:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:27:01] PID:1312 CPU:0.0% MEM:4.8% DISK_USED:1%
+[2026-05-24 20:28:01] PID:1312 CPU:0.0% MEM:5.0% DISK_USED:1%
+[2026-05-24 20:29:01] PID:1312 CPU:0.0% MEM:5.0% DISK_USED:1%
+[2026-05-24 20:30:01] PID:1312 CPU:0.0% MEM:4.9% DISK_USED:1%
+[2026-05-24 20:31:01] PID:1312 CPU:0.0% MEM:5.0% DISK_USED:1%
+[2026-05-24 20:32:01] PID:1312 CPU:0.0% MEM:4.9% DISK_USED:1%
+[2026-05-24 20:33:01] PID:1312 CPU:1.1% MEM:4.8% DISK_USED:1%
+agent-admin@b1-lab:~$ 
+
+![alt text](image-5.png)
 
 ### 제출용 스크린샷 목록
 
@@ -1158,6 +1280,10 @@ tail -20 /var/log/agent-app/monitor.log
 | 10 | 자동 실행 후 로그 증가 | 1분 후 `tail -5 /var/log/agent-app/monitor.log` |
 
 ---
+
+![
+
+](image-6.png)
 
 ## 11. 보너스 과제 (선택)
 

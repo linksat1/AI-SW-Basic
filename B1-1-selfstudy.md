@@ -33,12 +33,33 @@
 # 현재 OS 버전 확인
 cat /etc/os-release
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
+
 # 현재 로그인한 사용자 확인
 whoami
 
 # sudo 권한 확인 (이 명령이 오류 없이 실행되면 OK)
 sudo whoami
 ```
+
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ whoami
+cspag5955
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo whoami
+root
 
 > **Tip:** sudo는 "superuser do"의 줄임말로, 관리자 권한이 필요한 명령 앞에 붙입니다.
 > 처음에는 root 또는 sudo 권한이 있는 기본 계정(예: ubuntu)으로 시작합니다.
@@ -49,9 +70,33 @@ sudo whoami
 # 패키지 목록 최신화
 sudo apt update
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo apt update
+Hit:1 https://deb.nodesource.com/node_20.x nodistro InRelease
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]  
+Hit:3 http://archive.ubuntu.com/ubuntu jammy InRelease                                
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3524 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1269 kB]
+Fetched 5050 kB in 4s (1408 kB/s)                     
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+
+
 # 필수 도구 설치 (acl: 세밀한 권한 설정, ufw: 방화벽, net-tools: 네트워크 확인)
 sudo apt install -y acl ufw net-tools
 ```
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo apt install -y acl ufw net-tools
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+acl is already the newest version (2.3.1-1).
+net-tools is already the newest version (1.60+git20181103.0eebece-1ubuntu5.4).
+ufw is already the newest version (0.36.1-4ubuntu0.1).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 
 ---
 
@@ -83,7 +128,11 @@ sudo nano /etc/ssh/sshd_config
 ```
 Port 20022
 PermitRootLogin no
-```
+
+결과
+![sshd_config 설정 예시](image-1.png)
+```![alt text](image-2.png)
+
 
 > **nano 편집기 사용법:**
 > - 화살표 키로 이동
@@ -104,6 +153,11 @@ sudo systemctl restart sshd
 # 설정 파일에서 Port와 PermitRootLogin 확인
 grep -E "^Port|^PermitRootLogin" /etc/ssh/sshd_config
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ grep -E "^Port|^PermitRootLogin" /etc/ssh/sshd_config
+Port 20022
+PermitRootLogin no
+
 # 20022 포트로 SSH가 실제 듣고(Listen) 있는지 확인
 sudo ss -tulnp | grep sshd
 ```
@@ -111,7 +165,16 @@ sudo ss -tulnp | grep sshd
 **정상 출력 예시:**
 ```
 tcp   LISTEN  0  128  0.0.0.0:20022  0.0.0.0:*  users:(("sshd",pid=...,fd=...))
+
 ```
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ grep -E "^Port|^PermitRootLogin" /etc/ssh/sshd_config
+Port 20022
+PermitRootLogin no
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo ss -tulnp | grep sshd
+tcp   LISTEN 0      128                0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=13486,fd=3))          
+tcp   LISTEN 0      128                   [::]:20022         [::]:*    users:(("sshd",pid=13486,fd=4))  
+
 
 > **주의:** 이후 SSH로 접속할 때는 포트 번호를 명시해야 합니다.
 > ```bash
@@ -133,14 +196,27 @@ tcp   LISTEN  0  128  0.0.0.0:20022  0.0.0.0:*  users:(("sshd",pid=...,fd=...))
 # SSH 포트 허용 (이것을 먼저 해야 나중에 SSH 접속이 끊기지 않습니다!)
 sudo ufw allow 20022/tcp
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo ufw allow 20022/tcp
+Skipping adding existing rule
+Skipping adding existing rule (v6)
+
 # 앱 포트 허용
 sudo ufw allow 15034/tcp
+
+
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo ufw allow 15034/tcp
+Rule added
+Rule added (v6)
+
 
 # UFW 활성화 (y 입력으로 확인)
 sudo ufw enable
 
 # 방화벽 상태 확인
 sudo ufw status
+
 ```
 
 **정상 출력 예시:**
@@ -153,6 +229,17 @@ To                         Action      From
 15034/tcp                  ALLOW       Anywhere
 20022/tcp (v6)             ALLOW       Anywhere (v6)
 15034/tcp (v6)             ALLOW       Anywhere (v6)
+
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+20022/tcp                  ALLOW       Anywhere                  
+15034/tcp                  ALLOW       Anywhere                  
+20022/tcp (v6)             ALLOW       Anywhere (v6)             
+15034/tcp (v6)             ALLOW       Anywhere (v6)  
 ```
 
 > **Tip:** `ufw enable` 전에 반드시 SSH 포트를 허용해야 합니다.
@@ -189,6 +276,13 @@ sudo groupadd agent-core
 grep "agent-" /etc/group
 ```
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo groupadd agent-common
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo groupadd agent-core
+cspag5955@b1-lab:~/AI-SW-Basic$ grep "agent-" /etc/group
+agent-common:x:1000:
+agent-core:x:1001:
+
 ### 4.2 계정 생성
 
 ```bash
@@ -208,9 +302,9 @@ sudo useradd -m -s /bin/bash agent-test
 
 ```bash
 # 각 계정에 비밀번호 설정 (실습용이므로 간단하게 설정해도 됩니다)
-sudo passwd agent-admin
-sudo passwd agent-dev
-sudo passwd agent-test
+sudo passwd agent-admin  => 1234로 설정함
+sudo passwd agent-dev  => abcd로 설정함
+sudo passwd agent-test. => 5678
 ```
 
 ### 4.4 그룹에 계정 추가
@@ -245,6 +339,15 @@ id agent-test
 uid=1001(agent-admin) gid=1001(agent-admin) groups=1001(agent-admin),1002(agent-common),1003(agent-core)
 ```
 
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ id agent-admin
+uid=1000(agent-admin) gid=1002(agent-admin) groups=1002(agent-admin),1000(agent-common),1001(agent-core)
+cspag5955@b1-lab:~/AI-SW-Basic$ id agent-dev
+uid=1001(agent-dev) gid=1003(agent-dev) groups=1003(agent-dev),1000(agent-common),1001(agent-core)
+cspag5955@b1-lab:~/AI-SW-Basic$ id agent-test
+uid=1002(agent-test) gid=1004(agent-test) groups=1004(agent-test),1000(agent-common)
+
+
 ---
 
 ## 5. 디렉토리 구조 및 권한 설정
@@ -260,6 +363,13 @@ sudo mkdir -p /home/agent-admin/agent-app/bin
 
 # 로그 디렉토리 생성
 sudo mkdir -p /var/log/agent-app
+
+실행
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo mkdir -p /home/agent-admin/agent-app
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo mkdir -p /home/agent-admin/agent-app/upload_files
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo mkdir -p /home/agent-admin/agent-app/api_keys
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo mkdir -p /home/agent-admin/agent-app/bin
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo mkdir -p /var/log/agent-app
 ```
 
 ### 5.2 소유자 및 그룹 설정
@@ -276,6 +386,12 @@ sudo chown agent-admin:agent-core /home/agent-admin/agent-app/api_keys
 
 # /var/log/agent-app: 그룹을 agent-core로 설정
 sudo chown agent-admin:agent-core /var/log/agent-app
+
+실행
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo chown -R agent-admin:agent-admin /home/agent-admin/agent-app
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo chown agent-admin:agent-common /home/agent-admin/agent-app/upload_files
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo chown agent-admin:agent-core /home/agent-admin/agent-app/api_keys
+cspag5955@b1-lab:~/AI-SW-Basic$ sudo chown agent-admin:agent-core /var/log/agent-app
 ```
 
 ### 5.3 권한(Permission) 설정
@@ -322,10 +438,44 @@ sudo setfacl -d -m g:agent-core:rwx /var/log/agent-app
 # 일반 권한 확인
 ls -la /home/agent-admin/agent-app/
 
+
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ ls -la /home/agent-admin/agent-app/
+ls: cannot access '/home/agent-admin/agent-app/': Permission denied
+
+
 # ACL 상세 확인
 getfacl /home/agent-admin/agent-app/upload_files
+
+결과
+cspag5955@b1-lab:~/AI-SW-Basic$ getfacl /home/agent-admin/agent-app/upload_files
+getfacl: /home/agent-admin/agent-app/upload_files: Permission denied
+
+
 getfacl /home/agent-admin/agent-app/api_keys
+
+cspag5955@b1-lab:~/AI-SW-Basic$ getfacl /home/agent-admin/agent-app/api_keys
+getfacl: /home/agent-admin/agent-app/api_keys: Permission denied
+
+
 getfacl /var/log/agent-app
+
+
+cspag5955@b1-lab:~/AI-SW-Basic$ getfacl /var/log/agent-app
+getfacl: Removing leading '/' from absolute path names
+# file: var/log/agent-app
+# owner: agent-admin
+# group: agent-core
+user::rwx
+group::rwx
+group:agent-core:rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:group:agent-core:rwx
+default:mask::rwx
+default:other::---
 ```
 
 ---
@@ -400,6 +550,16 @@ echo $AGENT_KEY_PATH
 /home/agent-admin/agent-app
 15034
 /home/agent-admin/agent-app/api_keys/t_secret.key
+
+
+
+결과
+agent-admin@b1-lab:~$ echo $AGENT_HOME
+echo $AGENT_PORT
+echo $AGENT_KEY_PATH
+/home/agent-admin/agent-app
+15034
+/home/agent-admin/agent-app/api_keys/t_secret.key
 ```
 
 > **`~/.bashrc`란?**
@@ -416,7 +576,14 @@ python3 --version
 sudo apt install -y python3 python3-pip
 ```
 
+결과
+agent-admin@b1-lab:~$ python3 --version
+Python 3.10.12
 ---
+
+
+
+여기까지 함
 
 ## 7. Python 앱 실행 확인
 
@@ -457,6 +624,42 @@ Agent READY
 > - `[4/5]`: 15034 포트가 이미 사용 중인지 확인 (`ss -tulnp | grep 15034`)
 > - `[5/5]`: `/var/log/agent-app` 디렉토리 권한 확인
 
+
+결과
+agent-admin@b1-lab:~$ cd /home/agent-admin/agent-app
+agent-admin@b1-lab:~/agent-app$ export AGENT_HOME=/home/agent-admin/agent-app
+agent-admin@b1-lab:~/agent-app$ export AGENT_PORT=15034
+agent-admin@b1-lab:~/agent-app$ export AGENT_UPLOAD_DIR=$AGENT_HOME/upload_files
+agent-admin@b1-lab:~/agent-app$ export AGENT_KEY_PATH=$AGENT_HOME/api_keys
+agent-admin@b1-lab:~/agent-app$ export AGENT_LOG_DIR=/var/log/agent-app
+agent-admin@b1-lab:~/agent-app$ ./agent-app-linux-x86
+>>> Starting Agent Boot Sequence...
+[1/5] Checking User Account               [OK]
+   ... Running as service user 'agent-admin' (uid=1000)
+[2/5] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/5] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/5] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/5] Verifying Log Permission            [OK]
+   ... Log directory is writable: /var/log/agent-app
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-05-24 15:31:59,870 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-05-24 15:31:59,871 [INFO] Agent listening at port 15034
+2026-05-24 15:31:59,871 [INFO] === Agent Worker Started ===
+2026-05-24 15:31:59,871 [INFO]    > Cycle: 0 -> 256MB/Lv10 -> 0
+2026-05-24 15:31:59,871 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-05-24 15:31:59,908 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-05-24 15:31:59,909 [INFO] [CPU] Occupy core for 1s (Level 1)
+
+
+
+
+
+
 ### 7.3 새 터미널에서 앱 실행 상태 확인
 
 앱을 실행한 채로, **별도 터미널**을 열어서 확인합니다:
@@ -473,6 +676,14 @@ netstat -tulnp | grep 15034
 ```
 tcp  LISTEN  0  128  0.0.0.0:15034  0.0.0.0:*  users:(("python3",...))
 ```
+
+
+결과
+cspag5955@c5r5s1 ~ % ssh b1-lab@orb
+cspag5955@b1-lab:~$ ss -tulnp | grep 15034
+tcp   LISTEN 0      1                  0.0.0.0:15034      0.0.0.0:*  
+
+
 
 앱 종료는 앱이 실행 중인 터미널에서 `Ctrl + C`를 누릅니다.
 
@@ -667,6 +878,8 @@ echo "[INFO] Log appended: $LOG_FILE"
 
 저장: `Ctrl + O` → `Enter` → `Ctrl + X`
 
+위 내용을 저장하였음
+
 ### 8.2 소유자 및 권한 설정
 
 ```bash
@@ -684,6 +897,39 @@ ls -l /home/agent-admin/agent-app/bin/monitor.sh
 **정상 출력:**
 ```
 -rwxr-x--- 1 agent-dev agent-core ... monitor.sh
+
+실행결과
+cspag5955@b1-lab:~$ sudo ls -l /home/agent-admin/agent-app/bin/monitor.sh
+-rwxr-x--- 1 agent-dev agent-core 5260 May 24 15:55 /home/agent-admin/agent-app/bin/monitor.sh
+
+명령문이 다른 사유
+💡 핵심
+ls 앞에 sudo 붙이기!
+
+ls -l      ← ❌ 권한 없어서 못봄
+sudo ls -l ← ✅ 관리자 권한으로 볼 수 있음
+
+
+결과 분석
+-rwxr-x--- 1 agent-dev agent-core 5260 May 24 15:55 monitor.sh
+항목값의미-rwxr-x---권한750 설정 ✅agent-dev소유자✅agent-core그룹✅5260파일크기5260 bytesMay 24 15:55수정시간오늘 ✅
+
+권한 확인
+-rwxr-x---
+ │││││││││
+ ││││││└└└── 기타(other)  --- = 접근불가 ✅
+ │││└└└───── 그룹(group)  r-x = 읽기+실행 ✅
+ └└└──────── 소유자(owner) rwx = 읽기+쓰기+실행 ✅
+
+📋 진행 상황
+✅ agent-admin 계정 생성
+✅ agent-app 압축 해제
+✅ 소유자 agent-dev:agent-core 설정
+✅ 권한 750 설정
+✅ 확인 완료
+
+
+
 ```
 
 ### 8.3 스크립트 테스트 실행
@@ -721,6 +967,30 @@ DISK Used  : 23%
 [INFO] Log appended: /var/log/agent-app/monitor.log
 ```
 
+실행결과
+agent-admin@b1-lab:~/agent-app$ /home/agent-admin/agent-app/bin/monitor.sh
+
+====== SYSTEM MONITOR RESULT ======
+
+[HEALTH CHECK]
+Checking process 'agent-app-linux-x86'... [OK] (PID: 1312)
+Checking port 15034... [OK]
+
+[FIREWALL CHECK]
+Firewall (UFW)... [OK] Active
+
+[RESOURCE MONITORING]
+CPU Usage  : 0.0%
+MEM Usage  : 3.4%
+DISK Used  : 1%
+
+
+====================================
+[INFO] Log appended: /var/log/agent-app/monitor.log
+/home/agent-admin/agent-app/bin/monitor.sh: line 160: unexpected EOF while looking for matching ``'
+/home/agent-admin/agent-app/bin/monitor.sh: line 161: syntax error: unexpected end of file
+
+
 ### 8.4 로그 파일 확인
 
 ```bash
@@ -737,6 +1007,18 @@ tail -10 /var/log/agent-app/monitor.log
 ```
 
 ---
+
+
+결과
+agent-admin@b1-lab:~/agent-app$ sudo cat /var/log/agent-app/monitor.log
+[2026-05-24 19:05:55] PID:1312 CPU:0.0% MEM:3.7% DISK_USED:1%
+[2026-05-24 19:08:41] PID:1312 CPU:0.0% MEM:4.5% DISK_USED:1%
+[2026-05-24 19:11:06] PID:1312 CPU:0.0% MEM:4.0% DISK_USED:1%
+[2026-05-24 19:16:31] PID:1312 CPU:0.0% MEM:3.4% DISK_USED:1%
+
+![alt text](image-3.png)
+
+
 
 ## 9. crontab 자동 실행 등록
 

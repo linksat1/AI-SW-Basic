@@ -25,10 +25,10 @@ cspag5955@b1-lab:~/AI-SW-Basic$ git push mine pagchuseon-0523
 remote: Repository not found.
 fatal: repository 'https://github.com/pagchuseon/AI-SW-Basic_3.git/' not found
 cspag5955@b1-lab:~/AI-SW-Basic$ git remote -v
-mine	https://pagchuseon:GITHUB_TOKEN2_REMOVED@github.com/pagchuseon/AI-SW-Basic_3.git (fetch)
-mine	https://pagchuseon:GITHUB_TOKEN2_REMOVED@github.com/pagchuseon/AI-SW-Basic_3.git (push)
-origin	https://linksat1:GITHUB_TOKEN_REMOVED@github.com/linksat1/AI-SW-Basic.git (fetch)
-origin	https://linksat1:GITHUB_TOKEN_REMOVED@github.com/linksat1/AI-SW-Basic.git (push)
+
+
+
+
 cspag5955@b1-lab:~/AI-SW-Basic$ history > ~/AI-SW-Basic/terminal-history-final.txt
 cspag5955@b1-lab:~/AI-SW-Basic$ 
 cspag5955@b1-lab:~/AI-SW-Basic$ 

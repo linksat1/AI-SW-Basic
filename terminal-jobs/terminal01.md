@@ -77,7 +77,7 @@ Username for 'https://github.com': linksat1
 Password for 'https://linksat1@github.com': 
 remote: Invalid username or token. Password authentication is not supported for Git operations.
 fatal: Authentication failed for 'https://github.com/linksat1/AI-SW-Basic.git/'
-cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url origin https://linksat1:ANTHROPIC_API_KEY_REMOVED@github.com/linksat1/AI-SW-Basic.git
+
 cspag5955@b1-lab:~/AI-SW-Basic$ git pull origin main
 From https://github.com/linksat1/AI-SW-Basic
  * branch            main       -> FETCH_HEAD
@@ -98,8 +98,8 @@ cspag5955@b1-lab:~/AI-SW-Basic$ git push origin main
 remote: Invalid username or token. Password authentication is not supported for Git operations.
 fatal: Authentication failed for 'https://github.com/linksat1/AI-SW-Basic.git/'
 cspag5955@b1-lab:~/AI-SW-Basic$ git remote -v
-origin	https://linksat1:ANTHROPIC_API_KEY_REMOVED@github.com/linksat1/AI-SW-Basic.git (fetch)
-origin	https://linksat1:ANTHROPIC_API_KEY_REMOVED@github.com/linksat1/AI-SW-Basic.git (push)
+
+
 cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url origin https://linksat1:^Cithub.com/linksat1/AI-SW-Basic.git
 cspag5955@b1-lab:~/AI-SW-Basic$ ^[[200~git remote set-url origin https://linksat1:여기에토큰붙여넣기@github.com/linksat1/AI-SW-Basic.git~
 -bash: $'\E[200~git': command not found

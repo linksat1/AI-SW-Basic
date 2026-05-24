@@ -175,11 +175,11 @@ cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url mine https://pagchuseon:새�
 git push mine main
 remote: Invalid username or token. Password authentication is not supported for Git operations.
 fatal: Authentication failed for 'https://github.com/pagchuseon/AI-SW-Basic_1.git/'
-cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url mine https://pagchuseon:GITHUB_TOKEN2_REMOVED@github.com/pagchuseon/AI-SW-Basic_1.git
-git push mine main
+
+
 remote: Repository not found.
 fatal: repository 'https://github.com/pagchuseon/AI-SW-Basic_1.git/' not found
-cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url mine https://pagchuseon:GITHUB_TOKEN2_REMOVED@github.com/pagchuseon/AI-SW-Basic_3.git
+
 cspag5955@b1-lab:~/AI-SW-Basic$ LLinkSat무료 요금제공용 PC에서 작업 파일 온라인 저장하기무료 요금제업그레이드Claude가 응답을 완료했습니다입력 내용: 이 과제를 하려고 하면 가장 좋은 방법은?linksat1/AI-SW-BasicmainGITHUB이 과제를 하려고 하면 가장 좋은 방법은?
 VS Code와 Github를 연결하고 AI agent를 연결하는것이 좋은가요?
 다른 좋은 방안이 있다면 알려줘여

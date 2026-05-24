@@ -103,7 +103,7 @@ cspag5955@b1-lab:~/AI-SW-Basic$ git remote -v
 cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url origin https://linksat1:^Cithub.com/linksat1/AI-SW-Basic.git
 cspag5955@b1-lab:~/AI-SW-Basic$ ^[[200~git remote set-url origin https://linksat1:여기에토큰붙여넣기@github.com/linksat1/AI-SW-Basic.git~
 -bash: $'\E[200~git': command not found
-cspag5955@b1-lab:~/AI-SW-Basic$ git remote set-url origin https://linksat1:GITHUB_TOKEN_REMOVED@github.com/linksat1/AI-SW-Basic.git
+
 cspag5955@b1-lab:~/AI-SW-Basic$ git push origin main
 To https://github.com/linksat1/AI-SW-Basic.git
  ! [rejected]        main -> main (non-fast-forward)

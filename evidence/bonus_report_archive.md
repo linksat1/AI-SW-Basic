@@ -48,13 +48,39 @@
 소유자: agent-admin:agent-core  권한: 750
 ```
 
-### 실행 결과
+### 실행 결과 (정상 상태 — 최근 로그만 존재)
 ```
 [INFO] 7일 경과 로그 파일 압축 중...
 [INFO] 압축 대상 없음 (7일 이내 로그만 존재)
 [INFO] 30일 경과 아카이브 파일 삭제 중...
 [INFO] 삭제 대상 없음 (30일 이내 아카이브만 존재)
 [INFO] 로그 보존 정책 완료
+```
+
+### 실행 결과 (7일 경과 파일 시뮬레이션)
+
+7일 경과 파일 생성 (`touch -t 202605180000.00`으로 May 18 = 8일 전 타임스탬프 설정):
+```bash
+sudo bash -c 'touch -t 202605180000.00 /var/log/agent-app/test_old.log'
+sudo bash -c 'chown agent-admin:agent-core /var/log/agent-app/test_old.log'
+```
+
+log_archive.sh 실행:
+```
+[INFO] 7일 경과 로그 파일 압축 중...
+[OK] 압축/이동: /var/log/agent-app/test_old.log → /var/log/monitor/agent-app/archive/test_old.log.20260526.gz
+[INFO] 30일 경과 아카이브 파일 삭제 중...
+[INFO] 삭제 대상 없음 (30일 이내 아카이브만 존재)
+[INFO] 로그 보존 정책 완료
+```
+
+아카이브 결과 확인:
+```
+# /var/log/monitor/agent-app/archive/
+-rw-rw-r-- 1 agent-admin agent-admin 33 May 26 21:05 test_old.log.20260526.gz
+
+# 원본 파일 삭제 확인
+/var/log/agent-app/test_old.log → 삭제됨 (정상)
 ```
 
 ### 정책

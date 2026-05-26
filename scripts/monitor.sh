@@ -7,7 +7,7 @@
 # =============================================================
 
 # ---- 설정값 ----
-APP_PROCESS="agent-app-linux-x86"          # 감시할 프로세스 이름
+APP_PROCESS="agent-app-linux-arm64"        # 감시할 프로세스 이름
 APP_PORT=15034                              # 감시할 포트 번호
 LOG_FILE="/var/log/agent-app/monitor.log"  # 로그 파일 경로
 MAX_LOG_SIZE=$((10 * 1024 * 1024))         # 최대 로그 크기: 10MB
@@ -71,9 +71,13 @@ echo ""
 # =============================================================
 echo "[FIREWALL CHECK]"
 
-# systemctl로 UFW 상태 확인 (sudo 불필요 - cron 호환)
-if systemctl is-active --quiet ufw 2>/dev/null; then
+# UFW 상태 확인: ufw status → 상태 파일 순으로 폴백 (컨테이너 환경 호환)
+UFW_STATUS_FILE="/var/run/ufw-status"
+if ufw status 2>/dev/null | grep -q "Status: active"; then
     echo "Firewall (UFW)... [OK] Active"
+elif [ -f "$UFW_STATUS_FILE" ] && grep -q "^active" "$UFW_STATUS_FILE"; then
+    MODE=$(cat "$UFW_STATUS_FILE")
+    echo "Firewall (UFW)... [OK] Active (${MODE})"
 else
     echo "[WARNING] Firewall (UFW) is not active!"
 fi

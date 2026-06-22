@@ -1,0 +1,21 @@
+# ps snapshot for oom_after at Mon Jun 22 17:18:14 KST 2026
+    PID    PPID USER     %CPU %MEM   RSS STAT CMD
+   3152    3149 agent-a+  0.9  0.0  2244 S    ./agent-leak-app
+   3162    3152 agent-a+  1.3  0.1 18752 SN   ./agent-leak-app
+
+# /proc/3162/status
+Name:	agent-leak-app
+State:	S (sleeping)
+VmSize:	   29012 kB
+VmRSS:	   18752 kB
+Threads:	1
+
+# top snapshot
+top - 17:18:14 up  2:39,  0 users,  load average: 0.03, 0.06, 0.02
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :  16049.5 total,  15516.9 free,    630.6 used,    157.1 buff/cache     
+MiB Swap:  17073.5 total,  17073.5 free,      0.0 used.  15418.8 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3162 agent-a+  30  10   29012  18752  10156 S   0.0   0.1   0:00.09 agent-l+

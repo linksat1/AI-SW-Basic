@@ -1,0 +1,35 @@
+# ps snapshot for deadlock_after at Mon Jun 22 17:19:58 KST 2026
+    PID    PPID USER     %CPU %MEM   RSS STAT CMD
+   3547    3544 agent-a+  0.4  0.0  2244 S    ./agent-leak-app
+   3557    3547 agent-a+  0.8  0.1 18704 SN   ./agent-leak-app
+
+# /proc/3557/status
+Name:	agent-leak-app
+State:	S (sleeping)
+VmSize:	   30036 kB
+VmRSS:	   18704 kB
+Threads:	1
+
+# top snapshot
+top - 17:19:58 up  2:41,  0 users,  load average: 0.00, 0.04, 0.01
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  1.6 sy,  0.0 ni, 98.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :  16049.5 total,  15532.2 free,    629.6 used,    128.5 buff/cache     
+MiB Swap:  17073.5 total,  17073.5 free,      0.0 used.  15419.8 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3557 agent-a+  30  10   30036  18704  10112 S   0.0   0.1   0:00.08 agent-l+
+
+# thread snapshot
+    PID     TID STAT %CPU %MEM COMMAND
+   3557    3557 SN    0.7  0.1 agent-leak-app
+
+# top -H snapshot
+top - 17:19:58 up  2:41,  0 users,  load average: 0.00, 0.04, 0.01
+Threads:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :  16049.5 total,  15531.8 free,    630.0 used,    128.5 buff/cache     
+MiB Swap:  17073.5 total,  17073.5 free,      0.0 used.  15419.4 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3557 agent-a+  30  10   30036  18704  10112 S   0.0   0.1   0:00.08 agent-l+

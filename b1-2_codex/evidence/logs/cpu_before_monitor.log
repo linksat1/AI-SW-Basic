@@ -1,0 +1,65 @@
+=== Monitor started at Mon Jun 22 17:18:46 KST 2026 ===
+LOG_FILE=/var/log/agent-app/evidence_cpu_before_monitor.log
+PORT=15034
+
+[Mon Jun 22 17:18:46 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+   3252    3249 agent-a+  100  0.0  2168 R    ./agent-leak-app
+PORT: WARN - 15034 is not listening
+
+[Mon Jun 22 17:18:48 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  2.9  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  2.0  0.1 18736 SN   ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:50 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  1.4  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  2.2  0.2 44572 SNl  ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:52 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.9  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  2.3  0.4 70176 SNl  ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:54 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.7  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  1.7  0.4 70176 SNl  ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:56 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.5  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  1.9  0.5 95780 SNl  ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:58 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.4  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  1.9  0.7 121384 SNl ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:19:00 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.4  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  1.7  0.7 121384 SNl ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:19:02 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3252
+3262
+   3252    3249 agent-a+  0.3  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  1.8  0.8 146988 SNl ./agent-leak-app
+PORT: OK - 15034 is listening
+

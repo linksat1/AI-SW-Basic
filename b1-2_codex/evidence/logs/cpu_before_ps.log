@@ -1,0 +1,39 @@
+# ps snapshot for cpu_before at Mon Jun 22 17:18:53 KST 2026
+    PID    PPID USER     %CPU %MEM   RSS STAT CMD
+   3252    3249 agent-a+  0.8  0.0  2236 S    ./agent-leak-app
+   3262    3252 agent-a+  2.0  0.4 70176 SNl  ./agent-leak-app
+
+# /proc/3262/status
+Name:	agent-leak-app
+State:	S (sleeping)
+VmSize:	  228708 kB
+VmRSS:	   70176 kB
+Threads:	3
+
+# top snapshot
+top - 17:18:53 up  2:40,  0 users,  load average: 0.01, 0.05, 0.02
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :  16049.5 total,  15445.4 free,    701.8 used,    157.7 buff/cache     
+MiB Swap:  17073.5 total,  17073.5 free,      0.0 used.  15347.7 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3262 agent-a+  30  10  228708  70176  10280 S   0.0   0.4   0:00.14 agent-l+
+
+# thread snapshot
+    PID     TID STAT %CPU %MEM COMMAND
+   3262    3262 SNl   0.8  0.4 agent-leak-app
+   3262    3271 SNl   1.6  0.4 agent-leak-app
+   3262    3272 SNl   0.2  0.4 agent-leak-app
+
+# top -H snapshot
+top - 17:18:53 up  2:40,  0 users,  load average: 0.01, 0.05, 0.02
+Threads:   3 total,   0 running,   3 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :  16049.5 total,  15444.3 free,    702.8 used,    157.8 buff/cache     
+MiB Swap:  17073.5 total,  17073.5 free,      0.0 used.  15346.6 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3262 agent-a+  30  10  228708  70176  10280 S   0.0   0.4   0:00.06 agent-l+
+   3271 agent-a+  30  10  228708  70176  10280 S   0.0   0.4   0:00.07 agent-l+
+   3272 agent-a+  30  10  228708  70176  10280 S   0.0   0.4   0:00.01 agent-l+

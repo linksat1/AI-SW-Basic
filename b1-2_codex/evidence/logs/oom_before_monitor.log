@@ -1,0 +1,27 @@
+=== Monitor started at Mon Jun 22 17:17:58 KST 2026 ===
+LOG_FILE=/var/log/agent-app/evidence_oom_before_monitor.log
+PORT=15034
+
+[Mon Jun 22 17:17:58 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3104
+   3104    3101 agent-a+  0.0  0.0  2172 R    ./agent-leak-app
+PORT: WARN - 15034 is not listening
+
+[Mon Jun 22 17:18:00 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3104
+3114
+   3104    3101 agent-a+  2.9  0.0  2240 S    ./agent-leak-app
+   3114    3104 agent-a+  2.0  0.1 18628 SN   ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:02 KST 2026] --- Monitor Snapshot ---
+PROCESS: OK - agent-leak-app running with PID(s): 3104
+3114
+   3104    3101 agent-a+  1.4  0.0  2240 S    ./agent-leak-app
+   3114    3104 agent-a+  1.5  0.2 44232 SN   ./agent-leak-app
+PORT: OK - 15034 is listening
+
+[Mon Jun 22 17:18:04 KST 2026] --- Monitor Snapshot ---
+PROCESS: FAIL - agent-leak-app is NOT running
+PORT: WARN - 15034 is not listening
+

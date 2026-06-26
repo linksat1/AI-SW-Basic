@@ -31,6 +31,7 @@
   --color-text-light: #64748b;    /* 보조 글자색 */
   --color-border: #e2e8f0;        /* 테두리 색상 */
   --color-card-bg: #ffffff;       /* 카드 배경색 */
+  --color-header-scrolled: rgba(255, 255, 255, 0.85); /* 스크롤 시 헤더 반투명 배경 */
   --color-shadow: rgba(0, 0, 0, 0.08); /* 그림자 색상 */
 
   /* --- 폰트 변수 --- */
@@ -66,6 +67,7 @@
   --color-border: #334155;
   --color-card-bg: #1e293b;
   --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-header-scrolled: rgba(30, 41, 59, 0.95); /* 다크모드 스크롤 시 헤더 반투명 배경 */
 }
 
 
@@ -191,8 +193,8 @@ button {
 /* 스크롤 애니메이션: 초기 상태 (보이지 않음) */
 .animate-on-scroll {
   opacity: 0;               /* 완전히 투명 */
-  transform: translateY(30px); /* 30px 아래로 이동 */
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(60px); /* 60px 아래로 이동 (더 뚜렷한 효과) */
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 /* 화면에 들어왔을 때의 상태 (JS에서 이 클래스를 추가) */
@@ -283,19 +285,24 @@ button {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
   z-index: 100;
   /*
     z-index : 요소의 쌓임 순서. 숫자가 클수록 위에 표시된다.
     position이 static이 아닌 경우에만 동작한다.
   */
-  transition: background-color var(--transition), box-shadow var(--transition);
+  transition: background-color var(--transition), box-shadow var(--transition),
+              border-color var(--transition), backdrop-filter var(--transition);
 }
 
-/* 스크롤 시 헤더에 그림자 추가 (JS에서 .scrolled 클래스 추가) */
+/* 스크롤 60px 이상 시 헤더 배경색 변경 (JS에서 .scrolled 클래스 추가) */
 .header.scrolled {
-  box-shadow: 0 2px 10px var(--color-shadow);
+  background-color: var(--color-header-scrolled);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--color-primary);
+  box-shadow: 0 4px 20px var(--color-shadow);
 }
 
 .nav {
@@ -537,10 +544,12 @@ button {
     너비에 맞춰 높이가 자동으로 설정된다.
   */
   object-fit: cover;
+  object-position: center top;
   /*
     object-fit: cover : 이미지를 잘라내서 요소를 꽉 채운다.
     이미지 비율을 유지하면서 빈 공간 없이 채운다.
     contain은 이미지를 잘라내지 않고 전체를 보여준다 (여백 생길 수 있음).
+    object-position: center top : 크롭 기준점을 위쪽으로 설정해 머리가 잘리지 않게 한다.
   */
   border-radius: 50%;
   border: 4px solid var(--color-primary);
@@ -569,6 +578,7 @@ button {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  object-position: center top;
   border-radius: var(--border-radius);
   box-shadow: 0 10px 30px var(--color-shadow);
 }

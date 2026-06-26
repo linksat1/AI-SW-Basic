@@ -213,6 +213,9 @@ window.addEventListener('scroll', () => {
   } else {
     scrollTopBtn.classList.add('hidden');
   }
+
+  // 섹션 등장 애니메이션
+  revealOnScroll();
 });
 
 // 스크롤 탑 버튼 클릭 → 맨 위로 이동
@@ -248,41 +251,37 @@ scrollTopBtn.addEventListener('click', () => {
   entries : 감시 중인 요소들의 상태 정보 배열.
   entry.isIntersecting : 요소가 현재 화면에 보이는지 여부 (true/false).
 */
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      /*
-        forEach : 배열의 각 항목에 대해 함수를 실행하는 배열 메서드.
-        entries.forEach((entry) => { ... })
-        = entries 배열의 각 entry에 대해 중괄호 안을 실행.
-      */
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // 한 번 보이면 더 이상 감시하지 않는다. (성능 최적화)
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.2,
-    /*
-      threshold : 얼마나 보여야 콜백을 실행할지 비율(0 ~ 1).
-      0.2 = 요소의 20%가 화면에 들어오면 실행.
-      0   = 1px이라도 보이면 실행.
-      1   = 요소가 100% 화면에 들어왔을 때 실행.
-    */
-  }
-);
+/*
+  스크롤 애니메이션 함수.
+  스크롤할 때마다 animate-on-scroll 요소들의 위치를 확인하고
+  화면 안에 들어온 요소에 visible 클래스를 추가한다.
 
-// animate-on-scroll 클래스가 있는 모든 요소를 감시 대상으로 등록
-document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-  observer.observe(el);
-});
+  getBoundingClientRect() : 요소의 위치를 뷰포트 기준으로 반환한다.
+  - rect.top : 요소 상단이 화면 상단으로부터 몇 px 아래에 있는지
+  - window.innerHeight : 현재 브라우저 창의 높이(px)
+  rect.top < window.innerHeight - 100 이면
+  요소가 화면 하단에서 100px 위 지점까지 올라온 것 → 보이기 시작!
+*/
+function revealOnScroll() {
+  const elements = document.querySelectorAll('.animate-on-scroll:not(.visible)');
+  elements.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      el.classList.add('visible');
+    }
+  });
+}
 
 // 섹션들에 animate-on-scroll 클래스를 동적으로 추가
+// Hero는 페이지 로드 시 바로 보이는 영역이므로 제외한다
 document.querySelectorAll('.section').forEach((section) => {
-  section.classList.add('animate-on-scroll');
+  if (!section.classList.contains('hero')) {
+    section.classList.add('animate-on-scroll');
+  }
 });
+
+// 페이지 로드 직후 한 번 실행 (화면에 이미 보이는 요소 처리)
+revealOnScroll();
 
 
 /* =====================================================
@@ -320,7 +319,7 @@ document.querySelectorAll('.section').forEach((section) => {
 */
 
 // GitHub 사용자명 설정 (본인 아이디로 변경!)
-const GITHUB_USERNAME = 'yourusername';
+const GITHUB_USERNAME = 'linksat1';
 
 // 현재 저장된 전체 프로젝트 데이터 (필터링에 사용)
 let allRepos = [];
@@ -347,6 +346,10 @@ let currentFilter = 'all';
 async function loadProjects() {
   // 상태 초기화: 에러/빈상태 숨기고, 로딩 표시
   showLoadingState();
+
+  // 로딩 상태를 최소 1초 보여주기 위해 대기
+  // (API가 너무 빠르면 로딩 상태가 눈에 띄지 않기 때문)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   try {
     /*
@@ -499,9 +502,8 @@ function renderProjects(repos) {
   projectsGrid.innerHTML = cardsHTML;
 
   // 새로 생성된 카드에 스크롤 애니메이션 적용
-  projectsGrid.querySelectorAll('.animate-on-scroll').forEach((el) => {
-    observer.observe(el);
-  });
+  // 새로 생성된 카드에도 스크롤 애니메이션 적용
+  revealOnScroll();
 }
 
 // 언어별 색상 반환 함수
@@ -608,7 +610,7 @@ function validateField(value, type) {
   const trimmed = value.trim();
   /*
     String.trim() : 문자열 앞뒤의 공백을 제거한다.
-    '  홍길동  '.trim() → '홍길동'
+    '  박주선  '.trim() → '박주선'
     공백만 입력한 경우를 빈 값으로 처리하기 위해 사용.
   */
 
@@ -762,7 +764,7 @@ contactForm.addEventListener('submit', (event) => {
    ===================================================== */
 
 const typingEl = document.getElementById('typing-text');
-const texts = ['홍길동', 'Web Developer', '열정적인 개발자'];
+const texts = ['박주선', 'Web Developer', '열정적인 개발자'];
 /*
   texts : 순서대로 타이핑할 문자열 배열.
   이 순서대로 반복되며 출력된다.
@@ -776,7 +778,7 @@ function typeEffect() {
   const currentText = texts[textIndex];
   /*
     배열[인덱스] : 배열에서 특정 위치의 값을 가져온다.
-    texts[0] = '홍길동', texts[1] = 'Web Developer', ...
+    texts[0] = '박주선', texts[1] = 'Web Developer', ...
     인덱스는 0부터 시작한다.
   */
 

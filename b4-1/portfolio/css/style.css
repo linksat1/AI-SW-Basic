@@ -55,8 +55,8 @@
 /* =====================================================
    다크 모드 CSS 변수
 
-   [data-theme="dark"] : data-theme 속성이 "dark"인 요소의 자식에 적용.
-   JS에서 document.body.setAttribute('data-theme', 'dark') 를 실행하면
+   [data-theme="dark"] : data-theme 속성이 "dark"인 요소에 적용.
+   JS에서 document.documentElement.setAttribute('data-theme', 'dark') 를 실행하면
    아래 변수들이 :root의 변수를 덮어쓴다.
    ===================================================== */
 [data-theme="dark"] {
@@ -487,27 +487,10 @@ button {
   color: var(--color-primary);
 }
 
-/* 커서 깜박임 효과 (타이핑 애니메이션) */
-.hero__name::after {
-  content: '|';
-  animation: blink 0.7s infinite;
-  /*
-    animation : CSS 애니메이션 적용.
-    blink     : @keyframes에서 정의한 애니메이션 이름
-    0.7s      : 한 사이클 지속 시간
-    infinite  : 무한 반복
-  */
-}
-
 /*
   @keyframes : CSS 애니메이션의 각 단계를 정의.
   from/to 또는 0%/100% (또는 중간값 25%, 50% 등) 사용.
 */
-@keyframes blink {
-  0%, 100% { opacity: 1; }  /* 시작과 끝: 보임 */
-  50% { opacity: 0; }       /* 중간: 사라짐 → 깜박이는 효과 */
-}
-
 .hero__subtitle {
   font-size: 1.1rem;
   color: var(--color-text-light);
@@ -715,7 +698,6 @@ button {
 
 .skills__progress {
   height: 100%;
-  width: var(--progress); /* HTML에서 style="--progress: 90%"로 설정한 값 */
   background-color: var(--color-primary);
   border-radius: 4px;
   /*
@@ -730,9 +712,15 @@ button {
   */
 }
 
+.skills__progress--70 { width: 70%; }
+.skills__progress--75 { width: 75%; }
+.skills__progress--80 { width: 80%; }
+.skills__progress--85 { width: 85%; }
+.skills__progress--90 { width: 90%; }
+
 @keyframes grow-bar {
   from { transform: scaleX(0); } /* 너비 0에서 시작 */
-  to   { transform: scaleX(1); } /* 원래 너비(var(--progress))로 */
+  to   { transform: scaleX(1); } /* 진행률 클래스에 정의된 너비까지 표시 */
 }
 
 
@@ -830,6 +818,19 @@ button {
   border-radius: 1rem;
   color: var(--color-text-light);
 }
+
+.project-card__lang-dot {
+  font-size: 0.7rem;
+}
+
+.project-card__lang-dot--javascript { color: #f7df1e; }
+.project-card__lang-dot--typescript { color: #3178c6; }
+.project-card__lang-dot--python { color: #3776ab; }
+.project-card__lang-dot--html { color: #e34f26; }
+.project-card__lang-dot--css { color: #264de4; }
+.project-card__lang-dot--java { color: #b07219; }
+.project-card__lang-dot--cpp { color: #f34b7d; }
+.project-card__lang-dot--default { color: #6b7280; }
 
 .project-card__stars {
   font-size: 0.85rem;

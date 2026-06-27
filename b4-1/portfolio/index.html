@@ -55,7 +55,7 @@
   -->
 
   <!-- ===== 내 CSS 파일 연결 ===== -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20260627-2" />
   <!--
     <link rel="stylesheet"> : 외부 CSS 파일을 연결한다.
     href="css/style.css" : 현재 폴더의 css 폴더 안에 있는 style.css 파일을 가리킨다.
@@ -262,7 +262,7 @@
                 </div>
                 <div class="about__item">
                   <dt><i class="fa-solid fa-graduation-cap"></i> 학력</dt>
-                  <dd>○○대학교 컴퓨터공학과</dd>
+                  <dd>AI/SW 기초 과정 학습 중</dd>
                 </div>
               </dl>
             </div>
@@ -300,12 +300,10 @@
                 <i class="fa-brands fa-html5 skills__icon skills__icon--html"></i>
                 <span class="skills__name">HTML5</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 90%"></div>
+                  <div class="skills__progress skills__progress--90"></div>
                   <!--
-                    style="--progress: 90%" : 인라인으로 CSS 변수를 전달하는 방법.
-                    CSS에서 var(--progress)로 이 값을 사용할 수 있다.
-                    이렇게 하면 각 항목마다 다른 진행률을 쉽게 설정할 수 있다.
-                    (과제에서는 인라인 style 사용이 제한되지만, CSS 변수 전달은 예외적으로 허용됨)
+                    진행률별 클래스로 CSS에서 너비를 관리한다.
+                    과제의 인라인 style 금지 조건을 지키기 위한 방식이다.
                   -->
                 </div>
               </li>
@@ -313,14 +311,14 @@
                 <i class="fa-brands fa-css3-alt skills__icon skills__icon--css"></i>
                 <span class="skills__name">CSS3</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 85%"></div>
+                  <div class="skills__progress skills__progress--85"></div>
                 </div>
               </li>
               <li class="skills__item">
                 <i class="fa-brands fa-js skills__icon skills__icon--js"></i>
                 <span class="skills__name">JavaScript</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 75%"></div>
+                  <div class="skills__progress skills__progress--75"></div>
                 </div>
               </li>
             </ul>
@@ -336,21 +334,21 @@
                 <i class="fa-brands fa-git-alt skills__icon skills__icon--git"></i>
                 <span class="skills__name">Git</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 70%"></div>
+                  <div class="skills__progress skills__progress--70"></div>
                 </div>
               </li>
               <li class="skills__item">
                 <i class="fa-brands fa-github skills__icon"></i>
                 <span class="skills__name">GitHub</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 70%"></div>
+                  <div class="skills__progress skills__progress--70"></div>
                 </div>
               </li>
               <li class="skills__item">
                 <i class="fa-solid fa-terminal skills__icon"></i>
                 <span class="skills__name">VS Code</span>
                 <div class="skills__bar">
-                  <div class="skills__progress" style="--progress: 80%"></div>
+                  <div class="skills__progress skills__progress--80"></div>
                 </div>
               </li>
             </ul>
@@ -381,32 +379,8 @@
           <button class="filter-btn" data-filter="CSS">CSS</button>
         </div>
 
-        <!-- GitHub API 데이터가 이 안에 동적으로 삽입된다 -->
-        <div class="projects__grid" id="projects-grid">
-          <!--
-            id="projects-grid" : JS에서 이 요소를 선택해 innerHTML로 카드를 삽입한다.
-            처음에는 비어 있고, GitHub API 요청 성공 후 카드들이 채워진다.
-          -->
-
-          <!-- 로딩 상태 (초기값) -->
-          <div class="projects__loading" id="projects-loading">
-            <div class="spinner"></div>
-            <p>프로젝트를 불러오는 중...</p>
-          </div>
-
-          <!-- 에러 상태 (JS로 표시/숨김) -->
-          <div class="projects__error hidden" id="projects-error">
-            <p>프로젝트를 불러올 수 없습니다.</p>
-            <button class="btn btn--primary" id="retry-btn">
-              <i class="fa-solid fa-rotate-right"></i> 다시 시도
-            </button>
-          </div>
-
-          <!-- 빈 상태 (JS로 표시/숨김) -->
-          <div class="projects__empty hidden" id="projects-empty">
-            <p>표시할 프로젝트가 없습니다.</p>
-          </div>
-        </div>
+        <!-- JS가 로딩/에러/성공 상태를 동적으로 채운다 -->
+        <div class="projects__grid" id="projects-grid"></div>
       </div>
     </section>
 
@@ -564,11 +538,11 @@
 
       <!-- 소셜 링크 -->
       <div class="footer__socials">
-        <a href="https://github.com/https://github.com/linksat1/AI-SW-Basic" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">
+        <a href="https://github.com/linksat1" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">
           <i class="fa-brands fa-github"></i>
         </a>
-        <a href="https://linkedin.com/in/https://github.com/linksat1/AI-SW-Basic" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn 프로필">
-          <i class="fa-brands fa-linkedin"></i>
+        <a href="mailto:cspag@naver.com" class="footer__social" aria-label="이메일 보내기">
+          <i class="fa-solid fa-envelope"></i>
         </a>
       </div>
     </div>
@@ -586,7 +560,7 @@
 
 
   <!-- ===== JavaScript 파일 연결 ===== -->
-  <script src="js/main.js" defer></script>
+  <script src="js/main.js?v=20260627-2" defer></script>
   <!--
     <script src="..."> : 외부 JS 파일을 연결한다.
     defer : HTML 파싱이 완료된 후에 JS를 실행한다.

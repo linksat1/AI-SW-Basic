@@ -16,10 +16,17 @@
 - 스크롤 탑 버튼
 - Intersection Observer 기반 스크롤 애니메이션
 - GitHub API 저장소 목록 렌더링
+- GitHub API 결과 sessionStorage 캐싱
 - 프로젝트 로딩, 에러, 빈 상태 UI
-- 언어별 프로젝트 필터링
+- 언어별 프로젝트 필터링(filter 사용)
 - 문의 폼 필수값 및 이메일 형식 검증
 - Hero 타이핑 효과
+
+## 선택 과제 구현
+
+- 프로젝트 언어별 필터링: `filter()`로 선택한 언어의 저장소만 다시 렌더링합니다.
+- Hero 타이핑 효과: `setInterval()`과 `slice()`로 이름이 한 글자씩 나타납니다.
+- GitHub API 캐싱: `sessionStorage`에 저장소 데이터를 10분간 저장해 API 요청 부담을 줄입니다.
 
 ## 사용 기술
 

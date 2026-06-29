@@ -173,6 +173,7 @@ function getLangClass(lang) {
 
 function getCachedRepos() {
   try {
+    // 선택 과제: sessionStorage 캐싱으로 같은 탭에서 GitHub API 요청을 줄임
     const cached = JSON.parse(sessionStorage.getItem(REPOS_CACHE_KEY));
     if (!cached || Date.now() - cached.savedAt > REPOS_CACHE_TIME) return null;
     return cached.repos;
@@ -196,6 +197,16 @@ function wait(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
+}
+
+// 선택 과제: 프로젝트 언어별 필터링(filter() 사용)
+function getFilteredRepos() {
+  if (currentFilter === 'all') return allRepos;
+  return allRepos.filter((repo) => repo.language === currentFilter);
+}
+
+function renderFilteredProjects() {
+  renderProjects(getFilteredRepos());
 }
 
 function renderProjects(repos) {
@@ -232,7 +243,7 @@ async function loadProjects() {
   const cachedRepos = getCachedRepos();
   if (cachedRepos) {
     allRepos = cachedRepos;
-    renderProjects(allRepos);
+    renderFilteredProjects();
     return;
   }
 
@@ -247,7 +258,7 @@ async function loadProjects() {
     }
     allRepos = await res.json();
     cacheRepos(allRepos);
-    renderProjects(allRepos);
+    renderFilteredProjects();
   } catch (err) {
     console.warn('프로젝트 로드 실패:', err);
     showError(err.status);
@@ -260,11 +271,7 @@ filterBtns.forEach((btn) => {
     filterBtns.forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
     currentFilter = btn.dataset.filter;
-    renderProjects(
-      currentFilter === 'all'
-        ? allRepos
-        : allRepos.filter((r) => r.language === currentFilter)
-    );
+    renderFilteredProjects();
   });
 });
 

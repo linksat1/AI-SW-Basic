@@ -793,6 +793,28 @@ button {
   box-shadow: 0 15px 30px var(--color-shadow);
 }
 
+.projects__video {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+}
+
+.projects__video-title {
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.projects__video-player {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px var(--color-shadow);
+}
+
 .project-card__title {
   font-size: 1.1rem;
   font-weight: 700;

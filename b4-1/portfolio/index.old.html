@@ -1,0 +1,579 @@
+<!--
+  [OLD VERSION / 보관용]
+  EmailJS 문의 폼 연동과 프로젝트 시연 영상 추가 이전 버전.
+  현재 배포 중인 페이지는 index.html 을 참고할 것.
+-->
+<!DOCTYPE html>
+<!--
+  <!DOCTYPE html> : 이 파일이 HTML5 문서임을 브라우저에게 알려준다.
+  반드시 파일의 맨 첫 줄에 와야 한다.
+-->
+
+<html lang="ko">
+<!--
+  <html> : 모든 HTML 내용을 감싸는 최상위 태그.
+  lang="ko" : 이 페이지의 언어가 한국어임을 명시. 검색엔진과 스크린리더가 활용한다.
+-->
+
+<head>
+  <!--
+    <head> : 브라우저에는 보이지 않는 "설정" 영역.
+    페이지 제목, CSS 연결, 문자 인코딩 등을 선언한다.
+  -->
+
+  <meta charset="UTF-8" />
+  <!--
+    <meta charset="UTF-8"> : 한글이 깨지지 않도록 문자 인코딩을 UTF-8로 설정.
+    이 줄이 없으면 한국어가 이상하게 보일 수 있다.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--
+    viewport 설정 : 모바일 반응형 디자인을 위해 반드시 필요하다.
+    - width=device-width  : 페이지 너비를 기기의 실제 화면 너비에 맞춘다.
+    - initial-scale=1.0   : 처음 로드될 때 확대/축소 비율을 1배(기본)로 설정.
+    이 줄이 없으면 모바일에서 PC 화면처럼 작게 보인다.
+  -->
+
+  <title>나의 포트폴리오 (Old)</title>
+  <!--
+    <title> : 브라우저 탭에 표시되는 페이지 제목.
+    검색 결과에도 이 제목이 나타난다.
+  -->
+
+  <!-- ===== 외부 폰트 연결 (Google Fonts) ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <!--
+    Google Fonts에서 'Noto Sans KR' 폰트를 불러온다.
+    - rel="preconnect" : 폰트 서버에 미리 연결해 로딩 속도를 높인다.
+    - wght@300;400;500;700 : 사용할 폰트 굵기(weight)를 지정한다.
+      300=얇게, 400=기본, 500=중간, 700=굵게
+  -->
+
+  <!-- ===== 아이콘 연결 (Font Awesome) ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!--
+    Font Awesome : 아이콘을 텍스트처럼 사용할 수 있는 라이브러리.
+    <i class="fa-brands fa-github"></i> 처럼 사용한다.
+  -->
+
+  <!-- ===== 내 CSS 파일 연결 ===== -->
+  <link rel="stylesheet" href="css/style.css?v=20260627-2" />
+  <!--
+    <link rel="stylesheet"> : 외부 CSS 파일을 연결한다.
+    href="css/style.css" : 현재 폴더의 css 폴더 안에 있는 style.css 파일을 가리킨다.
+    반드시 <head> 안에 넣어야 한다. (JS는 <body> 끝에 넣는 것과 다름)
+  -->
+</head>
+
+<body>
+  <!--
+    <body> : 실제로 브라우저 화면에 보이는 모든 내용이 여기에 들어간다.
+  -->
+
+  <!-- ===================================================
+       HEADER & NAVIGATION
+       - 화면 상단에 고정되는 로고 + 메뉴 영역
+       =================================================== -->
+  <header class="header" id="header">
+    <!--
+      <header> : 시맨틱 태그. 페이지 또는 섹션의 "머리글"을 나타낸다.
+      class="header" : CSS에서 스타일을 적용할 때 사용하는 이름표.
+      id="header"    : JavaScript에서 이 요소를 선택할 때 사용하는 고유 이름.
+                       id는 페이지에서 딱 하나만 존재해야 한다.
+    -->
+
+    <nav class="nav container">
+      <!--
+        <nav> : 시맨틱 태그. "네비게이션(메뉴)" 영역임을 나타낸다.
+        class="nav container" : 두 개의 클래스를 동시에 적용한다.
+          - nav    : 네비게이션 스타일
+          - container : 가운데 정렬 + 최대 너비 제한 스타일 (재사용 가능)
+      -->
+
+      <!-- 로고 -->
+      <a href="#home" class="nav__logo">
+        <!--
+          <a href="#home"> : 앵커 링크. href에 #을 붙이면 같은 페이지 내의 id로 이동한다.
+          #home을 클릭하면 id="home"인 요소로 부드럽게 스크롤된다.
+          (CSS에서 scroll-behavior: smooth 설정 필요)
+        -->
+        MyPortfolio
+      </a>
+
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="nav__hamburger" id="hamburger" aria-label="메뉴 열기">
+        <!--
+          <button> : 클릭 가능한 버튼. 키보드로도 접근 가능하다.
+          aria-label : 시각 장애인용 스크린리더가 읽어주는 설명. 접근성(Accessibility)을 위해 필요.
+          id="hamburger" : JS에서 클릭 이벤트를 연결할 때 사용.
+        -->
+        <span></span>
+        <span></span>
+        <span></span>
+        <!-- span 세 개 = 햄버거 아이콘의 세 줄 -->
+      </button>
+
+      <!-- 메뉴 목록 -->
+      <ul class="nav__menu" id="nav-menu">
+        <!--
+          <ul> : 순서 없는 목록(Unordered List). 메뉴 항목들의 묶음.
+          <li> 태그를 자식으로 가진다.
+        -->
+        <li class="nav__item">
+          <a href="#home" class="nav__link">홈</a>
+          <!--
+            href="#home" : 아이디가 "home"인 요소로 이동하는 앵커 링크.
+            아래 <section id="home"> 과 연결된다.
+          -->
+        </li>
+        <li class="nav__item"><a href="#about" class="nav__link">소개</a></li>
+        <li class="nav__item"><a href="#skills" class="nav__link">기술</a></li>
+        <li class="nav__item"><a href="#projects" class="nav__link">프로젝트</a></li>
+        <li class="nav__item"><a href="#contact" class="nav__link">연락처</a></li>
+
+        <!-- 다크 모드 토글 버튼 -->
+        <li class="nav__item">
+          <button class="theme-toggle" id="theme-toggle" aria-label="다크 모드 전환">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+            <!--
+              <i class="fa-solid fa-moon"> : Font Awesome 아이콘.
+              fa-solid = 채워진 스타일, fa-moon = 달 모양 아이콘.
+              JS에서 이 클래스를 변경해 해/달 아이콘을 토글한다.
+            -->
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- ===================================================
+       MAIN : 페이지의 핵심 콘텐츠 영역
+       =================================================== -->
+  <main>
+    <!--
+      <main> : 시맨틱 태그. 페이지의 주요 콘텐츠를 감싼다.
+      header, footer를 제외한 핵심 내용이 여기에 들어간다.
+      한 페이지에 하나만 사용해야 한다.
+    -->
+
+    <!-- ===== HERO 섹션 ===== -->
+    <section class="hero section" id="home">
+      <!--
+        <section> : 시맨틱 태그. 주제별로 콘텐츠를 묶는 구역.
+        id="home"  : 네비게이션의 href="#home" 앵커 링크와 연결된다.
+        class="hero section" : hero 스타일 + 공통 section 스타일 적용.
+      -->
+      <div class="hero__container container">
+        <div class="hero__text">
+          <p class="hero__greeting">안녕하세요 👋</p>
+          <h1 class="hero__title">
+            <!--
+              <h1> : Heading 1. 페이지에서 가장 중요한 제목.
+              h1은 한 페이지에 하나만 쓰는 것이 SEO(검색엔진 최적화)에 좋다.
+            -->
+            저는 <span id="typing-text" class="hero__name"></span>입니다
+            <!--
+              <span> : 인라인 요소를 감싸는 태그. 특정 텍스트에만 스타일을 주거나
+              JS로 조작할 때 사용한다. div와 달리 줄바꿈이 없다.
+              id="typing-text" : JS의 타이핑 효과에서 이 요소에 글자를 넣는다.
+            -->
+          </h1>
+          <p class="hero__subtitle">
+            웹 개발을 배우고 있는 신입 개발자입니다.<br />
+            <!--
+              <br /> : 줄바꿈. 텍스트 중간에 줄을 바꿀 때 사용한다.
+              (단락 구분은 <p> 태그를 사용하는 것이 더 적절하다)
+            -->
+            HTML, CSS, JavaScript를 공부하고 있습니다.
+          </p>
+
+          <!-- CTA(Call To Action) 버튼들 -->
+          <div class="hero__buttons">
+            <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
+            <!--
+              <a> 태그에 btn 클래스를 적용해 버튼처럼 스타일을 준다.
+              btn--primary : BEM 방식의 클래스 이름. (수정자 modifier)
+              BEM = Block__Element--Modifier 패턴으로 CSS 클래스명을 짓는 방법.
+            -->
+            <a href="#contact" class="btn btn--outline">연락하기</a>
+          </div>
+        </div>
+
+        <div class="hero__image">
+          <img
+            src="images/profile.jpg"
+            alt="박주선의 프로필 사진"
+            class="hero__img"
+          />
+          <!--
+            <img> : 이미지를 삽입하는 태그. 닫는 태그가 없다 (self-closing).
+            src="images/profile.jpg" : 이미지 파일의 경로.
+            alt="박주선의 프로필 사진" : 이미지가 로드되지 않거나
+              스크린리더가 읽을 때 표시되는 대체 텍스트. 반드시 작성해야 한다!
+          -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== ABOUT 섹션 ===== -->
+    <section class="about section" id="about">
+      <div class="container">
+        <h2 class="section__title">소개</h2>
+        <!--
+          <h2> : Heading 2. h1 다음으로 중요한 제목.
+          섹션 제목에는 h2를 사용하는 것이 일반적이다.
+        -->
+        <p class="section__subtitle">About Me</p>
+
+        <div class="about__container">
+          <div class="about__image">
+            <img
+              src="images/profile.jpg"
+              alt="박주선 프로필"
+              class="about__img"
+            />
+          </div>
+
+          <div class="about__info">
+            <p class="about__description">
+              안녕하세요! 저는 웹 개발에 열정을 가진 신입 개발자 박주선입니다.
+              사용자 경험을 중요하게 생각하며, 깔끔하고 유지보수하기 좋은
+              코드를 작성하기 위해 노력합니다.
+            </p>
+
+            <div class="about__details">
+              <!--
+                <dl> : 정의 목록(Definition List). 용어와 설명의 쌍으로 이루어진 목록.
+                <dt> : 용어(Definition Term)
+                <dd> : 설명(Definition Description)
+              -->
+              <dl class="about__list">
+                <div class="about__item">
+                  <dt><i class="fa-solid fa-user"></i> 이름</dt>
+                  <dd>박주선</dd>
+                </div>
+                <div class="about__item">
+                  <dt><i class="fa-solid fa-envelope"></i> 이메일</dt>
+                  <dd>cspag@naver.com</dd>
+                </div>
+                <div class="about__item">
+                  <dt><i class="fa-solid fa-location-dot"></i> 위치</dt>
+                  <dd>서울, 대한민국</dd>
+                </div>
+                <div class="about__item">
+                  <dt><i class="fa-solid fa-graduation-cap"></i> 학력</dt>
+                  <dd>AI/SW 기초 과정 학습 중</dd>
+                </div>
+              </dl>
+            </div>
+
+            <a href="#contact" class="btn btn--primary">연락하기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== SKILLS 섹션 ===== -->
+    <section class="skills section" id="skills">
+      <div class="container">
+        <h2 class="section__title">기술 스택</h2>
+        <p class="section__subtitle">Skills</p>
+
+        <div class="skills__container">
+
+          <!-- 기술 카테고리: 프론트엔드 -->
+          <article class="skills__card">
+            <!--
+              <article> : 시맨틱 태그. 독립적으로 배포/재사용할 수 있는 콘텐츠.
+              카드, 뉴스 기사, 블로그 포스트 등에 사용한다.
+            -->
+            <h3 class="skills__category">
+              <i class="fa-brands fa-html5"></i> 프론트엔드
+              <!--
+                <h3> : Heading 3. 섹션 안의 소제목.
+                제목 계층 구조: h1 > h2 > h3 순서를 지켜야 한다.
+              -->
+            </h3>
+            <ul class="skills__list">
+              <li class="skills__item">
+                <i class="fa-brands fa-html5 skills__icon skills__icon--html"></i>
+                <span class="skills__name">HTML5</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--90"></div>
+                  <!--
+                    진행률별 클래스로 CSS에서 너비를 관리한다.
+                    과제의 인라인 style 금지 조건을 지키기 위한 방식이다.
+                  -->
+                </div>
+              </li>
+              <li class="skills__item">
+                <i class="fa-brands fa-css3-alt skills__icon skills__icon--css"></i>
+                <span class="skills__name">CSS3</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--85"></div>
+                </div>
+              </li>
+              <li class="skills__item">
+                <i class="fa-brands fa-js skills__icon skills__icon--js"></i>
+                <span class="skills__name">JavaScript</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--75"></div>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <!-- 기술 카테고리: 도구 -->
+          <article class="skills__card">
+            <h3 class="skills__category">
+              <i class="fa-solid fa-wrench"></i> 도구 & 기타
+            </h3>
+            <ul class="skills__list">
+              <li class="skills__item">
+                <i class="fa-brands fa-git-alt skills__icon skills__icon--git"></i>
+                <span class="skills__name">Git</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--70"></div>
+                </div>
+              </li>
+              <li class="skills__item">
+                <i class="fa-brands fa-github skills__icon"></i>
+                <span class="skills__name">GitHub</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--70"></div>
+                </div>
+              </li>
+              <li class="skills__item">
+                <i class="fa-solid fa-terminal skills__icon"></i>
+                <span class="skills__name">VS Code</span>
+                <div class="skills__bar">
+                  <div class="skills__progress skills__progress--80"></div>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== PROJECTS 섹션 ===== -->
+    <section class="projects section" id="projects">
+      <div class="container">
+        <h2 class="section__title">프로젝트</h2>
+        <p class="section__subtitle">GitHub 저장소</p>
+
+        <!-- 필터 버튼 (보너스 과제) -->
+        <div class="projects__filters" id="project-filters">
+          <button class="filter-btn active" data-filter="all">전체</button>
+          <!--
+            data-filter="all" : 사용자 정의 데이터 속성(Custom Data Attribute).
+            data-* 형식으로 HTML에 추가 정보를 저장한다.
+            JS에서 element.dataset.filter 로 값을 읽을 수 있다.
+            class="active" : 현재 선택된 버튼임을 나타내는 클래스.
+          -->
+          <button class="filter-btn" data-filter="JavaScript">JavaScript</button>
+          <button class="filter-btn" data-filter="HTML">HTML</button>
+          <button class="filter-btn" data-filter="CSS">CSS</button>
+        </div>
+
+        <!-- JS가 로딩/에러/성공 상태를 동적으로 채운다 -->
+        <div class="projects__grid" id="projects-grid"></div>
+      </div>
+    </section>
+
+
+    <!-- ===== CONTACT 섹션 ===== -->
+    <section class="contact section" id="contact">
+      <div class="container">
+        <h2 class="section__title">연락처</h2>
+        <p class="section__subtitle">Contact Me</p>
+
+        <div class="contact__container">
+          <!-- 연락처 정보 -->
+          <div class="contact__info">
+            <div class="contact__card">
+              <i class="fa-solid fa-envelope contact__icon"></i>
+              <h3>이메일</h3>
+              <a href="mailto:cspag@naver.com">cspag@naver.com</a>
+              <!--
+                href="mailto:..." : 이메일 주소로 연결하는 특수 링크.
+                클릭하면 기기의 기본 이메일 앱이 열린다.
+              -->
+            </div>
+            <div class="contact__card">
+              <i class="fa-brands fa-github contact__icon"></i>
+              <h3>GitHub</h3>
+              <a href="https://github.com/linksat1/AI-SW-Basic" target="_blank" rel="noopener noreferrer">
+                @linksat1/AI-SW-Basic
+              </a>
+              <!--
+                target="_blank" : 링크를 새 탭에서 열기.
+                rel="noopener noreferrer" : 보안상의 이유로 반드시 같이 써야 한다.
+                  - noopener : 새 탭에서 원래 탭을 제어하지 못하게 한다.
+                  - noreferrer : 어디서 왔는지 정보를 숨긴다.
+              -->
+            </div>
+          </div>
+
+          <!-- 문의 폼 -->
+          <form class="contact__form" id="contact-form" novalidate>
+            <!--
+              <form> : 사용자 입력을 받는 양식 태그.
+              id="contact-form" : JS에서 submit 이벤트를 연결할 때 사용.
+              novalidate : 브라우저 기본 유효성 검사를 끈다.
+                           우리가 JS로 직접 검사를 구현할 것이기 때문이다.
+            -->
+
+            <!-- 이름 필드 -->
+            <div class="form__group">
+              <label for="name" class="form__label">이름 *</label>
+              <!--
+                <label> : 입력 필드의 설명 라벨.
+                for="name" : for 속성값이 입력 필드의 id와 같아야 한다.
+                  - 라벨 클릭 시 해당 입력 필드로 포커스가 이동한다.
+                  - 스크린리더가 어떤 필드인지 읽어준다.
+                  - for-id 매칭은 접근성의 기본이다!
+              -->
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form__input"
+                placeholder="이름을 입력하세요"
+                autocomplete="name"
+              />
+              <!--
+                type="text"     : 일반 텍스트 입력 필드.
+                id="name"       : label의 for="name"과 연결.
+                name="name"     : 폼 데이터 전송 시 사용되는 키 이름.
+                placeholder     : 아무것도 입력하지 않았을 때 보이는 힌트 텍스트.
+                autocomplete    : 브라우저 자동완성 기능 활성화.
+              -->
+              <span class="form__error" id="name-error"></span>
+              <!--
+                <span class="form__error"> : 에러 메시지가 표시될 자리.
+                처음에는 비어있다가 JS에서 유효성 검사 실패 시 메시지를 넣는다.
+              -->
+            </div>
+
+            <!-- 이메일 필드 -->
+            <div class="form__group">
+              <label for="email" class="form__label">이메일 *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form__input"
+                placeholder="이메일을 입력하세요"
+                autocomplete="email"
+              />
+              <!--
+                type="email" : 이메일 형식 입력 전용.
+                모바일에서 @가 포함된 키보드가 나타난다.
+              -->
+              <span class="form__error" id="email-error"></span>
+            </div>
+
+            <!-- 메시지 필드 -->
+            <div class="form__group">
+              <label for="message" class="form__label">메시지 *</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form__input form__textarea"
+                placeholder="메시지를 입력하세요"
+                rows="5"
+              ></textarea>
+              <!--
+                <textarea> : 여러 줄 텍스트 입력 필드.
+                rows="5"   : 기본으로 표시되는 행 수.
+                <input>과 달리 여는 태그와 닫는 태그가 별도로 있다.
+              -->
+              <span class="form__error" id="message-error"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full">
+              <i class="fa-solid fa-paper-plane"></i> 전송하기
+            </button>
+            <!--
+              type="submit" : 클릭 시 form의 submit 이벤트를 발생시킨다.
+              JS에서 event.preventDefault()로 기본 전송 동작을 막고 직접 처리한다.
+            -->
+
+          </form>
+
+          <!-- 전송 성공 메시지 (form 바깥에 있어야 form 숨김 시에도 보인다) -->
+          <div class="form__success hidden" id="form-success">
+            <i class="fa-solid fa-circle-check"></i>
+            메시지가 성공적으로 전송되었습니다!
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ===================================================
+       FOOTER
+       =================================================== -->
+  <footer class="footer">
+    <!--
+      <footer> : 시맨틱 태그. 페이지의 바닥글(저작권, 소셜 링크 등).
+    -->
+    <div class="footer__container container">
+      <p class="footer__copy">
+        &copy; 2026 박주선. All rights reserved.
+        <!--
+          &copy; : HTML 특수문자(HTML Entity). © 저작권 기호를 표시한다.
+          &amp;  = &   (앰퍼샌드)
+          &lt;   = <   (꺽쇠 열기)
+          &gt;   = >   (꺽쇠 닫기)
+          &nbsp; = 공백 (줄바꿈 없는 공백)
+        -->
+      </p>
+
+      <!-- 소셜 링크 -->
+      <div class="footer__socials">
+        <a href="https://github.com/linksat1" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="mailto:cspag@naver.com" class="footer__social" aria-label="이메일 보내기">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ===== 스크롤 탑 버튼 ===== -->
+  <button class="scroll-top hidden" id="scroll-top" aria-label="맨 위로 이동">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+  <!--
+    처음에는 hidden 클래스로 숨겨져 있다.
+    JS에서 스크롤이 300px 이상 내려가면 hidden 클래스를 제거해 보이게 한다.
+  -->
+
+
+  <!-- ===== JavaScript 파일 연결 ===== -->
+  <script src="js/main.js?v=20260629-1" defer></script>
+  <!--
+    <script src="..."> : 외부 JS 파일을 연결한다.
+    defer : HTML 파싱이 완료된 후에 JS를 실행한다.
+      - defer 없이 <head>에 넣으면 HTML이 다 로드되기 전에 JS가 실행되어
+        DOM 요소를 찾지 못하는 오류가 발생한다.
+      - defer 속성을 쓰거나 <body> 맨 끝에 <script>를 쓰는 두 가지 방법이 있다.
+      - defer가 더 현대적인 방법이다.
+  -->
+
+</body>
+</html>

@@ -16,7 +16,7 @@
     페이지 제목, CSS 연결, 문자 인코딩 등을 선언한다.
   -->
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8" />f
   <!--
     <meta charset="UTF-8"> : 한글이 깨지지 않도록 문자 인코딩을 UTF-8로 설정.
     이 줄이 없으면 한국어가 이상하게 보일 수 있다.
@@ -381,6 +381,22 @@
 
         <!-- JS가 로딩/에러/성공 상태를 동적으로 채운다 -->
         <div class="projects__grid" id="projects-grid"></div>
+
+        <!-- 프로젝트 시연 영상 -->
+        <div class="projects__video">
+          <h3 class="projects__video-title">시연 영상</h3>
+          <video class="projects__video-player" controls preload="metadata">
+            <!--
+              <video> : 동영상을 재생하는 태그.
+              controls  : 재생/일시정지/볼륨 등 기본 컨트롤 UI를 표시한다.
+              preload="metadata" : 영상 전체를 미리 받지 않고 길이/해상도 같은
+                메타데이터만 먼저 불러온다. (초기 로딩 속도 개선)
+              <source>  : 실제 영상 파일 경로와 형식을 지정한다.
+            -->
+            <source src="videos/demo.mp4" type="video/mp4" />
+            브라우저가 video 태그를 지원하지 않습니다.
+          </video>
+        </div>
       </div>
     </section>
 
@@ -558,6 +574,14 @@
     JS에서 스크롤이 300px 이상 내려가면 hidden 클래스를 제거해 보이게 한다.
   -->
 
+
+  <!-- ===== EmailJS (문의 폼 실제 메일 전송) ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!--
+    EmailJS : 백엔드 서버 없이 브라우저에서 바로 이메일을 보낼 수 있게 해주는 서비스.
+    https://www.emailjs.com 에서 무료로 가입 후
+    Service ID / Template ID / Public Key 를 발급받아 js/main.js 상단에 넣어야 동작한다.
+  -->
 
   <!-- ===== JavaScript 파일 연결 ===== -->
   <script src="js/main.js?v=20260629-1" defer></script>

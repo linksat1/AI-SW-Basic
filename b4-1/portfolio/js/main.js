@@ -1,6 +1,20 @@
 "use strict";
 
 /* =====================================================
+   0. EmailJS 설정
+   https://www.emailjs.com 가입 후 Email Services / Email Templates /
+   Account > General 메뉴에서 아래 세 값을 발급받아 채워 넣는다.
+   ===================================================== */
+const EMAILJS_PUBLIC_KEY  = 'BFd7UNNYIBtiSa4ik';
+const EMAILJS_SERVICE_ID  = 'service_6op40ej';
+const EMAILJS_TEMPLATE_ID = 'template_qcs9wac';
+
+if (typeof emailjs !== 'undefined') {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+
+/* =====================================================
    1. DOM 요소 선택
    ===================================================== */
 const header      = document.getElementById('header');
@@ -314,15 +328,32 @@ contactForm.addEventListener('submit', (e) => {
     else      { clearFieldError(input, errorEl); }
   });
 
-  if (valid) {
-    contactForm.classList.add('hidden');
-    formSuccess.classList.remove('hidden');
-    setTimeout(() => {
-      contactForm.reset();
-      contactForm.classList.remove('hidden');
-      formSuccess.classList.add('hidden');
-    }, 3000);
-  }
+  if (!valid) return;
+
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    name:    document.getElementById('name').value,
+    email:   document.getElementById('email').value,
+    message: document.getElementById('message').value,
+  })
+    .then(() => {
+      contactForm.classList.add('hidden');
+      formSuccess.classList.remove('hidden');
+      setTimeout(() => {
+        contactForm.reset();
+        contactForm.classList.remove('hidden');
+        formSuccess.classList.add('hidden');
+      }, 3000);
+    })
+    .catch((err) => {
+      console.error('메일 전송 실패:', err);
+      alert('메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+    });
 });
 
 ['name', 'email', 'message'].forEach((id) => {

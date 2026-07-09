@@ -16,7 +16,7 @@
     페이지 제목, CSS 연결, 문자 인코딩 등을 선언한다.
   -->
 
-  <meta charset="UTF-8" />f
+  <meta charset="UTF-8" />
   <!--
     <meta charset="UTF-8"> : 한글이 깨지지 않도록 문자 인코딩을 UTF-8로 설정.
     이 줄이 없으면 한국어가 이상하게 보일 수 있다.
@@ -55,7 +55,7 @@
   -->
 
   <!-- ===== 내 CSS 파일 연결 ===== -->
-  <link rel="stylesheet" href="css/style.css?v=20260627-2" />
+  <link rel="stylesheet" href="css/style.css?v=20260709-5" />
   <!--
     <link rel="stylesheet"> : 외부 CSS 파일을 연결한다.
     href="css/style.css" : 현재 폴더의 css 폴더 안에 있는 style.css 파일을 가리킨다.
@@ -127,6 +127,7 @@
         <li class="nav__item"><a href="#about" class="nav__link">소개</a></li>
         <li class="nav__item"><a href="#skills" class="nav__link">기술</a></li>
         <li class="nav__item"><a href="#projects" class="nav__link">프로젝트</a></li>
+        <li class="nav__item"><a href="#visuallsat" class="nav__link">VisuAllSat</a></li>
         <li class="nav__item"><a href="#contact" class="nav__link">연락처</a></li>
 
         <!-- 다크 모드 토글 버튼 -->
@@ -170,24 +171,23 @@
               <h1> : Heading 1. 페이지에서 가장 중요한 제목.
               h1은 한 페이지에 하나만 쓰는 것이 SEO(검색엔진 최적화)에 좋다.
             -->
-            저는 <span id="typing-text" class="hero__name"></span>입니다
+            <span id="typing-text" class="hero__name"></span>
             <!--
               <span> : 인라인 요소를 감싸는 태그. 특정 텍스트에만 스타일을 주거나
               JS로 조작할 때 사용한다. div와 달리 줄바꿈이 없다.
-              id="typing-text" : JS의 타이핑 효과에서 이 요소에 글자를 넣는다.
+              id="typing-text" : JS가 "저는 박주선입니다" ↔ "우주상황인식(SSA) 프로그램을 소개합니다"
+              두 문구를 3초 간격으로 번갈아 표시한다.
             -->
           </h1>
           <p class="hero__subtitle">
-            웹 개발을 배우고 있는 신입 개발자입니다.<br />
-            <!--
-              <br /> : 줄바꿈. 텍스트 중간에 줄을 바꿀 때 사용한다.
-              (단락 구분은 <p> 태그를 사용하는 것이 더 적절하다)
-            -->
-            HTML, CSS, JavaScript를 공부하고 있습니다.
+            제가 개발한 우주상황인식(SSA) 프로그램을 소개하겠습니다.
           </p>
 
           <!-- CTA(Call To Action) 버튼들 -->
           <div class="hero__buttons">
+            <a href="#visuallsat-video" class="btn btn--primary">
+              <i class="fa-solid fa-circle-play"></i> 동영상 보기
+            </a>
             <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
             <!--
               <a> 태그에 btn 클래스를 적용해 버튼처럼 스타일을 준다.
@@ -215,6 +215,18 @@
     </section>
 
 
+    <!-- ===== VISUALLSAT 소개영상 (Hero 바로 아래 배치) ===== -->
+    <section class="visuallsat-video-top section" id="visuallsat-video">
+      <div class="container">
+        <h2 class="visuallsat-video-top__title">VisuAllSat 소개영상</h2>
+        <video class="visuallsat-video-top__player" controls preload="metadata" poster="images/visuallsat-poster.png">
+          <source src="videos/demo.mp4" type="video/mp4" />
+          브라우저가 video 태그를 지원하지 않습니다.
+        </video>
+      </div>
+    </section>
+
+
     <!-- ===== ABOUT 섹션 ===== -->
     <section class="about section" id="about">
       <div class="container">
@@ -236,9 +248,9 @@
 
           <div class="about__info">
             <p class="about__description">
-              안녕하세요! 저는 웹 개발에 열정을 가진 신입 개발자 박주선입니다.
-              사용자 경험을 중요하게 생각하며, 깔끔하고 유지보수하기 좋은
-              코드를 작성하기 위해 노력합니다.
+              안녕하세요! 저는 위성통신·전파 분야에서 30여 년간 활동해온 박주선입니다.
+              궤도·주파수·전파간섭·충돌위험을 하나의 플랫폼에서 통합 분석할 수 있는
+              우주상황인식(SSA) 플랫폼 VisuAllSat을 10여 년에 걸쳐 독자 개발했습니다.
             </p>
 
             <div class="about__details">
@@ -261,8 +273,8 @@
                   <dd>서울, 대한민국</dd>
                 </div>
                 <div class="about__item">
-                  <dt><i class="fa-solid fa-graduation-cap"></i> 학력</dt>
-                  <dd>AI/SW 기초 과정 학습 중</dd>
+                  <dt><i class="fa-solid fa-briefcase"></i> 경력</dt>
+                  <dd>우주궤도와 주파수 분야 30여년</dd>
                 </div>
               </dl>
             </div>
@@ -381,21 +393,77 @@
 
         <!-- JS가 로딩/에러/성공 상태를 동적으로 채운다 -->
         <div class="projects__grid" id="projects-grid"></div>
+      </div>
+    </section>
 
-        <!-- 프로젝트 시연 영상 -->
-        <div class="projects__video">
-          <h3 class="projects__video-title">시연 영상</h3>
-          <video class="projects__video-player" controls preload="metadata">
-            <!--
-              <video> : 동영상을 재생하는 태그.
-              controls  : 재생/일시정지/볼륨 등 기본 컨트롤 UI를 표시한다.
-              preload="metadata" : 영상 전체를 미리 받지 않고 길이/해상도 같은
-                메타데이터만 먼저 불러온다. (초기 로딩 속도 개선)
-              <source>  : 실제 영상 파일 경로와 형식을 지정한다.
-            -->
-            <source src="videos/demo.mp4" type="video/mp4" />
-            브라우저가 video 태그를 지원하지 않습니다.
-          </video>
+
+    <!-- ===== VISUALLSAT 소개 섹션 ===== -->
+    <section class="visuallsat section" id="visuallsat">
+      <!--
+        <section> : 대표 프로젝트 "VisuAllSat"을 소개하는 전용 구역.
+        class="visuallsat" : 다른 섹션과 마찬가지로 라이트/다크 모드 변수를 사용해
+        배경색이 자동으로 맞춰진다.
+      -->
+      <div class="container">
+        <h2 class="section__title">VisuAllSat Platform</h2>
+        <p class="section__subtitle">우주를 한눈에, 정확한 위치로 — Integrated Orbit, Spectrum and Space Safety Analysis Platform</p>
+
+        <div class="visuallsat__showcase">
+          <!-- 소개 화보(포스터) -->
+          <a
+            class="visuallsat__poster-link"
+            href="images/visuallsat-poster.png"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="VisuAllSat 소개 포스터 원본 크게 보기"
+          >
+            <img
+              src="images/visuallsat-poster.png"
+              alt="VisuAllSat Platform 소개 화보 — 30,000기 이상의 위성 실시간 궤도 시각화, RF 전파간섭 분석, 충돌위험 예측 기능을 담은 원페이지 포스터"
+              class="visuallsat__poster"
+              loading="lazy"
+            />
+          </a>
+
+          <div class="visuallsat__info">
+            <p class="visuallsat__desc">
+              궤도·주파수·전파간섭·충돌위험을 하나의 화면에서 분석하는
+              국내 독자 개발 통합 SSA(Space Situational Awareness) 플랫폼입니다.
+              30,000기 이상의 위성을 실시간 3D로 시각화하고,
+              ITU 주파수 등록 데이터베이스와 CDM 충돌위험을 함께 분석합니다.
+            </p>
+
+            <ul class="visuallsat__stats">
+              <li><strong>30,000+</strong><span>실시간 추적 위성</span></li>
+              <li><strong>5개</strong><span>핵심 분석 엔진</span></li>
+              <li><strong>30년+</strong><span>위성통신·전파 경력 기반</span></li>
+            </ul>
+
+            <div class="visuallsat__buttons">
+              <a
+                href="assets/VisuAllSat_Platform_2026.pdf"
+                class="btn btn--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-solid fa-file-pdf"></i> 소개자료 PDF 보기
+              </a>
+              <a
+                href="assets/VisuAllSat_Platform_2026.pdf"
+                class="btn btn--outline"
+                download
+              >
+                <i class="fa-solid fa-download"></i> PDF 다운로드
+              </a>
+            </div>
+
+            <p class="visuallsat__youtube-note">
+              유튜브에서 보기:
+              <a href="https://www.youtube.com/watch?v=CcHtHTzMPyg" target="_blank" rel="noopener noreferrer">
+                youtube.com/watch?v=CcHtHTzMPyg
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -584,7 +652,7 @@
   -->
 
   <!-- ===== JavaScript 파일 연결 ===== -->
-  <script src="js/main.js?v=20260629-1" defer></script>
+  <script src="js/main.js?v=20260709-1" defer></script>
   <!--
     <script src="..."> : 외부 JS 파일을 연결한다.
     defer : HTML 파싱이 완료된 후에 JS를 실행한다.

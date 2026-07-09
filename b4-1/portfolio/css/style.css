@@ -285,8 +285,15 @@ button {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background-color: transparent;
-  border-bottom: 1px solid transparent;
+  /*
+    처음부터 배경을 항상 깔아둔다.
+    맨 위 섹션이 어두운 배경(VisuAllSat)이든 밝은 배경이든
+    헤더 글자가 묻히지 않도록 항상 반투명 배경 + 블러를 유지한다.
+  */
+  background-color: var(--color-header-scrolled);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
   z-index: 100;
   /*
     z-index : 요소의 쌓임 순서. 숫자가 클수록 위에 표시된다.
@@ -296,11 +303,8 @@ button {
               border-color var(--transition), backdrop-filter var(--transition);
 }
 
-/* 스크롤 60px 이상 시 헤더 배경색 변경 (JS에서 .scrolled 클래스 추가) */
+/* 스크롤 60px 이상 시 그림자/테두리를 강조 (JS에서 .scrolled 클래스 추가) */
 .header.scrolled {
-  background-color: var(--color-header-scrolled);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-bottom: 2px solid var(--color-primary);
   box-shadow: 0 4px 20px var(--color-shadow);
 }
@@ -484,7 +488,15 @@ button {
 }
 
 .hero__name {
+  display: inline-block;
   color: var(--color-primary);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* JS가 3초마다 이 클래스를 붙였다 떼면서 문구를 깜박이며 교체한다 */
+.hero__name--blink {
+  opacity: 0;
 }
 
 /*
@@ -793,28 +805,6 @@ button {
   box-shadow: 0 15px 30px var(--color-shadow);
 }
 
-.projects__video {
-  margin-top: var(--spacing-lg);
-  text-align: center;
-}
-
-.projects__video-title {
-  margin-bottom: var(--spacing-sm);
-  font-size: 1.25rem;
-  color: var(--color-text);
-}
-
-.projects__video-player {
-  display: block;
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  margin: 0 auto;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 6px var(--color-shadow);
-}
-
 .project-card__title {
   font-size: 1.1rem;
   font-weight: 700;
@@ -889,6 +879,124 @@ button {
 
 @keyframes spin {
   to { transform: rotate(360deg); } /* 한 바퀴 회전 */
+}
+
+
+/* =====================================================
+   7-1. VISUALLSAT 소개영상 (Hero 바로 아래)
+   ===================================================== */
+.visuallsat-video-top {
+  background-color: var(--color-bg-alt);
+  text-align: center;
+}
+
+.visuallsat-video-top__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.visuallsat-video-top__player {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--color-shadow);
+}
+
+
+/* =====================================================
+   8-1. VISUALLSAT 소개 섹션
+   다른 섹션과 동일하게 라이트/다크 모드 CSS 변수를 사용해
+   주변 섹션과 배색이 자연스럽게 맞춰진다.
+   ===================================================== */
+.visuallsat {
+  background-color: var(--color-bg-alt);
+}
+
+.visuallsat__showcase {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.visuallsat__poster-link {
+  flex: 0 0 46%;
+  display: block;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--color-shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.visuallsat__poster-link:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 15px 40px var(--color-shadow);
+}
+
+.visuallsat__poster {
+  width: 100%;
+  display: block;
+}
+
+.visuallsat__info {
+  flex: 1;
+}
+
+.visuallsat__desc {
+  color: var(--color-text-light);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+}
+
+.visuallsat__stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.visuallsat__stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.visuallsat__stats strong {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.visuallsat__stats span {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.visuallsat__buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.visuallsat__youtube-note {
+  margin-top: var(--spacing-sm);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.visuallsat__youtube-note a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.visuallsat__youtube-note a:hover {
+  color: var(--color-primary-dark);
 }
 
 
@@ -1185,6 +1293,16 @@ button {
   /* 모바일: Contact 1열 */
   .contact__container {
     grid-template-columns: 1fr;
+  }
+
+  /* 모바일: VisuAllSat 세로 배치 */
+  .visuallsat__showcase {
+    flex-direction: column;
+  }
+
+  .visuallsat__poster-link {
+    flex: unset;
+    width: 100%;
   }
 
   /* 모바일: Footer 세로 정렬 */

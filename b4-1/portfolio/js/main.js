@@ -369,21 +369,32 @@ contactForm.addEventListener('submit', (e) => {
 
 
 /* =====================================================
-   8. 타이핑 효과 (보너스)
-   Hero 섹션 이름을 한 글자씩 표시
+   8. 타이핑 + 문구 전환 효과 (보너스)
+   Hero 섹션 문구를 3초 간격으로 번갈아 깜박이며 표시
    ===================================================== */
 function startTyping() {
-  const el   = document.getElementById('typing-text');
-  const name = '박주선';
-  let pos    = 0;
-  el.textContent = '';
-  const timer = setInterval(() => {
-    pos++;
-    el.textContent = name.slice(0, pos);
-    if (pos >= name.length) {
-      clearInterval(timer);
-    }
-  }, 200);
+  const el = document.getElementById('typing-text');
+  const phrases = ['저는 박주선입니다', '우주상황인식(SSA) 프로그램을 소개합니다'];
+  let index = 0;
+
+  const showPhrase = (text) => {
+    el.textContent = text;
+  };
+
+  showPhrase(phrases[index]);
+
+  setInterval(() => {
+    /*
+      hero__name--blink 클래스를 붙이면 CSS 전환으로 살짝 사라졌다가(깜박임),
+      투명해진 순간(300ms 후) 다음 문구로 교체하고 다시 나타나게 한다.
+    */
+    el.classList.add('hero__name--blink');
+    setTimeout(() => {
+      index = (index + 1) % phrases.length;
+      showPhrase(phrases[index]);
+      el.classList.remove('hero__name--blink');
+    }, 300);
+  }, 3000);
 }
 
 

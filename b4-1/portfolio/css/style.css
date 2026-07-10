@@ -333,6 +333,12 @@ button {
   color: var(--color-primary);
 }
 
+.nav__logo-sub {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-light);
+}
+
 .nav__menu {
   display: flex;
   align-items: center;
@@ -468,9 +474,9 @@ button {
   */
 }
 
-.hero__greeting {
-  font-size: 1.25rem;
-  color: var(--color-primary);
+.hero__eyebrow {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -485,24 +491,20 @@ button {
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   color: var(--color-text);
+  /*
+    "·"로 이어진 긴 구간은 띄어쓰기가 없어 word-break: keep-all만으로는
+    줄바꿈 지점을 찾지 못해 화면 밖으로 넘칠 수 있다.
+    overflow-wrap: anywhere로 좁은 화면에서도 항상 컨테이너 안에서 줄바꿈되게 한다.
+  */
+  overflow-wrap: anywhere;
 }
 
 .hero__name {
   display: inline-block;
+  font-weight: 700;
   color: var(--color-primary);
-  opacity: 1;
-  transition: opacity 0.3s ease;
 }
 
-/* JS가 3초마다 이 클래스를 붙였다 떼면서 문구를 깜박이며 교체한다 */
-.hero__name--blink {
-  opacity: 0;
-}
-
-/*
-  @keyframes : CSS 애니메이션의 각 단계를 정의.
-  from/to 또는 0%/100% (또는 중간값 25%, 50% 등) 사용.
-*/
 .hero__subtitle {
   font-size: 1.1rem;
   color: var(--color-text-light);
@@ -637,10 +639,9 @@ button {
    ===================================================== */
 .skills__container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   /*
-    repeat(2, 1fr) : 1fr짜리 열을 2번 반복 = 2열 레이아웃.
-    repeat(auto-fit, minmax(300px, 1fr)) 처럼 반응형도 가능.
+    auto-fit + minmax : 카드 5개가 화면 너비에 맞춰 2~3열로 자동 배치된다.
   */
   gap: var(--spacing-lg);
 }
@@ -659,80 +660,84 @@ button {
   box-shadow: 0 10px 25px var(--color-shadow);
 }
 
+.skills__card-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.skills__card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skills__category-icon {
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
 .skills__category {
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
-.skills__list {
+/* 도메인 역량 목록 (숙련도 퍼센트 막대 대신 기능 목록으로 표시) */
+.skills__features {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: 0.5rem;
 }
 
-.skills__item {
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  /* 아이콘(2rem) + 나머지 전부(1fr) */
-  grid-template-rows: auto auto;
-  /* 이름 행 + 진행바 행 */
+.skills__features li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--color-text-light);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.skills__features li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/*
+  상태 배지 (status-badge)
+  숙련도 퍼센트 대신 "구현 완료 / 검증 진행 중 / 시범 운용" 같은
+  실제 진행 상태를 표시한다. Skills 카드와 Projects 카드에서 공통으로 쓴다.
+*/
+.status-badge {
+  display: inline-flex;
   align-items: center;
-  gap: 0.25rem var(--spacing-sm);
+  gap: 0.35rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.skills__icon {
-  font-size: 1.5rem;
-  grid-row: 1 / 3;
-  /*
-    grid-row: 1 / 3 : 1번 행부터 3번 행 직전까지 (= 2행을 차지).
-    아이콘이 이름 행과 진행바 행을 모두 차지하도록 설정.
-  */
+.status-badge--done {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
 }
 
-.skills__icon--html  { color: #e34f26; }
-.skills__icon--css   { color: #264de4; }
-.skills__icon--js    { color: #f7df1e; }
-.skills__icon--git   { color: #f05032; }
-
-.skills__name {
-  font-weight: 500;
+.status-badge--verifying {
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #b45309;
 }
 
-/* 기술 진행바 */
-.skills__bar {
-  height: 8px;
-  background-color: var(--color-border);
-  border-radius: 4px;
-  overflow: hidden; /* 자식 요소가 이 박스를 벗어나지 않게 */
-}
-
-.skills__progress {
-  height: 100%;
-  background-color: var(--color-primary);
-  border-radius: 4px;
-  /*
-    transform-origin : 변환의 기준점 설정.
-    scaleX 애니메이션이 왼쪽에서 시작하도록.
-  */
-  transform-origin: left;
-  animation: grow-bar 1s ease forwards;
-  /*
-    forwards : 애니메이션 종료 후 마지막 프레임 상태를 유지.
-    (없으면 원래 상태로 돌아감)
-  */
-}
-
-.skills__progress--70 { width: 70%; }
-.skills__progress--75 { width: 75%; }
-.skills__progress--80 { width: 80%; }
-.skills__progress--85 { width: 85%; }
-.skills__progress--90 { width: 90%; }
-
-@keyframes grow-bar {
-  from { transform: scaleX(0); } /* 너비 0에서 시작 */
-  to   { transform: scaleX(1); } /* 진행률 클래스에 정의된 너비까지 표시 */
+.status-badge--pilot {
+  background-color: rgba(79, 70, 229, 0.12);
+  color: var(--color-primary);
 }
 
 
@@ -743,32 +748,28 @@ button {
   background-color: var(--color-bg-alt);
 }
 
-.projects__filters {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  flex-wrap: wrap;
-  margin-bottom: var(--spacing-lg);
+.projects__subheading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
 }
 
-.filter-btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: 2rem; /* 알약 모양 (50%보다 큰 값이면 완전한 알약형) */
-  border: 2px solid var(--color-border);
+.projects__subnote {
   color: var(--color-text-light);
   font-size: 0.9rem;
-  transition: all var(--transition);
+  margin-bottom: var(--spacing-md);
 }
 
-.filter-btn:hover,
-.filter-btn.active {
-  /*
-    선택자 사이의 쉼표 : 두 선택자 중 하나라도 해당하면 적용.
-    hover 상태이거나 active 클래스가 있을 때 동일한 스타일 적용.
-  */
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #ffffff;
+.projects__grid--cases {
+  margin-bottom: var(--spacing-sm);
+}
+
+.project-card__desc small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-text-light);
+  font-size: 0.78rem;
 }
 
 /*
@@ -822,65 +823,6 @@ button {
   justify-content: space-between;
   align-items: center;
 }
-
-.project-card__lang {
-  font-size: 0.8rem;
-  background-color: var(--color-bg-alt);
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  color: var(--color-text-light);
-}
-
-.project-card__lang-dot {
-  font-size: 0.7rem;
-}
-
-.project-card__lang-dot--javascript { color: #f7df1e; }
-.project-card__lang-dot--typescript { color: #3178c6; }
-.project-card__lang-dot--python { color: #3776ab; }
-.project-card__lang-dot--html { color: #e34f26; }
-.project-card__lang-dot--css { color: #264de4; }
-.project-card__lang-dot--java { color: #b07219; }
-.project-card__lang-dot--cpp { color: #f34b7d; }
-.project-card__lang-dot--default { color: #6b7280; }
-
-.project-card__stars {
-  font-size: 0.85rem;
-  color: #f59e0b; /* 별표 황금색 */
-}
-
-/* 로딩 스피너 */
-.projects__loading,
-.projects__error,
-.projects__empty {
-  grid-column: 1 / -1;
-  /*
-    1 / -1 : Grid의 첫 열부터 마지막 열까지 모두 차지.
-    -1은 마지막 열의 끝을 의미한다.
-  */
-  text-align: center;
-  padding: var(--spacing-xl);
-  color: var(--color-text-light);
-}
-
-.spinner {
-  width: 3rem;
-  height: 3rem;
-  border: 4px solid var(--color-border);
-  border-top-color: var(--color-primary);
-  /*
-    border-top-color만 다른 색으로 설정하면
-    회전 시 한쪽만 색이 있어 스피너처럼 보인다.
-  */
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  margin: 0 auto var(--spacing-sm);
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); } /* 한 바퀴 회전 */
-}
-
 
 /* =====================================================
    7-1. VISUALLSAT 소개영상 (Hero 바로 아래)
@@ -965,6 +907,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  max-width: 220px;
 }
 
 .visuallsat__stats strong {
@@ -976,6 +919,41 @@ button {
 .visuallsat__stats span {
   font-size: 0.85rem;
   color: var(--color-text-light);
+}
+
+.visuallsat__stat-basis {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  opacity: 0.85;
+}
+
+/* 수치 근거 안내 박스 */
+.visuallsat__basis-note {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.visuallsat__basis-note-title {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.visuallsat__basis-note ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.visuallsat__basis-note li {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 .visuallsat__buttons {
@@ -1252,11 +1230,30 @@ button {
   /* 모바일: Hero 섹션을 세로로 쌓기 */
   .hero__container {
     flex-direction: column;
+    /*
+      align-items: center(기본값)를 그대로 두면 flex-direction이 column일 때
+      교차축(가로)이 stretch가 아니라 내용물 너비만큼만 차지하게 되어,
+      hero__text가 화면 너비만큼 줄어들지 못하고 h1 텍스트가 옆으로 넘친다.
+      stretch로 바꿔 hero__text가 컨테이너 전체 너비를 채우도록 한다.
+    */
+    align-items: stretch;
     text-align: center;
+  }
+
+  .hero__text {
+    /*
+      flex 아이템은 기본적으로 min-width: auto를 가져서, 내부 텍스트의
+      "줄바꿈 없는 최소 너비"보다 작게 줄어들지 않는다. 그러면
+      overflow-wrap을 걸어도 컨테이너 밖으로 넘칠 수 있다.
+      min-width: 0으로 이 제한을 없애 텍스트가 실제 화면 너비 안에서
+      줄바꿈되도록 한다.
+    */
+    min-width: 0;
   }
 
   .hero__image {
     flex: unset; /* flex 설정 초기화 */
+    align-self: center; /* 부모 align-items: stretch와 무관하게 이미지는 가운데 정렬 유지 */
     width: 200px;
     order: -1;
     /*

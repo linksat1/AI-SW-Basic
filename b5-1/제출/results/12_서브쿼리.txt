@@ -1,0 +1,12 @@
+설명: [서브쿼리] 주문 이력이 한 번도 없는 고객을 찾는다.
+
+실행 SQL:
+-- [서브쿼리] 주문 이력이 한 번도 없는 고객을 찾는다.
+SELECT name, phone
+FROM customer
+WHERE id NOT IN (SELECT DISTINCT customer_id FROM orders);
+
+실행 결과:
+name  phone        
+----  -------------
+한도현   010-1111-1110

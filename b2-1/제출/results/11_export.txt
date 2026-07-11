@@ -1,0 +1,6 @@
+$ python3 -m budget_app export --out export.csv --month 2024-01
+
+[실제 출력]
+[완료] export.csv (3 records)
+
+[종료 코드] 0

@@ -1,0 +1,15 @@
+설명: [집계 2] 주문 상태별 건수를 확인한다. (COUNT + GROUP BY)
+
+실행 SQL:
+-- [집계 2] 주문 상태별 건수를 확인한다. (COUNT + GROUP BY)
+SELECT status AS 상태, COUNT(*) AS 건수
+FROM orders
+GROUP BY status;
+
+실행 결과:
+상태    건수
+----  --
+완료    8 
+제조중   2 
+주문접수  1 
+취소    1 

@@ -1,0 +1,9 @@
+$ python3 -m budget_app category remove
+
+[입력한 값]
+  삭제할 카테고리명: book (미사용)
+
+[실제 출력]
+삭제할 카테고리명: [삭제 완료] category=book
+
+[종료 코드] 0

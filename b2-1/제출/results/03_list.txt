@@ -1,0 +1,8 @@
+$ python3 -m budget_app list --limit 3
+
+[실제 출력]
+TX-000004 | 2024-01-10 | expense | rent | 150000 | 월세
+TX-000003 | 2024-01-12 | expense | transport | 20000 | 택시
+TX-000002 | 2024-01-14 | income  | salary | 3000000 | 월급
+
+[종료 코드] 0

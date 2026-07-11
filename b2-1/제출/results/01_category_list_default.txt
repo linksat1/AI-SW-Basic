@@ -1,0 +1,10 @@
+$ python3 -m budget_app category list
+
+[실제 출력]
+- food
+- transport
+- rent
+- salary
+- etc
+
+[종료 코드] 0

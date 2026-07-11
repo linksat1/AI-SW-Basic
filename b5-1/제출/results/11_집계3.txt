@@ -1,0 +1,14 @@
+설명: [집계 3] 카테고리별 평균 메뉴 가격을 확인한다. (AVG + GROUP BY)
+
+실행 SQL:
+-- [집계 3] 카테고리별 평균 메뉴 가격을 확인한다. (AVG + GROUP BY)
+SELECT category AS 카테고리, ROUND(AVG(price), 0) AS 평균가격
+FROM menu
+GROUP BY category;
+
+실행 결과:
+카테고리  평균가격  
+----  ------
+디저트   5333.0
+음료    5250.0
+커피    4700.0

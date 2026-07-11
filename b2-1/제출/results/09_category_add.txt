@@ -1,0 +1,9 @@
+$ python3 -m budget_app category add
+
+[입력한 값]
+  카테고리명: book
+
+[실제 출력]
+카테고리명: [저장 완료] category=book
+
+[종료 코드] 0

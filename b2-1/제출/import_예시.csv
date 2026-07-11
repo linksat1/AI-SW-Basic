@@ -1,0 +1,4 @@
+date,type,category,amount,memo,tags
+2024-02-01,expense,food,5000,아침,
+2024-02-05,income,salary,100000,보너스,
+2024-13-99,expense,food,1000,잘못된날짜(참고용 - import 시 skip됨),

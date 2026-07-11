@@ -1,0 +1,12 @@
+설명: [인덱스] order_id로 주문 상세를 조회하는 경우가 많아 idx_order_item_order_id 인덱스를 적용했다.
+
+실행 SQL:
+-- [인덱스] order_id로 주문 상세를 조회하는 경우가 많아 idx_order_item_order_id 인덱스를 적용했다.
+-- (인덱스는 schema.sql에서 CREATE INDEX idx_order_item_order_id ON order_item(order_id); 로 생성됨)
+-- 아래 쿼리로 인덱스가 실제로 사용되는지 실행 계획을 확인한다.
+EXPLAIN QUERY PLAN
+SELECT * FROM order_item WHERE order_id = 1;
+
+실행 결과:
+QUERY PLAN
+`--SEARCH order_item USING INDEX idx_order_item_order_id (order_id=?)

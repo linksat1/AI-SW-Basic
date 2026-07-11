@@ -1,0 +1,6 @@
+$ python3 -m budget_app import --from import_test.csv
+
+[실제 출력]
+[완료] imported=2, skipped=1
+
+[종료 코드] 0

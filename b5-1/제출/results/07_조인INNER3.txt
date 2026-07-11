@@ -1,0 +1,13 @@
+설명: [조인-INNER 3] 취소된 주문을 한 고객의 이름과 연락처를 확인한다.
+
+실행 SQL:
+-- [조인-INNER 3] 취소된 주문을 한 고객의 이름과 연락처를 확인한다.
+SELECT c.name, c.phone, o.order_date
+FROM orders o
+INNER JOIN customer c ON o.customer_id = c.id
+WHERE o.status = '취소';
+
+실행 결과:
+name  phone          order_date
+----  -------------  ----------
+정은우   010-1111-1105  2026-06-15

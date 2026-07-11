@@ -1,0 +1,23 @@
+설명: [조인-LEFT 1] 주문 기록이 0건인 고객도 빠짐없이 포함해 고객별 주문 횟수를 확인한다.
+
+실행 SQL:
+-- [조인-LEFT 1] 주문 기록이 0건인 고객도 빠짐없이 포함해 고객별 주문 횟수를 확인한다.
+SELECT c.name, COUNT(o.id) AS 주문횟수
+FROM customer c
+LEFT JOIN orders o ON c.id = o.customer_id
+GROUP BY c.id, c.name
+ORDER BY 주문횟수 DESC;
+
+실행 결과:
+name  주문횟수
+----  ----
+김도윤   2   
+이하윤   2   
+박서준   2   
+최수아   1   
+정은우   1   
+강하은   1   
+조민재   1   
+윤지안   1   
+임서아   1   
+한도현   0   

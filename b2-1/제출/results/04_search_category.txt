@@ -1,0 +1,6 @@
+$ python3 -m budget_app search --category food
+
+[실제 출력]
+TX-000001 | 2024-01-15 | expense | food | 15000 | 점심 | #meal
+
+[종료 코드] 0

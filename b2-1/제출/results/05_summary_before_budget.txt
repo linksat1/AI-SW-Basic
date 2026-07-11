@@ -1,0 +1,13 @@
+$ python3 -m budget_app summary --month 2024-01 --top 3
+
+[실제 출력]
+총 수입: 3000000원
+총 지출: 185000원
+잔액: 2815000원
+
+지출 TOP 3
+1) rent 150000원
+2) transport 20000원
+3) food 15000원
+
+[종료 코드] 0

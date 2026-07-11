@@ -1,0 +1,6 @@
+$ python3 -m budget_app update --id TX-000001 --amount 18000 --memo 점심(수정)
+
+[실제 출력]
+[수정 완료] id=TX-000001
+
+[종료 코드] 0

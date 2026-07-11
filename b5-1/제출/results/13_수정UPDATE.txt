@@ -1,0 +1,10 @@
+설명: [수정 UPDATE] '주문접수' 상태의 주문을 '제조중'으로 진행 처리한다.
+
+실행 SQL:
+-- [수정 UPDATE] '주문접수' 상태의 주문을 '제조중'으로 진행 처리한다.
+UPDATE orders
+SET status = '제조중'
+WHERE status = '주문접수';
+
+실행 결과:
+(조회 결과 없음 - UPDATE/DELETE 정상 실행됨)

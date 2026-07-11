@@ -1,0 +1,10 @@
+$ python3 -m budget_app export --out export2.csv
+
+[실제 출력]
+(표준출력 없음)
+
+[표준에러 출력]
+[오류] export는 --month 또는 --from/--to 조건이 최소 1개 필요합니다.
+[힌트] 예: export --out export.csv --month 2024-01
+
+[종료 코드] 1

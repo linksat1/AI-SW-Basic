@@ -1,0 +1,6 @@
+$ python3 -m budget_app budget set --month 2024-01 --amount 100000
+
+[실제 출력]
+[저장 완료] 2024-01 예산 100000원
+
+[종료 코드] 0

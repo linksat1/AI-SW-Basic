@@ -1,0 +1,6 @@
+$ python3 -m budget_app delete --id TX-000003
+
+[실제 출력]
+[삭제 완료] id=TX-000003
+
+[종료 코드] 0

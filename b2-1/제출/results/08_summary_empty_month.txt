@@ -1,0 +1,6 @@
+$ python3 -m budget_app summary --month 2099-01
+
+[실제 출력]
+[안내] 2099-01 데이터 없음
+
+[종료 코드] 0

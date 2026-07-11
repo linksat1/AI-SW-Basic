@@ -1,0 +1,12 @@
+설명: [삭제 DELETE] 취소된 주문의 상세 내역을 먼저 지운 뒤, 취소된 주문 1건을 삭제한다. (FK 제약 때문에 자식부터 삭제)
+
+실행 SQL:
+-- [삭제 DELETE] 취소된 주문의 상세 내역을 먼저 지운 뒤, 취소된 주문 1건을 삭제한다. (FK 제약 때문에 자식부터 삭제)
+DELETE FROM order_item
+WHERE order_id = (SELECT id FROM orders WHERE status = '취소' LIMIT 1);
+
+DELETE FROM orders
+WHERE status = '취소';
+
+실행 결과:
+(조회 결과 없음 - UPDATE/DELETE 정상 실행됨)

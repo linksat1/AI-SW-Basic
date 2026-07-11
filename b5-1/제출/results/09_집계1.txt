@@ -1,0 +1,23 @@
+설명: [집계 1] 메뉴별 총 판매 수량을 확인한다. (SUM + GROUP BY)
+
+실행 SQL:
+-- [집계 1] 메뉴별 총 판매 수량을 확인한다. (SUM + GROUP BY)
+SELECT m.name AS 메뉴, SUM(oi.quantity) AS 총판매수량
+FROM order_item oi
+INNER JOIN menu m ON oi.menu_id = m.id
+GROUP BY m.id, m.name
+ORDER BY 총판매수량 DESC;
+
+실행 결과:
+메뉴       총판매수량
+-------  -----
+카페라떼     4    
+아메리카노    3    
+카라멜마키아토  3    
+카푸치노     2    
+바닐라라떼    2    
+초코케이크    2    
+치즈케이크    2    
+크루아상     2    
+딸기스무디    1    
+레몬에이드    1    

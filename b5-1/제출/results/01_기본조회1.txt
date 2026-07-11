@@ -1,0 +1,18 @@
+설명: [기본조회 1] 완료된 주문을 최신 주문일 순으로 5건만 확인한다.
+
+실행 SQL:
+-- [기본조회 1] 완료된 주문을 최신 주문일 순으로 5건만 확인한다.
+SELECT id, customer_id, order_date, status
+FROM orders
+WHERE status = '완료'
+ORDER BY order_date DESC
+LIMIT 5;
+
+실행 결과:
+id  customer_id  order_date  status
+--  -----------  ----------  ------
+12  3            2026-06-30  완료    
+10  8            2026-06-25  완료    
+9   2            2026-06-22  완료    
+7   6            2026-06-18  완료    
+5   4            2026-06-12  완료    

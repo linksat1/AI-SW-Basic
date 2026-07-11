@@ -55,7 +55,7 @@
   -->
 
   <!-- ===== 내 CSS 파일 연결 ===== -->
-  <link rel="stylesheet" href="css/style.css?v=20260709-5" />
+  <link rel="stylesheet" href="css/style.css?v=20260711-5" />
   <!--
     <link rel="stylesheet"> : 외부 CSS 파일을 연결한다.
     href="css/style.css" : 현재 폴더의 css 폴더 안에 있는 style.css 파일을 가리킨다.
@@ -67,6 +67,14 @@
   <!--
     <body> : 실제로 브라우저 화면에 보이는 모든 내용이 여기에 들어간다.
   -->
+
+  <!-- ===================================================
+       PAGE FRAME
+       - 페이지 전체를 감싸 둥근 모서리 + 그림자 효과를 주는 래퍼.
+       - header/main/footer가 이 안에 들어가야 상단/하단 모서리가
+         래퍼의 border-radius에 맞춰 자연스럽게 잘려 보인다.
+       =================================================== -->
+  <div class="page-frame">
 
   <!-- ===================================================
        HEADER & NAVIGATION
@@ -118,10 +126,10 @@
           <li> 태그를 자식으로 가진다.
         -->
         <!--
-          메뉴 순서 : 플랫폼 → 핵심 기능 → 분석 사례 → 검증·데이터 → 개발자 → 문의
+          메뉴 순서 : 플랫폼 → 핵심 기능 → 분석 사례 → 검증·데이터 → 문의
           (방문자가 "무엇을 해결하는 플랫폼인지"를 먼저 보고, 근거를 확인한 뒤,
-          마지막에 개발자 소개와 문의로 이어지도록 구성했다. href의 id 값 자체는
-          #home #about #skills #projects #visuallsat #contact 그대로 유지한다.)
+          마지막에 문의로 이어지도록 구성했다. href의 id 값 자체는
+          #home #skills #projects #visuallsat #contact 그대로 유지한다.)
         -->
         <li class="nav__item">
           <a href="#home" class="nav__link">플랫폼</a>
@@ -133,7 +141,6 @@
         <li class="nav__item"><a href="#skills" class="nav__link">핵심 기능</a></li>
         <li class="nav__item"><a href="#projects" class="nav__link">분석 사례</a></li>
         <li class="nav__item"><a href="#visuallsat" class="nav__link">검증·데이터</a></li>
-        <li class="nav__item"><a href="#about" class="nav__link">개발자</a></li>
         <li class="nav__item"><a href="#contact" class="nav__link">문의</a></li>
 
         <!-- 다크 모드 토글 버튼 -->
@@ -238,7 +245,12 @@
     <section class="visuallsat-video-top section" id="visuallsat-video">
       <div class="container">
         <h2 class="visuallsat-video-top__title">VisuAllSat 소개영상</h2>
-        <video class="visuallsat-video-top__player" controls preload="metadata" poster="images/visuallsat-poster.png">
+        <video class="visuallsat-video-top__player" controls preload="metadata" poster="images/demo-first-frame.jpg">
+          <!--
+            poster="images/demo-first-frame.jpg" : 영상 재생 전 보여줄 정지화면.
+            ffmpeg으로 videos/demo.mp4의 0초(첫 프레임)를 추출한 이미지를 사용해,
+            실제 영상의 첫 장면이 그대로 썸네일로 보이도록 했다.
+          -->
           <source src="videos/demo.mp4" type="video/mp4" />
           브라우저가 video 태그를 지원하지 않습니다.
         </video>
@@ -570,78 +582,22 @@
     </section>
 
 
-    <!-- ===== ABOUT(개발자) 섹션 =====
-         핵심 기능·분석 사례·검증 데이터로 신뢰를 쌓은 다음, 개발자 소개를 배치한다. -->
-    <section class="about section" id="about">
+    <!-- ===== CONTACT(문의) 섹션 ===== -->
+    <section class="contact section" id="contact">
       <div class="container">
-        <h2 class="section__title">개발자</h2>
+        <h2 class="section__title">문의</h2>
         <!--
           <h2> : Heading 2. h1 다음으로 중요한 제목.
           섹션 제목에는 h2를 사용하는 것이 일반적이다.
         -->
-        <p class="section__subtitle">Developer Story</p>
-
-        <div class="about__container">
-          <div class="about__image">
-            <img
-              src="images/profile.jpg"
-              alt="박주선 프로필"
-              class="about__img"
-            />
-          </div>
-
-          <div class="about__info">
-            <p class="about__description">
-              안녕하세요! 저는 위성통신·전파 분야에서 30여 년간 활동해온 박주선입니다.
-              궤도·주파수·전파간섭·충돌위험을 하나의 플랫폼에서 통합 분석할 수 있는
-              우주상황인식(SSA) 플랫폼 VisuAllSat을 10여 년에 걸쳐 독자 개발했습니다.
-            </p>
-
-            <div class="about__details">
-              <!--
-                <dl> : 정의 목록(Definition List). 용어와 설명의 쌍으로 이루어진 목록.
-                <dt> : 용어(Definition Term)
-                <dd> : 설명(Definition Description)
-              -->
-              <dl class="about__list">
-                <div class="about__item">
-                  <dt><i class="fa-solid fa-user"></i> 이름</dt>
-                  <dd>박주선</dd>
-                </div>
-                <div class="about__item">
-                  <dt><i class="fa-solid fa-envelope"></i> 이메일</dt>
-                  <dd>cspag@naver.com</dd>
-                </div>
-                <div class="about__item">
-                  <dt><i class="fa-solid fa-location-dot"></i> 위치</dt>
-                  <dd>서울, 대한민국</dd>
-                </div>
-                <div class="about__item">
-                  <dt><i class="fa-solid fa-briefcase"></i> 경력</dt>
-                  <dd>우주궤도와 주파수 분야 30여년</dd>
-                </div>
-              </dl>
-            </div>
-
-            <a href="#contact" class="btn btn--primary">연락하기</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ===== CONTACT 섹션 ===== -->
-    <section class="contact section" id="contact">
-      <div class="container">
-        <h2 class="section__title">문의</h2>
         <p class="section__subtitle">시연·기술 협력 문의</p>
 
         <div class="contact__container">
-          <!-- 연락처 정보 -->
+          <!-- 연락처 카드 -->
           <div class="contact__info">
             <div class="contact__card">
               <i class="fa-solid fa-envelope contact__icon"></i>
-              <h3>이메일</h3>
+              <h3>이메일 문의</h3>
               <a href="mailto:cspag@naver.com">cspag@naver.com</a>
               <!--
                 href="mailto:..." : 이메일 주소로 연결하는 특수 링크.
@@ -776,6 +732,9 @@
       </div>
     </div>
   </footer>
+
+  </div>
+  <!-- .page-frame 끝 -->
 
 
   <!-- ===== 스크롤 탑 버튼 ===== -->

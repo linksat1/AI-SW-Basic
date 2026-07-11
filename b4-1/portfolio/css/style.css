@@ -20,19 +20,34 @@
    장점: 색상을 한 곳에서 관리하므로 테마 변경이 쉽다.
    ===================================================== */
 :root {
-  /* --- 색상 변수 --- */
-  --color-primary: #4f46e5;       /* 주요 색상 (보라색 계열) */
-  --color-primary-dark: #4338ca;  /* 주요 색상의 어두운 버전 (hover 효과용) */
+  /* --- 색상 변수 (VisuAllSat 디자인 스타일: 네이비 + 골드) --- */
+  --color-primary: #c9a961;       /* 주요 색상 (골드/앰버 계열 포인트) */
+  --color-primary-dark: #b3903f;  /* 주요 색상의 어두운 버전 (hover 효과용) */
+  --color-on-primary: #16233f;    /* 골드 배경 위에 올라가는 어두운 글자색 */
 
   /* 라이트 모드 색상 */
   --color-bg: #ffffff;            /* 배경색 */
-  --color-bg-alt: #f8fafc;        /* 대체 배경색 (섹션 구분용) */
-  --color-text: #1e293b;          /* 기본 글자색 */
+  --color-bg-alt: #f6f7fa;        /* 대체 배경색 (섹션 구분용) */
+  --color-text: #16233f;          /* 기본 글자색 (네이비 계열) */
   --color-text-light: #64748b;    /* 보조 글자색 */
   --color-border: #e2e8f0;        /* 테두리 색상 */
   --color-card-bg: #ffffff;       /* 카드 배경색 */
   --color-header-scrolled: rgba(255, 255, 255, 0.85); /* 스크롤 시 헤더 반투명 배경 */
   --color-shadow: rgba(0, 0, 0, 0.08); /* 그림자 색상 */
+
+  /*
+    --- 고정 네이비 브랜드 색상 ---
+    헤더 · 히어로 · 분석 사례 · VisuAllSat 개요 · 푸터는 디자인 스타일 이미지처럼
+    라이트/다크 모드 전환과 무관하게 항상 네이비 계열 배경을 유지한다.
+  */
+  --color-navy: #0c1c37;          /* 진한 네이비 (헤더·히어로·푸터·VisuAllSat 배경) */
+  --color-navy-soft: #13284a;     /* 네이비 그라디언트 보조색 */
+  --color-navy-card: #1c2d47;     /* 네이비 배경 위 카드색 */
+  --color-navy-border: rgba(255, 255, 255, 0.14); /* 네이비 배경 위 테두리 */
+  --color-on-navy: #f4f6fa;       /* 네이비 배경 위 기본 글자색 */
+  --color-on-navy-light: #aab4c9; /* 네이비 배경 위 보조 글자색 */
+  --color-slate: #55647a;         /* 분석 사례 섹션 배경 (슬레이트 블루) */
+  --color-slate-card: #2f3c53;    /* 분석 사례 카드 배경 */
 
   /* --- 폰트 변수 --- */
   --font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 */
@@ -50,6 +65,16 @@
   --transition: 0.3s ease;   /* 전환 애니메이션 속도 */
   --header-height: 4rem;     /* 헤더 높이 (64px) */
   --max-width: 1200px;       /* 컨테이너 최대 너비 */
+
+  /*
+    --- 페이지 전체 프레임 변수 ---
+    --page-frame-margin : 프레임과 브라우저 창 사이 여백.
+    box-shadow의 blur 반경(40px)이 여백 안에서 충분히 퍼질 공간이 있어야
+    그림자가 잘려 보이지 않고 온전히 보이므로 여백을 넉넉하게 잡는다.
+  */
+  --page-frame-margin: 2rem;       /* 프레임과 브라우저 창 사이 여백 */
+  --page-frame-radius: 1.25rem;    /* 프레임 모서리 둥글기 */
+  --color-page-outer-bg: #e7eaf1;  /* 프레임 바깥쪽 배경색 (라이트) */
 }
 
 /* =====================================================
@@ -68,6 +93,7 @@
   --color-card-bg: #1e293b;
   --color-shadow: rgba(0, 0, 0, 0.3);
   --color-header-scrolled: rgba(30, 41, 59, 0.95); /* 다크모드 스크롤 시 헤더 반투명 배경 */
+  --color-page-outer-bg: #05070d; /* 프레임 바깥쪽 배경색 (다크) */
 }
 
 
@@ -100,16 +126,32 @@ html {
 
   /*
     scroll-padding-top : 고정 헤더가 있을 때, 스크롤 목적지가 헤더에 가려지는 문제 해결.
-    헤더 높이만큼 여백을 준다.
+    헤더 높이 + header의 sticky top 오프셋(--page-frame-margin)만큼 여백을 준다.
   */
-  scroll-padding-top: var(--header-height);
+  scroll-padding-top: calc(var(--header-height) + var(--page-frame-margin));
+
+  /*
+    .page-frame이 살짝 안쪽으로 들어와 앉기 때문에, 그 바깥으로 보이는
+    여백을 채우는 배경색. 라이트/다크 모드에 따라 --color-page-outer-bg가 바뀐다.
+  */
+  background-color: var(--color-page-outer-bg);
+  transition: background-color var(--transition);
 }
 
 body {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  /*
+    body의 배경은 (콘텐츠 배경이 아니라) .page-frame 바깥 프레임 배경색으로 맞춘다.
+    이유: .page-frame은 상하 margin이 body 바깥으로 collapse되어 html의 배경색이
+    보이는 반면, 좌우 margin은 collapse되지 않고 body 영역 안에 그대로 남아
+    body의 배경색이 그대로 비친다. 예전처럼 body 배경을 --color-bg(콘텐츠 흰색)로
+    두면, 위쪽 여백(html 배경, 회색조)과 좌우 여백(body 배경, 흰색)의 색이 서로
+    달라 header의 둥근 모서리 바로 바깥에서 색이 어긋나는 자국이 생겼다.
+    body를 --color-page-outer-bg로 통일해 프레임 사방 여백 색을 하나로 맞춘다.
+  */
+  background-color: var(--color-page-outer-bg);
   line-height: 1.6;          /* 줄 간격: 폰트 크기의 1.6배 */
   transition: background-color var(--transition), color var(--transition);
   /*
@@ -204,6 +246,86 @@ button {
 }
 
 
+/*
+  .page-frame : header~footer를 감싸는 래퍼.
+  전체 페이지 외곽에 살짝 둥근 모서리 + 그림자를 주어 페이지 전체가
+  하나의 카드처럼 보이게 한다.
+
+  주의: 여기에 overflow: hidden을 쓰면 안 된다. overflow가 visible이 아닌
+  요소는 그 자체로 "스크롤 컨테이너"가 되어, 안에 있는 header의
+  position: sticky가 (뷰포트가 아니라) 이 래퍼를 기준으로 동작하게 된다.
+  그런데 이 래퍼는 내부 콘텐츠보다 커지지 않아 실제로는 스크롤이
+  발생하지 않으므로, sticky 계산 기준이 항상 그대로 있는 것처럼 취급되어
+  header가 스크롤 시 고정되지 않고 그냥 같이 스크롤되어 사라져 버린다.
+  그래서 모서리를 잘라내는 대신, header/footer 쪽에 직접 border-radius를
+  주는 방식으로 같은 효과를 낸다 (아래 .header, .footer 참고).
+*/
+.page-frame {
+  position: relative;
+  margin: var(--page-frame-margin);
+  border-radius: var(--page-frame-radius);
+  transition: background-color var(--transition);
+  /*
+    body의 배경을 프레임 바깥 색으로 바꾸면서, 배경을 따로 지정하지 않은
+    섹션(예: skills, contact)이 기존처럼 콘텐츠용 흰색/다크 배경을 보여줄 수
+    있도록 .page-frame이 그 역할을 대신 맡는다.
+  */
+  background-color: var(--color-bg);
+}
+
+/*
+  header는 position: sticky로 top: var(--page-frame-margin) 위치에 붙는다.
+  즉 뷰포트 맨 위 0 ~ --page-frame-margin 구간은 header보다도 위에 있어서
+  스크롤을 아무리 내려도 항상 빈 공간으로 남는데, 이 구간에는 덮는 요소가
+  없어 스크롤되는 본문 콘텐츠(이미지·텍스트)가 그대로 비쳐 보였다.
+  뷰포트에 고정된 얇은 띠를 프레임 바깥 배경색으로 깔아 그 구간을 항상
+  가려서, 스크롤 중에도 본문이 비쳐 보이지 않게 한다.
+*/
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--page-frame-margin);
+  background-color: var(--color-page-outer-bg);
+  z-index: 150;
+  pointer-events: none;
+  transition: background-color var(--transition), height var(--transition);
+}
+
+/*
+  header의 둥근 위쪽 모서리 바깥, 둥근 곡선이 시작되기 전의 네모난 빈틈에
+  본문 콘텐츠가 비쳐 보이는 자국을 없애기 위한 흰색 사각형.
+  header와 가로·세로 크기, 위치를 정확히 동일하게 맞춘다.
+
+  - top/left/width/height를 header와 완전히 동일하게 맞춰, header와 정확히
+    같은 자리에 같은 크기로 겹치도록 한다.
+  - z-index: 50 (header의 100보다 작음) → header 바로 뒤에 깔린다. header의
+    네이비 배경이 있는 부분은 이 사각형이 그 뒤에 가려 보이지 않고, header가
+    border-radius 때문에 색을 칠하지 않는 네모난 모서리 구석에서만 이
+    흰색이 드러나 보인다.
+  - header::after(= header의 자식)로 만들지 않은 이유: header 안의 로고·메뉴
+    글자는 z-index가 없는 일반 콘텐츠라서, header의 자식으로 만들면 오히려
+    이 사각형이 로고·메뉴 위를 덮어버린다. body의 자식(형제 관계)으로 만들어야
+    header(100)가 이 사각형(50)보다 위에 그려진다.
+  - 스크롤 여부와 상관없이 페이지가 열릴 때부터 항상 보인다(.scrolled 조건 없음).
+*/
+body::after {
+  content: '';
+  position: fixed;
+  top: var(--page-frame-margin);
+  left: var(--page-frame-margin);
+  width: calc(100% - (var(--page-frame-margin) * 2));
+  height: var(--header-height);
+  /* 콘텐츠 흰색(--color-bg)이 아니라 페이지 프레임 바깥 배경색으로 맞춘다 */
+  background-color: var(--color-page-outer-bg);
+  z-index: 50;
+  pointer-events: none;
+  transition: background-color var(--transition);
+}
+
+
 /* =====================================================
    버튼 스타일 (BEM 방식)
 
@@ -228,10 +350,10 @@ button {
   */
 }
 
-/* 채워진 버튼 */
+/* 채워진 버튼 (골드 포인트) */
 .btn--primary {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 .btn--primary:hover {
@@ -245,10 +367,10 @@ button {
     transform: translateY(-2px) : 요소를 2px 위로 올린다.
     hover 시 떠오르는 효과를 준다.
   */
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4);
 }
 
-/* 테두리만 있는 버튼 */
+/* 테두리만 있는 버튼 (네이비 배경 위에서 골드 테두리로 표시) */
 .btn--outline {
   background-color: transparent;
   color: var(--color-primary);
@@ -257,7 +379,7 @@ button {
 
 .btn--outline:hover {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 /* 전체 너비 버튼 */
@@ -271,29 +393,43 @@ button {
    4. HEADER & NAVIGATION
    ===================================================== */
 .header {
-  position: fixed;
+  position: sticky;
   /*
-    position: fixed : 스크롤해도 화면 상단에 고정된다.
+    position: sticky : 스크롤해도 화면 상단에 붙어있는다.
     position 속성 종류:
     - static   : 기본값. 문서 흐름대로 배치.
     - relative : 원래 위치를 기준으로 이동. 공간은 유지.
     - absolute : 가장 가까운 positioned 부모를 기준으로 배치. 공간 없음.
     - fixed    : 뷰포트(화면)를 기준으로 배치. 스크롤해도 고정.
     - sticky   : 스크롤 위치에 따라 relative ↔ fixed 전환.
+
+    페이지 전체를 감싸는 .page-frame이 둥근 모서리 + 그림자를 갖도록
+    바뀌면서, header도 fixed(뷰포트 기준) 대신 sticky로 바꿔
+    .page-frame의 둥근 상단 모서리 안쪽에 자연스럽게 붙어있게 했다.
+
+    top을 0이 아니라 --page-frame-margin으로 주는 이유:
+    top:0이면 스크롤 시 header가 뷰포트 맨 위에 완전히 딱 붙어버려
+    프레임 바깥 배경(outer-bg)의 여백이 사라지고 "떠있는 카드" 느낌이
+    깨진다. margin만큼 띄워서 스크롤 중에도 프레임 여백이 유지되게 한다.
   */
-  top: 0;
-  left: 0;
+  top: var(--page-frame-margin);
   width: 100%;
   height: var(--header-height);
   /*
-    처음부터 배경을 항상 깔아둔다.
-    맨 위 섹션이 어두운 배경(VisuAllSat)이든 밝은 배경이든
-    헤더 글자가 묻히지 않도록 항상 반투명 배경 + 블러를 유지한다.
+    .page-frame이 더 이상 overflow: hidden으로 모서리를 잘라주지 않으므로
+    (sticky가 깨지기 때문), 페이지 맨 위에 놓이는 header 자체에 같은
+    반지름의 border-radius를 직접 줘서 프레임의 둥근 위쪽 모서리를 만든다.
   */
-  background-color: var(--color-header-scrolled);
+  border-top-left-radius: var(--page-frame-radius);
+  border-top-right-radius: var(--page-frame-radius);
+  /*
+    디자인 스타일 이미지처럼 헤더는 라이트/다크 모드와 무관하게
+    항상 진한 네이비 배경을 유지한다.
+  */
+  background-color: rgba(12, 28, 55, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-navy-border);
   z-index: 100;
   /*
     z-index : 요소의 쌓임 순서. 숫자가 클수록 위에 표시된다.
@@ -306,8 +442,9 @@ button {
 /* 스크롤 60px 이상 시 그림자/테두리를 강조 (JS에서 .scrolled 클래스 추가) */
 .header.scrolled {
   border-bottom: 2px solid var(--color-primary);
-  box-shadow: 0 4px 20px var(--color-shadow);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
+
 
 .nav {
   display: flex;
@@ -330,13 +467,13 @@ button {
 .nav__logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-on-navy);
 }
 
 .nav__logo-sub {
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
 }
 
 .nav__menu {
@@ -350,7 +487,7 @@ button {
 }
 
 .nav__link {
-  color: var(--color-text);
+  color: var(--color-on-navy);
   font-weight: 500;
   padding: var(--spacing-xs) 0;
   position: relative; /* ::after 가상 요소의 기준점 */
@@ -388,14 +525,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-bg-alt);
-  color: var(--color-text);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-on-navy);
   transition: all var(--transition);
 }
 
 .theme-toggle:hover {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
 }
 
 /* 햄버거 버튼 (모바일) */
@@ -410,7 +547,7 @@ button {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: var(--color-text);
+  background-color: var(--color-on-navy);
   border-radius: 3px;
   transition: all var(--transition);
 }
@@ -450,12 +587,42 @@ button {
   display: flex;
   align-items: center;
   padding-top: var(--header-height); /* 고정 헤더 아래에서 시작 */
-  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
   /*
-    linear-gradient : 선형 그라디언트 배경.
-    135deg = 대각선 방향 (왼쪽 위 → 오른쪽 아래)
-    0% 위치에서 시작색, 100% 위치에서 끝색으로 서서히 변한다.
+    디자인 스타일 이미지처럼 히어로는 라이트/다크 모드와 무관하게
+    항상 진한 네이비 그라디언트 배경을 유지한다.
   */
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-soft) 100%);
+  position: relative;
+  /*
+    overflow: hidden : 우측에 깔리는 지구·위성 배경 이미지가
+    히어로 섹션 밖으로(가로 스크롤 유발) 새어 나가지 않도록 잘라낸다.
+  */
+  overflow: hidden;
+}
+
+/*
+  히어로 상단 우측 배경 (지구+위성 참고 이미지).
+  가장자리가 투명하게 페더링된 PNG를 히어로 섹션 우측에 배치해
+  텍스트 영역을 가리지 않으면서 네이비 배경과 자연스럽게 섞이도록 한다.
+*/
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 62%;
+  height: 78%;
+  /*
+    background-size: contain : 이미지를 잘라내지 않고 비율 그대로 축소해
+    박스 안에 맞춘다. cover를 쓰면 이미지가 과하게 확대되며 잘려서
+    지구 표면이 CTA 버튼 영역까지 침범해 보이는 문제가 있었다.
+  */
+  background-image: url('../images/hero-space-bg.png?v=4');
+  background-size: contain;
+  background-position: top right;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .hero__container {
@@ -463,6 +630,9 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+  /* 배경 이미지(.hero::before, z-index:0)보다 위에 그려지도록 */
 }
 
 .hero__text {
@@ -476,7 +646,7 @@ button {
 
 .hero__eyebrow {
   font-size: 1.1rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -490,7 +660,7 @@ button {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
-  color: var(--color-text);
+  color: var(--color-on-navy);
   /*
     "·"로 이어진 긴 구간은 띄어쓰기가 없어 word-break: keep-all만으로는
     줄바꿈 지점을 찾지 못해 화면 밖으로 넘칠 수 있다.
@@ -507,7 +677,7 @@ button {
 
 .hero__subtitle {
   font-size: 1.1rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   margin-bottom: var(--spacing-lg);
   line-height: 1.8;
 }
@@ -549,88 +719,8 @@ button {
     object-position: center top : 크롭 기준점을 위쪽으로 설정해 머리가 잘리지 않게 한다.
   */
   border-radius: 50%;
-  border: 4px solid var(--color-primary);
-  box-shadow: 0 20px 60px var(--color-shadow);
-}
-
-
-/* =====================================================
-   6. ABOUT 섹션
-   ===================================================== */
-.about {
-  background-color: var(--color-bg-alt);
-}
-
-.about__container {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xl);
-}
-
-.about__image {
-  flex: 0 0 280px;
-}
-
-.about__img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: var(--border-radius);
-  box-shadow: 0 10px 30px var(--color-shadow);
-}
-
-.about__info {
-  flex: 1;
-}
-
-.about__description {
-  font-size: 1.05rem;
-  color: var(--color-text-light);
-  line-height: 1.8;
-  margin-bottom: var(--spacing-lg);
-}
-
-.about__list {
-  display: grid;
-  /*
-    display: grid : CSS Grid 레이아웃 활성화.
-
-    Grid vs Flexbox:
-    - Flexbox : 1차원 (행 OR 열 중 하나)
-    - Grid    : 2차원 (행 AND 열 동시에)
-
-    Flexbox 선택: 네비게이션 메뉴, 버튼 그룹 등 한 방향 배치
-    Grid 선택   : 카드 레이아웃, 복잡한 2D 레이아웃
-  */
-  grid-template-columns: 1fr 1fr;
-  /*
-    grid-template-columns : 열(column) 개수와 너비 정의.
-    1fr 1fr = 두 열, 각각 동등하게 남은 공간을 1:1로 나눔.
-    fr (fraction) = 분수 단위. 남은 공간을 비율로 나눈다.
-  */
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
-}
-
-.about__item {
-  display: flex;
-  flex-direction: column;
-  /*
-    flex-direction: column : Flex 아이템을 세로로 배치.
-    기본값은 row (가로 배치).
-  */
-  gap: 0.25rem;
-}
-
-.about__item dt {
-  font-weight: 600;
-  color: var(--color-primary);
-  font-size: 0.9rem;
-}
-
-.about__item dd {
-  color: var(--color-text-light);
+  border: 3px solid rgba(201, 169, 97, 0.5);
+  box-shadow: 0 0 0 10px rgba(201, 169, 97, 0.08), 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
 
@@ -650,7 +740,10 @@ button {
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: var(--spacing-lg);
+  /* 상단 타이틀 바가 카드 모서리에 맞춰 둥글게 보이도록 카드 자체 패딩은 없애고
+     내부 body에 패딩을 준다 (디자인 스타일 이미지의 카드 헤더 바 구조 참고). */
+  padding: 0;
+  overflow: hidden;
   box-shadow: 0 4px 6px var(--color-shadow);
   transition: transform var(--transition), box-shadow var(--transition);
 }
@@ -660,12 +753,14 @@ button {
   box-shadow: 0 10px 25px var(--color-shadow);
 }
 
+/* 카드 상단 네이비 타이틀 바 (디자인 스타일 이미지의 카드 헤더 참고) */
 .skills__card-head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
-  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--color-navy-card);
 }
 
 .skills__card-title {
@@ -683,7 +778,12 @@ button {
 .skills__category {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-on-navy);
+}
+
+.skills__features {
+  padding: var(--spacing-lg);
+  padding-top: var(--spacing-md);
 }
 
 /* 도메인 역량 목록 (숙련도 퍼센트 막대 대신 기능 목록으로 표시) */
@@ -725,18 +825,22 @@ button {
   white-space: nowrap;
 }
 
+/*
+  배지는 항상 네이비 배경(카드 헤더 바 · 분석 사례 카드) 위에 올라가므로
+  옅은 틴트 대신 또렷한 필 배경 + 밝은 글자색을 사용한다.
+*/
 .status-badge--done {
-  background-color: rgba(34, 197, 94, 0.12);
-  color: #16a34a;
+  background-color: rgba(34, 197, 94, 0.22);
+  color: #4ade80;
 }
 
 .status-badge--verifying {
-  background-color: rgba(234, 179, 8, 0.15);
-  color: #b45309;
+  background-color: rgba(234, 179, 8, 0.22);
+  color: #fbbf24;
 }
 
 .status-badge--pilot {
-  background-color: rgba(79, 70, 229, 0.12);
+  background-color: rgba(201, 169, 97, 0.22);
   color: var(--color-primary);
 }
 
@@ -744,32 +848,38 @@ button {
 /* =====================================================
    8. PROJECTS 섹션
    ===================================================== */
+/*
+  디자인 스타일 이미지의 "분석 사례" 섹션은 슬레이트 블루 배경 위에
+  네이비 카드가 놓이는 구조라 라이트/다크 모드와 무관하게 고정색을 쓴다.
+*/
 .projects {
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-slate);
+}
+
+.projects .section__title,
+.projects .section__subtitle {
+  color: var(--color-on-navy);
+}
+
+.projects .section__subtitle {
+  color: var(--color-on-navy-light);
 }
 
 .projects__subheading {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-on-navy);
   margin-bottom: var(--spacing-xs);
 }
 
 .projects__subnote {
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   font-size: 0.9rem;
   margin-bottom: var(--spacing-md);
 }
 
 .projects__grid--cases {
   margin-bottom: var(--spacing-sm);
-}
-
-.project-card__desc small {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--color-text-light);
-  font-size: 0.78rem;
 }
 
 /*
@@ -788,13 +898,13 @@ button {
   gap: var(--spacing-md);
 }
 
-/* JS로 생성되는 프로젝트 카드 스타일 */
+/* JS로 생성되는 프로젝트 카드 스타일 (네이비 카드, 슬레이트 섹션 배경 위) */
 .project-card {
-  background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-slate-card);
+  border: 1px solid var(--color-navy-border);
   border-radius: var(--border-radius);
   padding: var(--spacing-md);
-  box-shadow: 0 4px 6px var(--color-shadow);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: transform var(--transition), box-shadow var(--transition);
   display: flex;
   flex-direction: column;
@@ -803,25 +913,42 @@ button {
 
 .project-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px var(--color-shadow);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .project-card__title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-on-navy);
 }
 
 .project-card__desc {
   font-size: 0.9rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   flex: 1; /* 설명이 카드 안에서 최대한 공간을 차지 → 버튼이 항상 아래 */
+}
+
+.project-card__desc small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-on-navy-light);
+  font-size: 0.78rem;
 }
 
 .project-card__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.project-card__footer a {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.project-card__footer a:hover {
+  color: var(--color-primary-dark);
 }
 
 /* =====================================================
@@ -853,11 +980,19 @@ button {
 
 /* =====================================================
    8-1. VISUALLSAT 소개 섹션
-   다른 섹션과 동일하게 라이트/다크 모드 CSS 변수를 사용해
-   주변 섹션과 배색이 자연스럽게 맞춰진다.
+   디자인 스타일 이미지의 "통합 플랫폼 개요" 섹션처럼
+   라이트/다크 모드와 무관하게 항상 네이비 배경을 유지한다.
    ===================================================== */
 .visuallsat {
-  background-color: var(--color-bg-alt);
+  background-color: var(--color-navy);
+}
+
+.visuallsat .section__title {
+  color: var(--color-on-navy);
+}
+
+.visuallsat .section__subtitle {
+  color: var(--color-on-navy-light);
 }
 
 .visuallsat__showcase {
@@ -871,13 +1006,14 @@ button {
   display: block;
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 10px 30px var(--color-shadow);
+  border: 1px solid var(--color-navy-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .visuallsat__poster-link:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 15px 40px var(--color-shadow);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 .visuallsat__poster {
@@ -890,7 +1026,7 @@ button {
 }
 
 .visuallsat__desc {
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: var(--spacing-lg);
@@ -911,19 +1047,21 @@ button {
 }
 
 .visuallsat__stats strong {
-  font-size: 1.5rem;
+  /* 디자인 스타일 이미지의 "30,000+"처럼 크고 굵은 골드 숫자로 강조 */
+  font-size: 2.25rem;
   font-weight: 700;
   color: var(--color-primary);
+  line-height: 1.15;
 }
 
 .visuallsat__stats span {
   font-size: 0.85rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
 }
 
 .visuallsat__stat-basis {
   font-size: 0.75rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   opacity: 0.85;
 }
 
@@ -965,7 +1103,7 @@ button {
 .visuallsat__youtube-note {
   margin-top: var(--spacing-sm);
   font-size: 0.9rem;
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
 }
 
 .visuallsat__youtube-note a {
@@ -981,21 +1119,26 @@ button {
 /* =====================================================
    9. CONTACT 섹션
    ===================================================== */
+.contact {
+  background-color: var(--color-bg-alt);
+}
+
 .contact__container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   /* 정보 영역(1fr) : 폼 영역(2fr) = 1:2 비율 */
   gap: var(--spacing-xl);
-  align-items: start;
+  align-items: stretch;
   /*
-    align-items: start : 세로 축 기준 위쪽 정렬.
-    Grid에서 기본값 stretch는 모든 아이템이 같은 높이를 갖는다.
+    align-items: stretch : 좌측 연락처 카드가 우측 폼과 같은 높이로 늘어나,
+    카드 안의 내용을 세로 중앙에 배치해 균형 잡힌 2단 레이아웃을 만든다.
   */
 }
 
 .contact__info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: var(--spacing-md);
 }
 
@@ -1003,13 +1146,13 @@ button {
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  padding: var(--spacing-md);
+  padding: var(--spacing-xl) var(--spacing-md);
   text-align: center;
   box-shadow: 0 4px 6px var(--color-shadow);
 }
 
 .contact__icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--color-primary);
   margin-bottom: var(--spacing-sm);
   display: block;
@@ -1018,11 +1161,13 @@ button {
 .contact__card h3 {
   margin-bottom: 0.5rem;
   font-weight: 600;
+  font-size: 1.15rem;
 }
 
 .contact__card a {
   color: var(--color-primary);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 /* 폼 스타일 */
@@ -1098,10 +1243,17 @@ button {
 /* =====================================================
    10. FOOTER
    ===================================================== */
+/*
+  디자인 스타일 이미지처럼 푸터도 헤더와 동일하게
+  라이트/다크 모드와 무관하게 항상 네이비 배경을 유지한다.
+*/
 .footer {
-  background-color: var(--color-bg-alt);
-  border-top: 1px solid var(--color-border);
+  background-color: var(--color-navy);
+  border-top: 1px solid var(--color-navy-border);
   padding: var(--spacing-lg) 0;
+  /* 페이지 맨 아래에 놓이므로 .page-frame의 둥근 아래쪽 모서리를 직접 만든다 */
+  border-bottom-left-radius: var(--page-frame-radius);
+  border-bottom-right-radius: var(--page-frame-radius);
 }
 
 .footer__container {
@@ -1111,7 +1263,7 @@ button {
 }
 
 .footer__copy {
-  color: var(--color-text-light);
+  color: var(--color-on-navy-light);
   font-size: 0.9rem;
 }
 
@@ -1124,12 +1276,12 @@ button {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-navy-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text);
+  color: var(--color-on-navy);
   font-size: 1.1rem;
   transition: all var(--transition);
 }
@@ -1137,7 +1289,7 @@ button {
 .footer__social:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   transform: translateY(-3px);
 }
 
@@ -1153,19 +1305,19 @@ button {
   height: 3rem;
   border-radius: 50%;
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 4px 15px rgba(201, 169, 97, 0.4);
   transition: all var(--transition);
   z-index: 99;
 }
 
 .scroll-top:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.5);
+  box-shadow: 0 8px 20px rgba(201, 169, 97, 0.5);
 }
 
 
@@ -1194,6 +1346,12 @@ button {
     max-width: 767px = 화면 너비가 767px 이하일 때 적용.
   */
 
+  /* 모바일에서는 좁은 화면 폭을 더 확보하도록 프레임 여백·모서리를 살짝 줄인다 */
+  :root {
+    --page-frame-margin: 1rem;
+    --page-frame-radius: 0.85rem;
+  }
+
   .nav__hamburger {
     display: flex; /* 햄버거 버튼 표시 */
   }
@@ -1201,11 +1359,12 @@ button {
   .nav__menu {
     /* 모바일 드롭다운 메뉴 */
     position: fixed;
-    top: var(--header-height);
+    /* header가 --page-frame-margin만큼 아래에서 시작하므로 그만큼 더해준다 */
+    top: calc(var(--header-height) + var(--page-frame-margin));
     left: 0;
     width: 100%;
-    background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-navy);
+    border-bottom: 1px solid var(--color-navy-border);
     flex-direction: column; /* 세로 배치 */
     padding: var(--spacing-md) 0;
 
@@ -1267,19 +1426,16 @@ button {
     justify-content: center;
   }
 
-  /* 모바일: About 세로 배치 */
-  .about__container {
-    flex-direction: column;
-  }
-
-  .about__image {
-    flex: unset;
-    width: 200px;
-    margin: 0 auto;
-  }
-
-  .about__list {
-    grid-template-columns: 1fr; /* 1열로 변경 */
+  /*
+    모바일: 세로로 쌓이는 레이아웃에서는 우측 정렬된 배경이
+    사진 뒤가 아니라 엉뚱한 위치(텍스트 옆)에 걸쳐 보이므로
+    화면 상단 전체 폭에 은은하게 깔리도록 조정한다.
+  */
+  .hero::before {
+    width: 100%;
+    height: 60%;
+    background-position: center top;
+    opacity: 0.7;
   }
 
   /* 모바일: Skills 1열 */

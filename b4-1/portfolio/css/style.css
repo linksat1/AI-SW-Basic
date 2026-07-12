@@ -1258,8 +1258,10 @@ body::after {
 
 .footer__container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .footer__copy {
@@ -1291,6 +1293,16 @@ body::after {
   border-color: var(--color-primary);
   color: var(--color-on-primary);
   transform: translateY(-3px);
+}
+
+.footer__visitors {
+  display: flex;
+  align-items: center;
+}
+
+.footer__visitors img {
+  height: 1.4rem;
+  border-radius: 4px;
 }
 
 

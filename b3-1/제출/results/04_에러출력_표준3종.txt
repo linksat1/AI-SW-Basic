@@ -1,0 +1,8 @@
+# 에러 출력 표준 (정수 파싱 실패 / 인자 개수 오류 / 알 수 없는 명령) — 과제 예시 재현
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> (error) ERR value is not an integer or out of range
+mini-redis> (error) ERR wrong number of arguments for 'GET' command
+mini-redis> (error) ERR unknown command 'HELLO'
+mini-redis> 

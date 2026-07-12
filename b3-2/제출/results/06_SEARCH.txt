@@ -1,0 +1,24 @@
+# SEARCH <keyword> / SEARCH --author=<name> (역색인 기반 검색) — 과제 예시 재현
+$ python main.py
+
+Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-git> Initialized repository.
+Current branch: main
+Current user: Alice
+mini-git> [main 4b6ac6] Initial commit
+mini-git> Created branch: feature
+mini-git> Switched to branch: feature
+mini-git> [feature ab5fbc] Add login feature
+mini-git> Switched to branch: main
+mini-git> [main b82f26] Add payment feature
+mini-git> Found 1 commit:
+
+- ab5fbc: Add login feature
+mini-git> Found 3 commits:
+
+- 4b6ac6: Initial commit
+- ab5fbc: Add login feature
+- b82f26: Add payment feature
+mini-git> Found 0 commits:
+
+mini-git> 

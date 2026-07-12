@@ -1,0 +1,23 @@
+※ 이 캡처는 API 키 없이도 CLI 파이프라인 전체(git 수집→safe-mode→프롬프트 구성→검증→출력)가
+  실제로 연결되어 동작함을 증명하기 위해, 네트워크 호출부(ai_client.generate)만 가짜 응답으로
+  대체한 것입니다. AI가 실제로 생성한 문장이 아니라 파이프라인 배선 검증용입니다.
+
+>>> $ python main.py commit --safe-mode   (ai_client.generate만 mock)
+============================================================
+커밋 메시지 초안
+============================================================
+[제목] (35자)
+feat: add secret config placeholder
+
+[본문]
+Adds a config module for upcoming AWS integration.
+
+------------------------------------------------------------
+모델: claude-opus-4-8  |  max_tokens: 1024  |  temperature: None
+safe-mode: ON  |  마스킹된 패턴: AWS Access Key x1, Anthropic API Key x1  |  diff 크기: 7줄 전체 전송
+------------------------------------------------------------
+✓ 길이/형식 검증 통과
+============================================================
+
+>>> 검증: safe-mode 적용 시 AI로 전달되는 프롬프트에 원본 시크릿이 없음 -> PASS
+>>> exit code: 0

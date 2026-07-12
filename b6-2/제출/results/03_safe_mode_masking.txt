@@ -1,0 +1,18 @@
+>>> safe_mode.apply_safe_mode() 단위 테스트: 시크릿 패턴 마스킹
+--- 원본 diff ---
+diff --git a/config.py b/config.py
++AWS_KEY = "AKIAABCDEFGHIJKLMNOP"
++API_KEY = "sk-ant-api03-fakefakefakefakefakefake"
++password: "SuperSecret123456"
+
+--- 마스킹 후 전송될 텍스트 ---
+diff --git a/config.py b/config.py
++AWS_KEY = "[MASKED_AWS_ACCESS_KEY]"
++API_KEY = "[MASKED_ANTHROPIC_KEY]"
++password=********
+
+masked_kinds: ['AWS Access Key x1', 'Anthropic API Key x1', 'Generic key=value secret x1']
+>>> PASS: 마스킹 후 텍스트에 원본 시크릿 문자열이 전혀 남아있지 않음
+
+>>> safe_mode.apply_safe_mode() 단위 테스트: diff 크기 제한(1000줄 -> 50줄)
+>>> PASS: 원본 1000줄 중 50줄만 전송, truncated=True

@@ -1,0 +1,7 @@
+※ 이 테스트는 실제 anthropic.Anthropic 클라이언트 생성 및 messages.create() 호출 배선을
+  그대로 사용하되, 네트워크 전송 계층(anthropic.resources.Messages.create)만 실제 API가
+  반환할 법한 400 BadRequestError(temperature 미지원)로 대체해, 우리 코드의 예외 처리
+  로직이 실제로 그 오류를 안내 메시지로 잘 변환하는지 검증합니다.
+
+>>> PASS: 사용자 친화적인 오류 메시지로 변환됨:
+    AI API 호출에 실패했습니다: 모델 'claude-opus-4-8'은(는) temperature 옵션을 지원하지 않습니다. -temperature 없이 다시 실행하거나 다른 모델을 지정하세요. (temperature: Extra inputs are not permitted)

@@ -1,0 +1,45 @@
+$ python main.py --help
+usage: main.py [-h] {commit,pr} ...
+
+AI 기반 Git 커밋 메시지 / PR 초안 자동 생성기
+
+positional arguments:
+  {commit,pr}
+    commit     스테이징(또는 워킹트리) 변경사항으로 커밋 메시지 생성
+    pr         브랜치 변경사항으로 PR 제목/본문 생성
+
+optional arguments:
+  -h, --help   show this help message and exit
+
+$ python main.py commit --help
+usage: main.py commit [-h] [--model MODEL] [--temperature TEMPERATURE]
+                      [--max-tokens MAX_TOKENS] [--safe-mode]
+                      [--max-diff-lines MAX_DIFF_LINES]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model MODEL         사용할 모델 (기본값: claude-opus-4-8)
+  --temperature TEMPERATURE
+                        샘플링 temperature (일부 모델은 미지원 — 기본값: 모델 기본값 사용)
+  --max-tokens MAX_TOKENS
+                        최대 출력 토큰 수 (기본값: 1024)
+  --safe-mode           민감정보 마스킹 + diff 크기 제한을 적용해 전송
+  --max-diff-lines MAX_DIFF_LINES
+                        safe-mode에서 전송할 diff 최대 줄 수 (기본값: 400)
+
+$ python main.py pr --help
+usage: main.py pr [-h] [--base BASE] [--model MODEL]
+                  [--temperature TEMPERATURE] [--max-tokens MAX_TOKENS]
+                  [--safe-mode] [--max-diff-lines MAX_DIFF_LINES]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --base BASE           비교 기준 브랜치/커밋 (기본값: origin/main)
+  --model MODEL         사용할 모델 (기본값: claude-opus-4-8)
+  --temperature TEMPERATURE
+                        샘플링 temperature (일부 모델은 미지원 — 기본값: 모델 기본값 사용)
+  --max-tokens MAX_TOKENS
+                        최대 출력 토큰 수 (기본값: 1024)
+  --safe-mode           민감정보 마스킹 + diff 크기 제한을 적용해 전송
+  --max-diff-lines MAX_DIFF_LINES
+                        safe-mode에서 전송할 diff 최대 줄 수 (기본값: 400)

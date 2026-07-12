@@ -1,0 +1,17 @@
+# PATH: 무방향 최단 경로 (직접 커밋 hash를 뽑아 실제 값으로 실행) — 과제 예시 수치 재현
+$ python main.py
+
+Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-git> Initialized repository.
+Current branch: main
+Current user: Alice
+mini-git> [main df9d44] Initial commit
+mini-git> Created branch: feature
+mini-git> Switched to branch: feature
+mini-git> [feature 246016] Add login feature
+mini-git> Switched to branch: main
+mini-git> [main d4b9b0] Add payment feature
+mini-git> Path: df9d44 -> d4b9b0
+mini-git> Path: 246016 -> df9d44 -> d4b9b0
+mini-git> Path: df9d44
+mini-git> 

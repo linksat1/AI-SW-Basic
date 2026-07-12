@@ -1,0 +1,17 @@
+# String 기본 명령어: SET/GET/DEL/EXISTS/DBSIZE/KEYS
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> OK
+mini-redis> "Alice"
+mini-redis> (integer) 1
+mini-redis> (integer) 0
+mini-redis> (integer) 1
+mini-redis> OK
+mini-redis> 1. "user:1"
+2. "user:2"
+mini-redis> (integer) 1
+mini-redis> (integer) 0
+mini-redis> (nil)
+mini-redis> (integer) 1
+mini-redis> 

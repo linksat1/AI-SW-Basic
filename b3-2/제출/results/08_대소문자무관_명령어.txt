@@ -1,0 +1,13 @@
+# 명령어 대소문자 무관 확인 (INIT/Commit/BRANCH/Switch/LOG 혼용)
+$ python main.py
+
+Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-git> Initialized repository.
+Current branch: main
+Current user: Alice
+mini-git> [main 52afc7] first
+mini-git> Created branch: feature
+mini-git> Switched to branch: feature
+mini-git> commit 52afc7 (Alice, 2026-07-12 16:22:34) [main]
+first
+mini-git> 

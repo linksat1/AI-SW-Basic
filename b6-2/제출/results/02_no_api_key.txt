@@ -1,0 +1,7 @@
+$ echo AWS_KEY = "AKIAABCDEFGHIJKLMNOP" ... >> secret_config.py && git add secret_config.py
+$ unset AI_API_KEY ANTHROPIC_API_KEY
+$ python main.py commit
+오류: AI_API_KEY(또는 ANTHROPIC_API_KEY) 환경변수가 설정되지 않았습니다.
+  export AI_API_KEY="YOUR_KEY"
+위 명령으로 API 키를 설정한 뒤 다시 실행하세요.
+[exit code: 1]

@@ -1,0 +1,11 @@
+# 단일 키+값 자체가 maxmemory를 초과하는 경우 -> 저장하지 않고 OOM 에러
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> OK
+mini-redis> (error) OOM command not allowed when used_memory > 'maxmemory'
+mini-redis> (integer) 0
+mini-redis> used_memory:0
+maxmemory:5
+evicted_keys:0
+mini-redis> 

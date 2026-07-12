@@ -1,0 +1,7 @@
+$ git status --short   # (작업 트리 깨끗한 상태)
+(출력 없음 = 변경 사항 없음)
+
+$ unset AI_API_KEY ANTHROPIC_API_KEY
+$ python main.py commit
+오류: 커밋할 변경 사항이 없습니다. 'git status'로 확인하세요.
+[exit code: 1]

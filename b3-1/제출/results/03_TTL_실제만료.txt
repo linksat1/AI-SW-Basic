@@ -1,0 +1,16 @@
+# TTL 관리(EXPIRE/TTL) + 실제 3초 경과 후 자동 만료 확인 (과제 예시 재현)
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> (integer) 1
+mini-redis> (integer) 2
+
+[※ 이 지점에서 실제로 3.2초 대기 후 다음 명령을 실행함]
+
+mini-redis> (nil)
+mini-redis> (integer) -2
+mini-redis> 

@@ -1,0 +1,28 @@
+※ 이 저장소에는 origin/main이 없으므로 (원격 저장소 미설정), base ref 자동 대체
+  로직이 HEAD~1로 자동 전환되는 것도 함께 확인합니다. AI 응답부만 mock 처리.
+
+>>> $ python main.py pr --base origin/main --safe-mode
+============================================================
+PR 초안
+============================================================
+[제목] (42자)
+Add secret config module and health helper
+
+[본문]
+## Why
+- Prepare configuration surface for upcoming AWS integration
+
+## What
+- Added secret_config.py placeholder
+- Added add() helper function to app.py
+
+## How to Test
+- Run `python -c "import secret_config"` and confirm no import error
+
+------------------------------------------------------------
+모델: claude-opus-4-8  |  max_tokens: 1024  |  temperature: None
+safe-mode: ON  |  마스킹된 패턴: AWS Access Key x1, Anthropic API Key x1  |  diff 크기: 7줄 전체 전송
+------------------------------------------------------------
+✓ 길이/형식 검증 통과
+============================================================
+>>> exit code: 0

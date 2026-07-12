@@ -1,0 +1,15 @@
+# TTL 엣지 케이스: 없는 키 TTL(-2)/EXPIRE(0), TTL 미설정(-1), SET 덮어쓰기 시 TTL 초기화, EXPIRE seconds<=0 즉시 만료
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> (integer) -2
+mini-redis> (integer) 0
+mini-redis> OK
+mini-redis> (integer) -1
+mini-redis> (integer) 1
+mini-redis> (integer) 99
+mini-redis> OK
+mini-redis> (integer) -1
+mini-redis> (integer) 1
+mini-redis> (integer) 0
+mini-redis> 

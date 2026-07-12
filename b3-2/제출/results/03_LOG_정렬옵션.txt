@@ -1,0 +1,27 @@
+# LOG --sort-by=date / --sort-by=author (직접 구현한 병합 정렬 사용) + 잘못된 기준 에러
+$ python main.py
+
+Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-git> Initialized repository.
+Current branch: main
+Current user: Alice
+mini-git> [main ab99e7] Initial commit
+mini-git> Created branch: feature
+mini-git> Switched to branch: feature
+mini-git> [feature 2e9dbb] Add login feature
+mini-git> Switched to branch: main
+mini-git> [main 55a8f3] Add payment feature
+mini-git> commit ab99e7 (Alice, 2026-07-12 16:22:23) [main]
+Initial commit
+commit 2e9dbb (Alice, 2026-07-12 16:22:23) [feature]
+Add login feature
+commit 55a8f3 (Alice, 2026-07-12 16:22:24) [main]
+Add payment feature
+mini-git> commit ab99e7 (Alice, 2026-07-12 16:22:23) [main]
+Initial commit
+commit 2e9dbb (Alice, 2026-07-12 16:22:23) [feature]
+Add login feature
+commit 55a8f3 (Alice, 2026-07-12 16:22:24) [main]
+Add payment feature
+mini-git> Invalid args
+mini-git> 

@@ -1,0 +1,48 @@
+# 해시맵 로드 팩터(0.75) 초과 시 버킷 2배 확장 - 20개 키 삽입 후 전부 정상 조회되는지 확인 (초기 용량 8 기준 6개 초과 시점부터 여러 차례 확장이 일어난다)
+$ python3 -m mini_redis
+
+Mini Redis CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> OK
+mini-redis> (integer) 20
+mini-redis> "val0"
+mini-redis> "val19"
+mini-redis> 1. "key12"
+2. "key13"
+3. "key14"
+4. "key15"
+5. "key16"
+6. "key17"
+7. "key18"
+8. "key19"
+9. "key0"
+10. "key1"
+11. "key2"
+12. "key3"
+13. "key4"
+14. "key5"
+15. "key6"
+16. "key7"
+17. "key8"
+18. "key9"
+19. "key10"
+20. "key11"
+mini-redis> 

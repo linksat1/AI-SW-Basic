@@ -8,3 +8,6 @@ b4-1/portfolio/videos/*.bak
 
 # 개인 작업 기록 (리소스 ID·공인 IP 등 포함, 비공개 유지)
 b6-1/AWS자료올리기.md
+
+# 이미지 압축 전 원본 백업 (로컬 전용, 용량 커서 GitHub에 올리지 않음)
+b4-1/portfolio-originals-backup/

@@ -1,0 +1,16 @@
+설명: [기본조회 3] 동경 90도 이상에 위치한 정지궤도 위성의 궤도 위치를 경도 오름차순으로 확인한다.
+
+실행 SQL:
+-- [기본조회 3] 동경 90도 이상에 위치한 정지궤도 위성의 궤도 위치를 경도 오름차순으로 확인한다.
+SELECT sat_name, long_nom
+FROM geo
+WHERE long_nom >= 90
+ORDER BY long_nom ASC;
+
+실행 결과:
+   sat_name      long_nom
+---------------  --------
+APSTAR-92E           92.2
+KOREASAT-116K-2     116.0
+VINASAT-3           132.0
+RUSATCOM-B 145E     145.0

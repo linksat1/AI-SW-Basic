@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>위성 궤도/주파수 SQL 데모</title>
+<link rel="stylesheet" href="/sql-demo/static/style.css">
+</head>
+<body>
+<header>
+  <h1>위성 궤도/주파수 SQL 데모</h1>
+  <p>
+    위성망 등록 DB_3075에서 발췌한 실제 데이터로 만든 SQLite DB입니다.
+  </p>
+  <div id="user-bar" class="user-bar hidden">
+    <span id="user-bar-name"></span>
+    <button id="logout-btn" class="btn-link">로그아웃</button>
+  </div>
+</header>
+
+<section id="auth-section" class="auth-section hidden">
+  <div class="auth-card">
+    <div class="auth-tabs" id="auth-tabs">
+      <button class="auth-tab active" data-tab="login">로그인</button>
+      <button class="auth-tab" data-tab="register">회원가입</button>
+    </div>
+
+    <form id="login-form" class="auth-form">
+      <label>아이디 <input type="text" name="username" required autocomplete="username"></label>
+      <label>비밀번호 <input type="password" name="password" required autocomplete="current-password"></label>
+      <button type="submit" class="run">로그인</button>
+      <p class="auth-error" id="login-error"></p>
+      <p class="auth-resend hidden" id="login-resend-box">
+        <button type="button" class="btn-link" id="login-resend-btn">인증 메일 재발송</button>
+      </p>
+      <p class="auth-links">
+        <button type="button" class="btn-link" id="forgot-password-link">비밀번호를 잊으셨나요?</button>
+      </p>
+    </form>
+
+    <form id="register-form" class="auth-form hidden">
+      <label>아이디 <input type="text" name="username" required minlength="3" maxlength="30" autocomplete="username"></label>
+      <label>이메일 <input type="email" name="email" required autocomplete="email"></label>
+      <label>비밀번호 <input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+      <label>비밀번호 확인 <input type="password" name="password2" required minlength="8" autocomplete="new-password"></label>
+      <button type="submit" class="run">회원가입</button>
+      <p class="auth-error" id="register-error"></p>
+    </form>
+
+    <div id="register-success" class="auth-message hidden">
+      <p id="register-success-text"></p>
+      <button type="button" class="run" id="resend-btn">인증 메일 재발송</button>
+      <p class="auth-error" id="resend-error"></p>
+      <p class="auth-links">
+        <button type="button" class="btn-link" id="success-back-to-login">로그인으로 돌아가기</button>
+      </p>
+    </div>
+
+    <form id="forgot-form" class="auth-form hidden">
+      <label>가입할 때 사용한 이메일 <input type="email" name="email" required autocomplete="email"></label>
+      <button type="submit" class="run">재설정 메일 받기</button>
+      <p class="auth-error" id="forgot-error"></p>
+      <p class="auth-links">
+        <button type="button" class="btn-link" id="forgot-back-to-login">로그인으로 돌아가기</button>
+      </p>
+    </form>
+
+    <form id="reset-form" class="auth-form hidden">
+      <label>새 비밀번호 <input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+      <label>새 비밀번호 확인 <input type="password" name="password2" required minlength="8" autocomplete="new-password"></label>
+      <button type="submit" class="run">비밀번호 변경</button>
+      <p class="auth-error" id="reset-error"></p>
+    </form>
+
+    <p class="auth-hint" id="auth-hint">이 페이지는 회원만 이용할 수 있습니다. 아이디/비밀번호는 자유롭게 정해서 가입하세요.</p>
+  </div>
+</section>
+
+<main id="app" class="hidden">
+  <p id="loading">쿼리 목록을 불러오는 중...</p>
+</main>
+
+<footer>
+  <p>b5-1 SQL 데이터베이스 과제 · visuallsat.com</p>
+</footer>
+
+<script src="/sql-demo/static/app.js"></script>
+</body>
+</html>

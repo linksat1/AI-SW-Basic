@@ -1,0 +1,19 @@
+설명: [조인-INNER 3] 한국(KOR)이 신고한 위성망의 주파수 대역을 위성 이름과 함께 확인한다.
+
+실행 SQL:
+-- [조인-INNER 3] 한국(KOR)이 신고한 위성망의 주파수 대역을 위성 이름과 함께 확인한다.
+SELECT n.adm, g.sat_name, f.emi_rcp, f.freq_min, f.freq_max
+FROM notice n
+INNER JOIN geo g ON n.ntc_id = g.ntc_id
+INNER JOIN freq f ON n.ntc_id = f.ntc_id
+WHERE n.adm = 'KOR';
+
+실행 결과:
+adm     sat_name      emi_rcp  freq_min  freq_max
+---  ---------------  -------  --------  --------
+KOR  KOREASAT-116K-2  E         10950.0   10955.0
+KOR  KOREASAT-116K-2  E         10950.0   11000.0
+KOR  KOREASAT-116K-2  E         11000.0   11050.0
+KOR  KOREASAT-78W-K   E         17300.0   17305.0
+KOR  KOREASAT-78W-K   E         17695.0   17700.0
+KOR  KOREASAT-78W-K   E         17700.0   17705.0

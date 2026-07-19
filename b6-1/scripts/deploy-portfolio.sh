@@ -4,7 +4,8 @@
 #           이미 떠 있고, 22번 포트가 본인 IP로 열려 있어야 한다.
 #
 # 사용법: ./deploy-portfolio.sh <EC2_퍼블릭IP> <PEM_키_경로>
-# 예시:   ./deploy-portfolio.sh 13.125.33.210 ~/.ssh/b6-1-key.pem
+# 예시:   ./deploy-portfolio.sh <EC2_퍼블릭IP> ~/.ssh/<PEM_키_파일명>.pem
+# (실제 IP·키 파일명은 b6-1/AWS자료올리기.md — git 추적 제외 — 참고)
 
 set -euo pipefail
 

@@ -1,0 +1,16 @@
+설명: [인덱스] freq.ntc_id로 notice와 JOIN하는 경우가 많아 idx_freq_ntc_id 인덱스를 적용했다.
+
+실행 SQL:
+-- [인덱스] freq.ntc_id로 notice와 JOIN하는 경우가 많아 idx_freq_ntc_id 인덱스를 적용했다.
+-- (인덱스는 schema.sql에서 CREATE INDEX idx_freq_ntc_id ON freq(ntc_id); 로 생성됨)
+-- 아래 쿼리로 인덱스가 실제로 사용되는지 실행 계획을 확인한다.
+EXPLAIN QUERY PLAN
+SELECT n.adm, f.freq_min, f.freq_max
+FROM notice n
+INNER JOIN freq f ON n.ntc_id = f.ntc_id
+WHERE f.ntc_id = 125520109;
+
+실행 결과:
+QUERY PLAN
+|--SEARCH n USING INTEGER PRIMARY KEY (rowid=?)
+`--SEARCH f USING INDEX idx_freq_ntc_id (ntc_id=?)

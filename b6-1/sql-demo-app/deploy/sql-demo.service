@@ -1,0 +1,19 @@
+[Unit]
+Description=b5-1 satellite orbit/frequency SQL demo (FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=ec2-user
+WorkingDirectory=/opt/sql-demo
+ExecStart=/opt/sql-demo/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+# 아주 작은 인스턴스(RAM 912Mi)라 워커 1개로 충분
+Environment=PYTHONUNBUFFERED=1
+# 평가 기간에는 true(실행 SQL 노출). 평가 끝나면 false로 바꾸고
+# `sudo systemctl restart sql-demo` 만 하면 코드 재배포 없이 즉시 가려진다.
+Environment=SHOW_SQL=true
+
+[Install]
+WantedBy=multi-user.target

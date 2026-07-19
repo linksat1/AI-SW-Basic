@@ -1,0 +1,13 @@
+설명: [집계 3] 비정지궤도 신고별 전체 궤도면의 위성 수 합계를 확인한다. (SUM + GROUP BY)
+
+실행 SQL:
+-- [집계 3] 비정지궤도 신고별 전체 궤도면의 위성 수 합계를 확인한다. (SUM + GROUP BY)
+SELECT ntc_id, SUM(nbr_sat_pl) AS 총위성수
+FROM orbit
+GROUP BY ntc_id;
+
+실행 결과:
+ ntc_id    총위성수
+---------  --------
+125520122       304
+125520134        60

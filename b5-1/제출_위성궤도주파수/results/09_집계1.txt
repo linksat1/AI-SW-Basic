@@ -1,0 +1,21 @@
+설명: [집계 1] 신고국(adm)별 위성망 신고 건수를 확인한다. (COUNT + GROUP BY)
+
+실행 SQL:
+-- [집계 1] 신고국(adm)별 위성망 신고 건수를 확인한다. (COUNT + GROUP BY)
+SELECT adm, COUNT(*) AS 신고건수
+FROM notice
+GROUP BY adm
+ORDER BY 신고건수 DESC;
+
+실행 결과:
+adm  신고건수
+---  --------
+F           5
+CHN         3
+RUS         2
+KOR         2
+VTN         1
+LUX         1
+IND         1
+E           1
+CYP         1

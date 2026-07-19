@@ -1,0 +1,13 @@
+설명: [기본조회 2] 한국(KOR)이 신고한 위성망 목록을 확인한다.
+
+실행 SQL:
+-- [기본조회 2] 한국(KOR)이 신고한 위성망 목록을 확인한다.
+SELECT ntc_id, adm, ntc_type, d_rcv
+FROM notice
+WHERE adm = 'KOR';
+
+실행 결과:
+ ntc_id    adm  ntc_type    d_rcv
+---------  ---  --------  ----------
+125520116  KOR  G         2025-08-21
+125520120  KOR  G         2025-09-04

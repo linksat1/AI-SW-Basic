@@ -1,0 +1,9 @@
+설명: [삭제 DELETE] 대역폭이 1,000,000kHz(=1GHz, Ka 대역 초광대역 피더링크)를 넘는 주파수 대역을 정리한다.
+
+실행 SQL:
+-- [삭제 DELETE] 대역폭이 1,000,000kHz(=1GHz, Ka 대역 초광대역 피더링크)를 넘는 주파수 대역을 정리한다.
+DELETE FROM freq
+WHERE bdwdth >= 1000000;
+
+실행 결과:
+(조회 결과 없음 - UPDATE/DELETE 정상 실행됨)

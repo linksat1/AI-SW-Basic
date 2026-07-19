@@ -1,0 +1,29 @@
+설명: [조인-LEFT 1] 모든 신고에 대해 정지궤도 위치 정보 유무를 확인한다. (비정지궤도 신고는 NULL로 남음)
+
+실행 SQL:
+-- [조인-LEFT 1] 모든 신고에 대해 정지궤도 위치 정보 유무를 확인한다. (비정지궤도 신고는 NULL로 남음)
+SELECT n.ntc_id, n.adm, n.ntc_type, g.sat_name, g.long_nom
+FROM notice n
+LEFT JOIN geo g ON n.ntc_id = g.ntc_id
+ORDER BY n.ntc_id;
+
+실행 결과:
+ ntc_id    adm  ntc_type       sat_name       long_nom
+---------  ---  --------  ------------------  --------
+108501259  CHN  G         APSTAR-92E              92.2
+112500227  F    G         SYRACUSE-4H             47.0
+112500243  F    G         SYRACUSE-4E             -5.0
+114500160  CHN  G         CTDRS-2-20.4E           20.4
+119520281  RUS  G         RUSATCOM-B 145E        145.0
+121500104  F    G         F-SAT-N4-139W         -139.0
+123500068  CHN  G         CHNNEWSAT-G1-78.2E      78.2
+123520124  CYP  G         KYPROS-SAT-8            39.0
+124500094  F    G         FMS5-45.5E              45.5
+125500062  RUS  G         RGS-S-26.5W            -26.5
+125520109  E    G         SECOMSAT-7-47W         -47.0
+125520114  IND  G         IND-SATS25-83E          83.0
+125520116  KOR  G         KOREASAT-116K-2        116.0
+125520120  KOR  G         KOREASAT-78W-K         -78.0
+125520122  LUX  N
+125520134  F    N
+126500060  VTN  G         VINASAT-3              132.0

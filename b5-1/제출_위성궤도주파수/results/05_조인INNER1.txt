@@ -1,0 +1,27 @@
+설명: [조인-INNER 1] 위성망 이름과 신고국, 궤도 경도를 함께 확인한다.
+
+실행 SQL:
+-- [조인-INNER 1] 위성망 이름과 신고국, 궤도 경도를 함께 확인한다.
+SELECT n.ntc_id, n.adm, g.sat_name, g.long_nom
+FROM notice n
+INNER JOIN geo g ON n.ntc_id = g.ntc_id
+ORDER BY g.long_nom;
+
+실행 결과:
+ ntc_id    adm       sat_name       long_nom
+---------  ---  ------------------  --------
+121500104  F    F-SAT-N4-139W         -139.0
+125520120  KOR  KOREASAT-78W-K         -78.0
+125520109  E    SECOMSAT-7-47W         -47.0
+125500062  RUS  RGS-S-26.5W            -26.5
+112500243  F    SYRACUSE-4E             -5.0
+114500160  CHN  CTDRS-2-20.4E           20.4
+123520124  CYP  KYPROS-SAT-8            39.0
+124500094  F    FMS5-45.5E              45.5
+112500227  F    SYRACUSE-4H             47.0
+123500068  CHN  CHNNEWSAT-G1-78.2E      78.2
+125520114  IND  IND-SATS25-83E          83.0
+108501259  CHN  APSTAR-92E              92.2
+125520116  KOR  KOREASAT-116K-2        116.0
+126500060  VTN  VINASAT-3              132.0
+119520281  RUS  RUSATCOM-B 145E        145.0

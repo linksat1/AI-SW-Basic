@@ -1,0 +1,10 @@
+설명: [수정 UPDATE] 아직 심사 중(st_cur=20)인 베트남(VTN) 신고를 처리 완료 상태(50)로 승인 처리한다.
+
+실행 SQL:
+-- [수정 UPDATE] 아직 심사 중(st_cur=20)인 베트남(VTN) 신고를 처리 완료 상태(50)로 승인 처리한다.
+UPDATE notice
+SET st_cur = 50
+WHERE adm = 'VTN' AND st_cur = 20;
+
+실행 결과:
+(조회 결과 없음 - UPDATE/DELETE 정상 실행됨)

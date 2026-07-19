@@ -8,6 +8,22 @@ b4-1/portfolio/videos/*.bak
 
 # 개인 작업 기록 (리소스 ID·공인 IP 등 포함, 비공개 유지)
 b6-1/AWS자료올리기.md
+b6-1/위성SQL데모_구축기록.md
 
 # 이미지 압축 전 원본 백업 (로컬 전용, 용량 커서 GitHub에 올리지 않음)
 b4-1/portfolio-originals-backup/
+
+# 위성망 등록 DB 격주 자동 갱신 파이프라인 (개인 다운로드 이력·상태 포함, 비공개 유지)
+b6-1/ific-pipeline/
+
+# sql-demo 회원 DB(비밀번호 해시)와 세션 서명키 — 절대 커밋 금지
+b6-1/sql-demo-app/data/users.db
+b6-1/sql-demo-app/data/.session_secret
+
+# sql-demo 회원가입 절차·회원 관리 코드 — 비공개 유지
+b6-1/sql-demo-app/app/auth.py
+b6-1/sql-demo-app/app/auth_routes.py
+b6-1/sql-demo-app/app/mailer.py
+
+# sql-demo 이메일 발송 자격증명(Gmail 계정/앱 비밀번호) — 절대 커밋 금지
+b6-1/sql-demo-app/data/.smtp_credentials

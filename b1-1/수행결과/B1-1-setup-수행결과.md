@@ -90,7 +90,7 @@ git config --global user.name pagchuseon
 # git 설치 후 설정
 sudo apt install -y git
 git config --global user.name pagchuseon
-git config --global user.email pagchuseon@gmail.com
+git config --global user.email <GMAIL_주소>
 git --version
 # git version 2.34.1  ✅
 ```

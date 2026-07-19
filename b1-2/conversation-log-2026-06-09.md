@@ -14,7 +14,7 @@
 
 **사용자:** 다른 이메일 주소로 깃허브에 접속되어 있으며 연결하고 싶은 레포는 다음과 같습니다. https://github.com/linksat1/AI-SW-Basic
 
-**사용자:** pagchuseon@gmail.com
+**사용자:** <GMAIL_주소>
 
 **Claude:** linksat1 계정으로 SSH 키를 생성하고 GitHub에 연결합니다...
 

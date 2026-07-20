@@ -27,3 +27,6 @@ b6-1/sql-demo-app/app/mailer.py
 
 # sql-demo 이메일 발송 자격증명(Gmail 계정/앱 비밀번호) — 절대 커밋 금지
 b6-1/sql-demo-app/data/.smtp_credentials
+
+# 제출 실행가이드 — SSH 접속 절차 등 비공개 유지
+b5-1/제출_위성궤도주파수/실행가이드.md

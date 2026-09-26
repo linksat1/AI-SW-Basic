@@ -1,0 +1,12 @@
+{"id": "TX-000001", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 10000, "memo": "개포동 점심", "tags": []}
+{"id": "TX-000002", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 15000, "memo": "점심", "tags": ["meal"]}
+{"id": "TX-000003", "date": "2026-09-26", "type": "income", "category": "food", "amount": 10000, "memo": "test", "tags": []}
+{"id": "TX-000004", "date": "2026-09-26", "type": "expense", "category": "transport", "amount": 5000, "memo": "commute", "tags": []}
+{"id": "TX-000005", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 10000, "memo": "코딧세이 학습_점심", "tags": ["코딧세이"]}
+{"id": "TX-000006", "date": "2026-09-26", "type": "expense", "category": "transport", "amount": 1000, "memo": "추석", "tags": []}
+{"id": "TX-000007", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 10000, "memo": "개포동 점심", "tags": []}
+{"id": "TX-000008", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 15000, "memo": "점심", "tags": ["meal"]}
+{"id": "TX-000009", "date": "2026-09-26", "type": "income", "category": "food", "amount": 10000, "memo": "test", "tags": []}
+{"id": "TX-000010", "date": "2026-09-26", "type": "expense", "category": "transport", "amount": 5000, "memo": "commute", "tags": []}
+{"id": "TX-000011", "date": "2026-09-26", "type": "expense", "category": "food", "amount": 10000, "memo": "코딧세이 학습_점심", "tags": ["코딧세이"]}
+{"id": "TX-000012", "date": "2026-09-26", "type": "expense", "category": "transport", "amount": 1000, "memo": "추석", "tags": []}

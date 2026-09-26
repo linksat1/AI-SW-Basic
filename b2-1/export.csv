@@ -1,0 +1,7 @@
+date,type,category,amount,memo,tags
+2026-09-26,expense,food,10000,개포동 점심,
+2026-09-26,expense,food,15000,점심,meal
+2026-09-26,income,food,10000,test,
+2026-09-26,expense,transport,5000,commute,
+2026-09-26,expense,food,10000,코딧세이 학습_점심,코딧세이
+2026-09-26,expense,transport,1000,추석,

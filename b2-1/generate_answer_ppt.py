@@ -4,7 +4,7 @@
 코드 인용은 budget_app/*.py를 직접 읽어 행 번호를 붙이므로 코드가 바뀌면 다시 실행하면 된다.
 실행 출력은 빈 demo 폴더에서 슬라이드 순서대로 실행해 얻은 실제 결과다.
 
-사용법: python3 generate_answer_ppt.py  →  평가/평가자_답변.pdf
+사용법: python3 generate_answer_ppt.py  →  평가/B4_평가자_답변.pdf
 """
 import tempfile
 from pathlib import Path
@@ -18,7 +18,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx_to_pdf import convert
 
 BASE = Path(__file__).resolve().parent
-OUT = BASE / "평가" / "평가자_답변.pdf"
+OUT = BASE / "평가" / "B4_평가자_답변.pdf"
 prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -234,9 +234,9 @@ text(slide, RIGHT_X + 0.2, y + 0.45, COL_W - 0.4, 5.2,
      "• 틀림: python3 -m budget_app --data-dir demo add\n"
      "  → 하위 명령의 기본값(data)이 앞의 값을 덮어써서\n"
      "     실제 data/ 폴더에 기록됩니다.\n\n"
-     "명령 복사는 PDF 대신 평가/시연_명령어.sh에서\n"
+     "명령 복사는 PDF 대신 평가/B4a_시연_명령어.sh에서\n"
      "• PDF는 긴 줄이 화면 폭에서 끊긴 채로 복사됩니다.\n"
-     "• 전체 실행: zsh 평가/시연_명령어.sh\n\n"
+     "• 전체 실행: zsh 평가/B4a_시연_명령어.sh\n\n"
      "시연 후 정리: rm -r demo imp.csv out.csv", 13, TEXT)
 
 # ---------------------------------------------------------------------------

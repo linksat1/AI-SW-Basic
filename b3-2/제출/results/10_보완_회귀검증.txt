@@ -1,0 +1,43 @@
+mini-git> init "Alice Kim"
+Initialized repository.
+Current branch: main
+Current user: Alice Kim
+mini-git> commit "login login LOGIN"
+[main 51cece] login login LOGIN
+mini-git> search login
+Found 1 commit:
+
+- 51cece: login login LOGIN
+mini-git> commit "Add Login   Feature"
+[main 8002cf] Add Login   Feature
+mini-git> search "login feature"
+Found 1 commit:
+
+- 8002cf: Add Login   Feature
+mini-git> search "feature login"
+Found 0 commits:
+
+mini-git> search --author="Alice Kim"
+Found 2 commits:
+
+- 51cece: login login LOGIN
+- 8002cf: Add Login   Feature
+mini-git> branch feature
+Created branch: feature
+mini-git> commit "main next"
+[main 78b1fa] main next
+mini-git> switch feature
+Switched to branch: feature
+mini-git> branch main
+Invalid args
+mini-git> switch main
+Switched to branch: main
+mini-git> log
+commit 51cece (Alice Kim, 2026-10-09 11:17:14) [main]
+login login LOGIN
+commit 8002cf (Alice Kim, 2026-10-09 11:17:14) [main]
+Add Login   Feature
+commit 78b1fa (Alice Kim, 2026-10-09 11:17:14) [main]
+main next
+mini-git> search "   "
+Invalid args

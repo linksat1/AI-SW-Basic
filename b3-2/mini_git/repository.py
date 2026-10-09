@@ -51,7 +51,7 @@ class Repository:
 
     def init(self, user_name: str) -> None:
         """INIT <user_name>: 저장소 초기화, main 브랜치 생성, 사용자 설정."""
-        if not user_name:
+        if not user_name.strip():
             raise InvalidArgsError()
         self.commits = {}
         self.branches = {"main": None}
@@ -63,15 +63,15 @@ class Repository:
     def branch(self, name: str) -> None:
         """BRANCH <branch_name>: 현재 HEAD를 가리키는 새 브랜치를 만든다."""
         self._require_initialized()
-        if not name:
+        if not name.strip() or name in self.branches:
             raise InvalidArgsError()
         head = self.branches[self.current_branch]
-        self.branches[name] = head  # 이미 있는 이름이면 HEAD 위치로 재설정(단순화된 정책)
+        self.branches[name] = head
 
     def switch(self, name: str) -> None:
         """SWITCH <branch_name>: HEAD(현재 브랜치)를 name으로 옮긴다."""
         self._require_initialized()
-        if not name:
+        if not name.strip():
             raise InvalidArgsError()
         if name not in self.branches:
             raise UnknownBranchError(name)
@@ -80,7 +80,7 @@ class Repository:
     def commit(self, message: str) -> Commit:
         """COMMIT <message>: 현재 HEAD를 부모로 하는 새 커밋을 만든다."""
         self._require_initialized()
-        if not message:
+        if not message.strip():
             raise InvalidArgsError()
 
         parent_hash = self.branches[self.current_branch]
@@ -149,7 +149,7 @@ class Repository:
     def search_keyword(self, keyword: str):
         """SEARCH <keyword>: 역색인 기반 메시지 키워드 검색 -> Commit 리스트."""
         self._require_initialized()
-        if not keyword:
+        if not keyword.strip():
             raise InvalidArgsError()
         hashes = self.index.search_keyword(keyword)
         return [self.commits[h] for h in hashes]
@@ -157,7 +157,7 @@ class Repository:
     def search_author(self, author: str):
         """SEARCH --author=<name>: 역색인 기반 작성자 검색 -> Commit 리스트."""
         self._require_initialized()
-        if not author:
+        if not author.strip():
             raise InvalidArgsError()
         hashes = self.index.search_author(author)
         return [self.commits[h] for h in hashes]

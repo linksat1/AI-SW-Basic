@@ -1,17 +1,5 @@
-# ANCESTORS: 도달 가능한 모든 조상 커밋 조회 (뿌리 커밋은 조상 없음)
-$ python main.py
-
-Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
-mini-git> Initialized repository.
-Current branch: main
-Current user: Alice
-mini-git> [main b9d0e3] Initial commit
-mini-git> Created branch: feature
-mini-git> Switched to branch: feature
-mini-git> [feature 303f8f] Add login feature
-mini-git> Switched to branch: main
-mini-git> [main f3786b] Add payment feature
-mini-git> Ancestors of f3786b:
-- b9d0e3
-mini-git> No ancestors.
-mini-git> 
+mini-git> ancestors 1a53bc
+Ancestors of 1a53bc:
+- a239d3
+mini-git> ancestors a239d3
+No ancestors.

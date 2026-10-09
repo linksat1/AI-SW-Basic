@@ -1,17 +1,22 @@
-# 에러 처리 표준: Invalid args / Unknown branch / Unknown commit + 미초기화 안내
-$ python main.py
-
-Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
-mini-git> Repository not initialized. Run INIT first.
-mini-git> Initialized repository.
+mini-git> log
+Repository not initialized. Run INIT first.
+mini-git> init Alice
+Initialized repository.
 Current branch: main
 Current user: Alice
-mini-git> [main 60b4ad] Initial commit
-mini-git> Unknown branch: nosuchbranch
-mini-git> Unknown commit: ffffff
-mini-git> Unknown commit: ffffff
-mini-git> Invalid args
-mini-git> Invalid args
-mini-git> Invalid args
-mini-git> Invalid args
-mini-git> 
+mini-git> switch nosuchbranch
+Unknown branch: nosuchbranch
+mini-git> ancestors ffffff
+Unknown commit: ffffff
+mini-git> path ffffff aaaaaa
+Unknown commit: ffffff
+mini-git> branch
+Invalid args
+mini-git> commit
+Invalid args
+mini-git> search
+Invalid args
+mini-git> unknownverb
+Invalid args
+mini-git> commit "   "
+Invalid args

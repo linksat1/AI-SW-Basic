@@ -1,24 +1,32 @@
-# SEARCH <keyword> / SEARCH --author=<name> (역색인 기반 검색) — 과제 예시 재현
-$ python main.py
-
-Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
-mini-git> Initialized repository.
+mini-git> init "Alice Kim"
+Initialized repository.
 Current branch: main
-Current user: Alice
-mini-git> [main 4b6ac6] Initial commit
-mini-git> Created branch: feature
-mini-git> Switched to branch: feature
-mini-git> [feature ab5fbc] Add login feature
-mini-git> Switched to branch: main
-mini-git> [main b82f26] Add payment feature
-mini-git> Found 1 commit:
+Current user: Alice Kim
+mini-git> commit "Initial commit"
+[main 7f594e] Initial commit
+mini-git> branch feature
+Created branch: feature
+mini-git> switch feature
+Switched to branch: feature
+mini-git> commit "Add login feature"
+[feature 491ace] Add login feature
+mini-git> switch main
+Switched to branch: main
+mini-git> commit "Add payment feature"
+[main b365b4] Add payment feature
+mini-git> search login
+Found 1 commit:
 
-- ab5fbc: Add login feature
-mini-git> Found 3 commits:
+- 491ace: Add login feature
+mini-git> search --author="Alice Kim"
+Found 3 commits:
 
-- 4b6ac6: Initial commit
-- ab5fbc: Add login feature
-- b82f26: Add payment feature
-mini-git> Found 0 commits:
+- 7f594e: Initial commit
+- 491ace: Add login feature
+- b365b4: Add payment feature
+mini-git> search "LOGIN feature"
+Found 1 commit:
 
-mini-git> 
+- 491ace: Add login feature
+mini-git> search nosuchword
+Found 0 commits:

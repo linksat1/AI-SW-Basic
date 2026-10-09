@@ -14,7 +14,7 @@ def topological_order(commits):
     (방향성 비순환 그래프)다. 사이클이 없기 때문에 "부모가 먼저"라는 순서가
     항상 존재하고, 그 순서를 찾는 표준적인 방법이 위상 정렬이다.
 
-    여기서는 Kahn의 알고리즘(진입차수 기반 BFS)을 사용한다.
+    여기서는 부모->자식으로 간선을 뒤집은 그래프에 Kahn의 알고리즘을 적용한다.
       1) 각 커밋의 "진입차수"를 그 커밋이 가진 parents 개수로 정의한다
          (= "이 커밋이 출력되려면 먼저 출력돼야 하는 다른 커밋 수").
       2) 진입차수가 0인 커밋(=최초 커밋들)부터 큐에 넣는다.
@@ -60,10 +60,12 @@ def ancestors(commits, commit_hash):
     """
     visited = set()
     queue = list(commits[commit_hash].parents)
+    head = 0
     result = []
 
-    while queue:
-        h = queue.pop(0)
+    while head < len(queue):
+        h = queue[head]
+        head += 1
         if h in visited:
             continue
         visited.add(h)
@@ -107,8 +109,8 @@ def shortest_path(commits, start_hash, end_hash):
 
     반환값: 경로를 이루는 커밋 hash 리스트(start부터 end까지), 경로가 없으면 None.
 
-    최단 경로가 여러 개 존재할 수 있는데(같은 부모에서 갈라진 두 브랜치의
-    끝 커밋끼리 등), 과제 명세는 "hash1->hash2->... 문자열로 만들었을 때
+    병합 커밋이 있는 다이아몬드형 그래프 등에서는 최단 경로가 여러 개
+    존재할 수 있다. 과제 명세는 "hash1->hash2->... 문자열로 만들었을 때
     사전순이 가장 작은 경로"를 요구한다. 이를 위해:
       1) start와 end 양쪽에서 각각 BFS로 모든 노드까지의 거리를 구한다.
       2) start에서 시작해, "이 지점까지의 최단 거리 + 남은 최단 거리 합이

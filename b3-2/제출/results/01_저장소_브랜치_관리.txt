@@ -1,14 +1,16 @@
-# 저장소/브랜치 관리: INIT/BRANCH/SWITCH/COMMIT
-$ python main.py
-
-Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
-mini-git> Initialized repository.
+mini-git> init "Alice Kim"
+Initialized repository.
 Current branch: main
-Current user: Alice
-mini-git> [main 436c93] Initial commit
-mini-git> Created branch: feature
-mini-git> Switched to branch: feature
-mini-git> [feature c3a878] Add login feature
-mini-git> Switched to branch: main
-mini-git> [main a333a7] Add payment feature
-mini-git> 
+Current user: Alice Kim
+mini-git> commit "Initial commit"
+[main 9ece02] Initial commit
+mini-git> branch feature
+Created branch: feature
+mini-git> switch feature
+Switched to branch: feature
+mini-git> commit "Add login feature"
+[feature 534a20] Add login feature
+mini-git> switch main
+Switched to branch: main
+mini-git> commit "Add payment feature"
+[main 66bfa6] Add payment feature

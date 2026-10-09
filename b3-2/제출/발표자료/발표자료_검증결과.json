@@ -1,0 +1,222 @@
+{
+  "slides": 26,
+  "speakerNotes": 26,
+  "ooxmlParts": 117,
+  "xmlWellFormed": true,
+  "internalRelationshipsValid": true,
+  "zipCRCValid": true,
+  "allSlideBoundsValid": true,
+  "textOverlapCount": 0,
+  "clippedTextCount": 0,
+  "rendering": "동일한 레이아웃 데이터로 PPTX와 Pillow 미리보기/PDF 생성; PowerPoint 앱 렌더링 아님",
+  "details": [
+    {
+      "slide": 1,
+      "title": "Mini Git\n실행부터 평가 설명까지",
+      "elements": 23,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 2,
+      "title": "발표에서 답할 세 가지",
+      "elements": 19,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 3,
+      "title": "먼저 폴더의 역할을 구분하세요",
+      "elements": 13,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 4,
+      "title": "실행은 이 세 줄로 시작합니다",
+      "elements": 17,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 5,
+      "title": "브랜치가 갈라지는 상황을 만들어 봅니다",
+      "elements": 15,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 6,
+      "title": "출력에 무엇이 보이면 성공일까요?",
+      "elements": 24,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 7,
+      "title": "PATH와 ANCESTORS는 실제 hash로 확인합니다",
+      "elements": 19,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 8,
+      "title": "자동 검증은 한 명령으로 재현합니다",
+      "elements": 18,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 9,
+      "title": "평가자에게 보여 줄 근거 위치",
+      "elements": 27,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 10,
+      "title": "검수에서 발견한 문제를 이렇게 고쳤습니다",
+      "elements": 24,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 11,
+      "title": "입력과 알고리즘을 나눈 이유",
+      "elements": 22,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 12,
+      "title": "커밋 그래프는 왜 DAG인가요?",
+      "elements": 28,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 13,
+      "title": "브랜치와 HEAD는 ‘끝을 가리키는 이름표’",
+      "elements": 27,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 14,
+      "title": "LOG: 선수과목을 먼저 출력하는 방식",
+      "elements": 28,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 15,
+      "title": "PATH: 한 칸씩 넓혀 가면 가장 짧은 길",
+      "elements": 28,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 16,
+      "title": "최단 경로가 둘이면 hash 사전순으로",
+      "elements": 32,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 17,
+      "title": "ANCESTORS: 부모의 부모를 빠짐없이 찾기",
+      "elements": 32,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 18,
+      "title": "정렬은 병합 정렬을 직접 구현했습니다",
+      "elements": 24,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 19,
+      "title": "O(n log n)과 안정 정렬을 쉬운 말로",
+      "elements": 17,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 20,
+      "title": "역색인: 책 뒤의 ‘찾아보기’",
+      "elements": 31,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 21,
+      "title": "공백 포함 검색은 ‘연속 구문’으로",
+      "elements": 17,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 22,
+      "title": "평가 질문: dict와 hash를 왜 썼나요?",
+      "elements": 17,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 23,
+      "title": "평가 질문: CLI 정책을 설명해 보세요",
+      "elements": 24,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 24,
+      "title": "평가 질문: 과제 제약을 지켰나요?",
+      "elements": 20,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 25,
+      "title": "평가 질문: 알고리즘을 어떻게 믿을 수 있나요?",
+      "elements": 24,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 26,
+      "title": "이제 내 말로 1분 동안 설명해 보세요",
+      "elements": 14,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    }
+  ]
+}

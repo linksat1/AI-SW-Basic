@@ -1,9 +1,7 @@
-# CLI는 quit 입력으로도 종료된다
-$ python main.py
-
+입력: exit
 Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
-mini-git> Initialized repository.
-Current branch: main
-Current user: Alice
-mini-git> [main 1a37aa] first
-mini-git> 
+mini-git> 종료 코드: 0
+
+입력: quit
+Mini Git CLI — 종료하려면 exit 또는 quit을 입력하세요.
+mini-git> 종료 코드: 0

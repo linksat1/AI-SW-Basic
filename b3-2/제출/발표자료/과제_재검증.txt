@@ -1,0 +1,23 @@
+발표 자료 작성 시 재확인: 2026-10-09
+Python 3.12.13
+명령: python3 -B -m unittest discover -s tests -v
+test_actual_entrypoint_repl_and_exit (test_mini_git.MiniGitTests.test_actual_entrypoint_repl_and_exit) ... ok
+test_author_with_spaces_and_init_resets_indexes (test_mini_git.MiniGitTests.test_author_with_spaces_and_init_resets_indexes) ... ok
+test_branch_commit_and_topological_log (test_mini_git.MiniGitTests.test_branch_commit_and_topological_log) ... ok
+test_disconnected_and_identical_path (test_mini_git.MiniGitTests.test_disconnected_and_identical_path) ... ok
+test_existing_branch_preserves_all_state (test_mini_git.MiniGitTests.test_existing_branch_preserves_all_state) ... ok
+test_hash_collision_retry (test_mini_git.MiniGitTests.test_hash_collision_retry) ... ok
+test_large_multi_parent_ancestors (test_mini_git.MiniGitTests.test_large_multi_parent_ancestors) ... ok
+test_merge_ancestors_and_lexicographic_path (test_mini_git.MiniGitTests.test_merge_ancestors_and_lexicographic_path) ... ok
+test_no_standard_sort_calls_or_graph_libraries (test_mini_git.MiniGitTests.test_no_standard_sort_calls_or_graph_libraries) ... ok
+test_phrase_order_contiguity_repetition_and_normalization (test_mini_git.MiniGitTests.test_phrase_order_contiguity_repetition_and_normalization) ... ok
+test_random_dags_against_independent_oracles (test_mini_git.MiniGitTests.test_random_dags_against_independent_oracles) ... ok
+test_repeated_keyword_returns_one_commit (test_mini_git.MiniGitTests.test_repeated_keyword_returns_one_commit) ... ok
+test_search_does_not_iterate_all_commits (test_mini_git.MiniGitTests.test_search_does_not_iterate_all_commits) ... ok
+test_sort_keys_and_stability (test_mini_git.MiniGitTests.test_sort_keys_and_stability) ... ok
+test_standard_errors_and_empty_arguments (test_mini_git.MiniGitTests.test_standard_errors_and_empty_arguments) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.133s
+
+OK

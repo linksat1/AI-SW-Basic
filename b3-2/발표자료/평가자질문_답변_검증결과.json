@@ -1,0 +1,182 @@
+{
+  "slides": 21,
+  "questions": 20,
+  "speakerNotes": 21,
+  "xmlParts": 97,
+  "xmlWellFormed": true,
+  "internalRelationshipsValid": true,
+  "zipCRCValid": true,
+  "textOverlapCount": 0,
+  "clippedTextCount": 0,
+  "rendering": "동일 배치 데이터로 PPT/PDF/이미지 생성; PowerPoint 앱 렌더링 아님",
+  "details": [
+    {
+      "slide": 1,
+      "title": "Mini Git\n평가자 질문과 답변",
+      "elements": 9,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 2,
+      "title": "INIT은 새 저장소의 시작",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 3,
+      "title": "브랜치는 커밋을 가리키는 이름표",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 4,
+      "title": "LOG는 부모를 먼저 보여줍니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 5,
+      "title": "PATH는 가장 짧은 연결을 찾습니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 6,
+      "title": "ANCESTORS는 모든 조상을 모읍니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 7,
+      "title": "검색과 정렬은 기준이 다릅니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 8,
+      "title": "저장 상태와 알고리즘을 분리했습니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 9,
+      "title": "hash로 바로 찾고 중복은 재시도합니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 10,
+      "title": "COMMIT 직후 검색 색인을 갱신합니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 11,
+      "title": "탐색 함수를 따로 호출할 수 있습니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 12,
+      "title": "주석에는 동작과 이유를 적었습니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 13,
+      "title": "DAG는 방향이 있고 순환이 없습니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 14,
+      "title": "남은 부모가 0개이면 출력합니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 15,
+      "title": "BFS는 가까운 커밋부터 확인합니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 16,
+      "title": "병합 정렬은 평균·최악 O(N log N)",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 17,
+      "title": "색인은 검색어로 바로 찾는 목록입니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 18,
+      "title": "10배 커지면 전체 탐색이 부담됩니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 19,
+      "title": "부모 방향만 허용하면 길이 줄어듭니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 20,
+      "title": "부모 우선과 작성자순을 함께 지키려면",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    },
+    {
+      "slide": 21,
+      "title": "순번과 난수는 재현성이 다릅니다",
+      "elements": 16,
+      "textClipping": false,
+      "textOverlaps": [],
+      "outOfBounds": false
+    }
+  ]
+}

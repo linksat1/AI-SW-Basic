@@ -8,7 +8,7 @@ import math
 import posixpath
 import re
 from pathlib import Path
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape, quoteattr
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile, ZIP_DEFLATED
 
@@ -53,6 +53,53 @@ def wrap(text, size, width, bold=False, mono=False):
     return result
 
 
+def merge_details():
+    """부록의 모든 본문을 기존 주제 페이지에 병합한다."""
+    appendix = [s for s in SLIDES if s['kind'] == 'appendix']
+    if not appendix:
+        return
+    base = [s for s in SLIDES if s['kind'] != 'appendix']
+    mapping = {27: 2, 28: 11, 29: 12, 30: 12, 31: 14, 32: 14,
+               33: 17, 34: 17, 35: 15, 36: 16, 37: 16, 38: 18,
+               39: 19, 40: 19, 41: 20, 42: 21, 43: 26,
+               48: 23, 49: 23, 50: 24, 51: 24, 52: 25}
+    question = None
+    expected = []
+    for number, slide in enumerate(appendix, 27):
+        for index, block in enumerate(slide['blocks']):
+            match = re.match(r'Q(\d+)\.', block['text'])
+            if match:
+                question = int(match.group(1))
+            if number in (44, 45):
+                target = 12 if question == 1 else 22
+            elif number in (46, 47):
+                target = {1: 14, 2: 16, 3: 19}[question]
+            elif number == 39 and block['code']:
+                target = 18
+            elif number == 42 and '공백 포함 구문 검색' not in block['text']:
+                target = 20
+            else:
+                target = mapping[number]
+            item = dict(text=block['text'], code=block['code'], bold=block['bold'],
+                        origin=f'{number}:{index}')
+            base[target-1].setdefault('details', []).append(item)
+            expected.append(item['origin'])
+    actual = [b['origin'] for s in base for b in s.get('details', [])]
+    assert sorted(expected) == sorted(actual), '부록 내용 병합 누락'
+    for slide in base:
+        if slide.get('details'):
+            slide['originalNotes'] = slide['notes']
+            slide['notes'] += '\n\n상세 설명 및 문답 전체\n\n' + '\n\n'.join(
+                b['text'] for b in slide['details'])
+    SLIDES[:] = base
+    DATA['mergedCoverage'] = dict(source='평가질문_설명자료.md',
+                                 fullBodyAndCode=True, questionCount=16,
+                                 originalSlides=26, mergedAppendixSlides=26,
+                                 contentBlocks=len(expected))
+    DATA.pop('appendixCoverage', None)
+    (ROOT / 'deck_content.json').write_text(json.dumps(DATA, ensure_ascii=False, indent=2))
+
+
 class Canvas:
     def __init__(self, index, slide):
         self.index, self.slide = index, slide
@@ -66,6 +113,13 @@ class Canvas:
         self.compact = False
         self.content_scale = 1
         self.content_top = 255
+        self.viewport = None
+
+    def transform(self, x, y, w, h):
+        if self.viewport:
+            scale, dx, dy = self.viewport
+            return x*scale+dx, y*scale+dy, w*scale, h*scale
+        return x, y, w, h
 
     def content_y(self, y):
         return self.content_top + (y-self.content_top)*self.content_scale
@@ -80,6 +134,7 @@ class Canvas:
                 f'<a:ext cx="{round(w*EMU)}" cy="{round(h*EMU)}"/></a:xfrm>')
 
     def shape(self, x, y, w, h, fill, geom='rect', stroke=None):
+        x,y,w,h = self.transform(x,y,w,h)
         if self.compact:
             y, h = self.content_y(y), h*self.content_scale
         sid = self.ident()
@@ -101,6 +156,9 @@ class Canvas:
         self.elements.append(dict(type='shape',id=sid,x=x,y=y,w=w,h=h))
 
     def text(self, text, x, y, w, h, size=38, color=None, bold=False, mono=False, center=False):
+        x,y,w,h = self.transform(x,y,w,h)
+        if self.viewport:
+            size *= self.viewport[0]
         if self.compact:
             y, h = self.content_y(y), h*self.content_scale
             size = max(18, round(size*math.sqrt(self.content_scale)))
@@ -139,6 +197,8 @@ class Canvas:
                                   fontPx=size,originalFontPx=original_size,text=text))
 
     def edge(self, x1, y1, x2, y2, color=None, arrow=False, width=5):
+        x1,y1,_,_ = self.transform(x1,y1,0,0)
+        x2,y2,_,_ = self.transform(x2,y2,0,0)
         if self.compact:
             y1, y2 = self.content_y(y1), self.content_y(y2)
         color = color or C['teal']
@@ -183,6 +243,23 @@ class Canvas:
                   C['gold'] if self.dark else C['teal'],True)
         self.text(f'{self.index:02d} / {len(SLIDES):02d}',1650,50,190,45,25,
                   C['white'] if self.dark else C['muted'],center=True)
+        if s.get('details'):
+            self.render_merged()
+            self.validate()
+            return
+        if s['kind'] == 'appendix':
+            self.text(s['title'],80,125,1760,135,50,bold=True)
+            self.shape(80,275,1760,705,C['white'],'roundRect',C['line'])
+            y = 282
+            for block in s['blocks']:
+                self.text(block['text'],120,y,1660,block['height'],block['size'],
+                          C['teal'] if block['bold'] else self.fg,
+                          bold=block['bold'],mono=block['code'])
+                y += block['height']+12
+            self.text(s['takeaway'],80,991,1760,36,24,C['teal'],True)
+            self.text('근거: '+s['source'],80,1033,1760,36,20,C['muted'])
+            self.validate()
+            return
         # 설명 전체의 실제 행 수에 맞춰 같은 페이지 안의 공간을 배분한다.
         execution = s.get('execution')
         note_size = 24 if s['kind']=='dag' else 26 if execution else 30
@@ -275,6 +352,93 @@ class Canvas:
             self.text(s['takeaway'],105,956,1700,55,32,C['white'],True)
         self.text('근거: '+s['source'],80,1033,1760,36,20,
                   C['line'] if self.dark else C['muted'])
+        self.validate()
+
+    def flow_layout(self, blocks, width, height, columns=1, max_size=32):
+        column_width = (width-28*(columns-1))/columns
+        for size in range(max_size, 14, -1):
+            positioned = []
+            col, y = 0, 0
+            for block in blocks:
+                value = block['text'] if block.get('code') or block.get('preserveLines') else re.sub(r'\s+', ' ', block['text']).strip()
+                if block.get('preserveLines'):
+                    value = re.sub(r'\n\s*\n', '\n', value)
+                mono = block.get('code', False) and not any('\uac00' <= c <= '\ud7a3' for c in value)
+                lines = wrap(value, size, column_width, block.get('bold', False), mono)
+                while lines:
+                    capacity = int((height-y-3)/(size*1.3))
+                    if capacity < 1:
+                        col += 1
+                        y = 0
+                        continue
+                    count = min(capacity, len(lines))
+                    h = count*size*1.3+2
+                    positioned.append(dict(block, text='\n'.join(lines[:count]),
+                                           x=col*(column_width+28), y=y,
+                                           w=column_width, h=h, size=size))
+                    y += h+8
+                    lines = lines[count:]
+                if col >= columns:
+                    break
+            if col < columns:
+                return positioned, size
+        raise ValueError(f'{self.index}: 상세 내용이 페이지에 들어가지 않습니다.')
+
+    def draw_flow(self, positioned, x, y):
+        for block in positioned:
+            self.text(block['text'],x+block['x'],y+block['y'],block['w'],block['h'],
+                      block['size'],C['gold'] if self.dark and block.get('bold') else
+                      C['teal'] if block.get('bold') else self.fg,
+                      bold=block.get('bold', False),mono=block.get('code', False))
+
+    def render_merged(self):
+        s = self.slide
+        self.text(s['title'],80,125,1760,100,60,bold=True)
+        self.text('핵심 · 그림 · 실행',90,235,580,38,26,
+                  C['gold'] if self.dark else C['teal'],True)
+        self.text('상세 설명 · 코드 · 문답 전체',710,235,1130,38,26,
+                  C['gold'] if self.dark else C['teal'],True)
+        self.shape(685,280,2,690,C['line'])
+        diagram = s['kind'] in ('dag','branches','kahn','bfs','diamond','ancestors','merge','index')
+        summary_y = 285
+        if diagram:
+            self.viewport = (0.55, 75-80*0.55, 280-265*0.55)
+            self.diagram(s['kind'])
+            self.viewport = None
+            summary_y = 650
+        summary = []
+        for block in s['blocks']:
+            summary.append(dict(text=block['label'],bold=True))
+            summary.append(dict(text=block['text']))
+        if s.get('execution'):
+            execution = s['execution']
+            summary.append(dict(text='실행 확인 · '+execution['environment'],bold=True))
+            summary.append(dict(text=execution['commands'],code=True))
+            summary.append(dict(text='확인: '+execution['expected']))
+        left, left_size = self.flow_layout(summary,580,970-summary_y,max_size=28)
+        self.draw_flow(left,90,summary_y)
+        choices = []
+        for columns in (1, 2):
+            try:
+                detail_blocks = s['details'] + [dict(text=s['originalNotes'])]
+                layout, size = self.flow_layout(detail_blocks,1130,685,columns)
+                choices.append((size, -columns, layout))
+            except ValueError:
+                pass
+        assert choices, (self.index, '상세 설명 배치 실패')
+        single = next((choice for choice in choices if choice[1] == -1), None)
+        if any(block.get('code') for block in s['details']) and single and single[0] >= 17:
+            size, columns, layout = single
+        else:
+            size, columns, layout = max(choices, key=lambda item: item[:2])
+        self.draw_flow(layout,710,285)
+        self.text(s['takeaway'],80,992,1760,36,25,
+                  C['gold'] if self.dark else C['teal'],True)
+        self.text('근거: '+s['source']+' · 평가질문_설명자료.md',80,1033,1760,36,20,
+                  C['line'] if self.dark else C['muted'])
+        s['layout'] = dict(detailFontPx=size, detailColumns=-columns, summaryFontPx=left_size)
+
+    def validate(self):
         for e in self.elements:
             assert e['x']>=0 and e['y']>=0 and e['x']+e['w']<=W and e['y']+e['h']<=H, (self.index,e)
         texts=[e for e in self.elements if e['type']=='text']
@@ -286,7 +450,7 @@ class Canvas:
                 if ix>3 and iy>3:
                     overlaps.append([a['id'],b['id']])
         assert not overlaps, (self.index,overlaps)
-        VALIDATION.append(dict(slide=self.index,title=s['title'],elements=len(self.elements),
+        VALIDATION.append(dict(slide=self.index,title=self.slide['title'],elements=len(self.elements),
                                textClipping=False,textOverlaps=overlaps,outOfBounds=False))
 
     def diagram(self, kind):
@@ -345,7 +509,7 @@ class Canvas:
                 self.text(value,560,y+20,300,80,45,C['navy'],True)
 
     def xml(self):
-        return XML+f'<p:sld {NS}><p:cSld name="{escape(self.slide["title"].replace(chr(10)," "))}">' \
+        return XML+f'<p:sld {NS}><p:cSld name={quoteattr(self.slide["title"].replace(chr(10)," "))}>' \
             f'<p:bg><p:bgPr><a:solidFill><a:srgbClr val="{self.bg}"/></a:solidFill><a:effectLst/>' \
             '</p:bgPr></p:bg><p:spTree>'+BLANK+''.join(self.parts)+ \
             '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>'
@@ -449,7 +613,10 @@ def package():
 
 
 if __name__=='__main__':
-    previews=ROOT/'미리보기'
+    merge_details()
+    # 중간 미리보기는 제출 자료 폴더에 누적하지 않는다.
+    import tempfile
+    previews=Path(tempfile.mkdtemp(prefix='mini-git-slides-'))
     previews.mkdir(exist_ok=True)
     for i,slide in enumerate(SLIDES,1):
         canvas=Canvas(i,slide)
@@ -477,5 +644,7 @@ if __name__=='__main__':
                 allSlideBoundsValid=True,textOverlapCount=0,clippedTextCount=0,
                 rendering='동일한 레이아웃 데이터로 PPTX와 Pillow 미리보기/PDF 생성; PowerPoint 앱 렌더링 아님',
                 details=VALIDATION)
+    report['mergedCoverage'] = DATA.get('mergedCoverage')
+    (ROOT / 'deck_content.json').write_text(json.dumps(DATA, ensure_ascii=False, indent=2))
     (ROOT/'발표자료_검증결과.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print(json.dumps({k:v for k,v in report.items() if k!='details'},ensure_ascii=False))

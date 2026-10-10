@@ -18,18 +18,52 @@ python main.py
 
 ## 폴더 구조
 
+자동 생성되는 `__pycache__/` 등 캐시 폴더는 생략했습니다.
+
 ```
 b3-2/
-├── main.py              ← 엔트리 포인트 (python main.py로 실행)
-├── README.md             ← 이 문서
-└── mini_git/
-    ├── cli.py             REPL, 명령어 파싱, 출력 포맷팅
-    ├── repository.py      저장소 상태(브랜치/HEAD/사용자) 관리 + 명령 위임
-    ├── commit.py          Commit 노드 + 세션 내 유일한 hash 생성
-    ├── traversal.py       위상 정렬(LOG) / 최단 경로(PATH) / 조상(ANCESTORS)
-    ├── sorting.py          직접 구현한 병합 정렬 (LOG --sort-by)
-    ├── index.py            역색인 (keyword/author -> commit hash 목록)
-    └── errors.py           표준 오류 타입
+├── .gitignore                         ← Git 추적 제외 설정
+├── 과제                               ← 원본 과제 요구사항 (참고용, 수정 X)
+├── main.py                            ← 엔트리 포인트 (필수 제출물 1)
+├── mini_git/                          ← 실제 구현체
+│   ├── __init__.py                      패키지 정의
+│   ├── cli.py                           REPL, 명령어 파싱, 출력 포맷팅
+│   ├── repository.py                    저장소 상태(브랜치/HEAD/사용자) 관리
+│   ├── commit.py                        Commit 노드 + 세션 내 유일한 hash 생성
+│   ├── traversal.py                     위상 정렬 / 최단 경로 / 조상 탐색
+│   ├── sorting.py                       직접 구현한 병합 정렬
+│   ├── index.py                         역색인
+│   └── errors.py                        표준 에러 예외 클래스
+├── tests/
+│   └── test_mini_git.py                ← 자동 검증 테스트
+├── 발표자료/
+│   ├── 가이드.md                       ← 단계별 실행 가이드
+│   ├── README.md                       ← 이 문서: 실행 방법, 명령어 목록 (필수 제출물 2)
+│   ├── 평가질문_설명자료.md            ← 평가 질문 대비 설명 자료
+│   ├── MiniGit_실행검증_평가설명.pptx  ← 발표 슬라이드
+│   ├── MiniGit_실행검증_평가설명.pdf   ← 발표 슬라이드 PDF
+│   ├── 전체슬라이드_미리보기.png       ← 슬라이드 전체 미리보기
+│   ├── 발표자_설명노트.txt             ← 발표자 설명 노트
+│   ├── 사용안내.txt                    ← 발표자료 사용 안내
+│   ├── build_presentation.py           ← 발표자료 생성 스크립트
+│   ├── deck_content.json               ← 슬라이드 구성 데이터
+│   ├── 과제_재검증.txt                 ← 과제 재검증 기록
+│   ├── 발표자료_검증결과.json          ← 발표자료 검증 결과
+│   └── 최종검수결과.md                 ← 최종 검수 기록
+└── 제출/
+    ├── 실행결과.md                     ← 실행 결과 요약
+    └── results/                        ← 시나리오별 원본 실행 로그
+        ├── 01_저장소_브랜치_관리.txt
+        ├── 02_LOG_위상정렬.txt
+        ├── 03_LOG_정렬옵션.txt
+        ├── 04_PATH_최단경로.txt
+        ├── 05_ANCESTORS.txt
+        ├── 06_SEARCH.txt
+        ├── 07_에러처리_표준.txt
+        ├── 08_대소문자무관_명령어.txt
+        ├── 09_CLI_종료_quit.txt
+        ├── 10_보완_회귀검증.txt
+        └── 11_자동검증.txt
 ```
 
 ## 지원 명령어

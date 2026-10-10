@@ -21,7 +21,7 @@
     {
       "slide": 2,
       "title": "발표에서 답할 세 가지",
-      "elements": 19,
+      "elements": 17,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -101,7 +101,7 @@
     {
       "slide": 12,
       "title": "커밋 그래프는 왜 DAG인가요?",
-      "elements": 28,
+      "elements": 36,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -117,7 +117,7 @@
     {
       "slide": 14,
       "title": "LOG: 선수과목을 먼저 출력하는 방식",
-      "elements": 28,
+      "elements": 39,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -125,7 +125,7 @@
     {
       "slide": 15,
       "title": "PATH: 한 칸씩 넓혀 가면 가장 짧은 길",
-      "elements": 28,
+      "elements": 33,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -133,7 +133,7 @@
     {
       "slide": 16,
       "title": "최단 경로가 둘이면 hash 사전순으로",
-      "elements": 32,
+      "elements": 39,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -141,7 +141,7 @@
     {
       "slide": 17,
       "title": "ANCESTORS: 부모의 부모를 빠짐없이 찾기",
-      "elements": 32,
+      "elements": 36,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -149,7 +149,7 @@
     {
       "slide": 18,
       "title": "정렬은 병합 정렬을 직접 구현했습니다",
-      "elements": 24,
+      "elements": 29,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -157,7 +157,7 @@
     {
       "slide": 19,
       "title": "O(n log n)과 안정 정렬을 쉬운 말로",
-      "elements": 17,
+      "elements": 23,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -165,7 +165,7 @@
     {
       "slide": 20,
       "title": "역색인: 책 뒤의 ‘찾아보기’",
-      "elements": 31,
+      "elements": 41,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -173,7 +173,7 @@
     {
       "slide": 21,
       "title": "공백 포함 검색은 ‘연속 구문’으로",
-      "elements": 17,
+      "elements": 18,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -181,7 +181,7 @@
     {
       "slide": 22,
       "title": "평가 질문: dict와 hash를 왜 썼나요?",
-      "elements": 17,
+      "elements": 21,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -197,7 +197,7 @@
     {
       "slide": 24,
       "title": "평가 질문: 과제 제약을 지켰나요?",
-      "elements": 20,
+      "elements": 28,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -205,7 +205,7 @@
     {
       "slide": 25,
       "title": "평가 질문: 알고리즘을 어떻게 믿을 수 있나요?",
-      "elements": 24,
+      "elements": 20,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
@@ -213,10 +213,18 @@
     {
       "slide": 26,
       "title": "이제 내 말로 1분 동안 설명해 보세요",
-      "elements": 14,
+      "elements": 15,
       "textClipping": false,
       "textOverlaps": [],
       "outOfBounds": false
     }
-  ]
+  ],
+  "mergedCoverage": {
+    "source": "평가질문_설명자료.md",
+    "fullBodyAndCode": true,
+    "questionCount": 16,
+    "originalSlides": 26,
+    "mergedAppendixSlides": 26,
+    "contentBlocks": 74
+  }
 }

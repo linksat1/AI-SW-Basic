@@ -1,0 +1,13 @@
+# 잘못된 API Key로 실제 API 호출 (401 원인 출력)
+$ env AI_API_KEY=sk-ant-invalid-key-for-demo python3 ./main.py describe --intent 로그인 세션 처리를 수정했고, 세션 검증과 예외 처리를 보완했다.
+
+[INFO] Git status 수집 완료: 14개 파일 변경 감지
+[INFO] Git diff 수집 완료: 125줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 36자
+[INFO] safe-mode OFF: diff 전체를 전송합니다.
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 1회차)
+[ERROR] 인증 실패(401): API Key가 올바른지 확인하세요. (invalid x-api-key)
+[INFO] AI API 호출 횟수: 1회
+
+(exit code: 1)

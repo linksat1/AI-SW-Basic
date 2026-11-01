@@ -1,0 +1,50 @@
+# 실제 AI API 호출로 설명 생성 (2026-11-01, 저장소 루트에서 이번 변경에 적용)
+$ export AI_API_KEY=...   # 키 값은 기록하지 않음
+$ python3 b3-2_추가/main.py describe --safe-mode --convention b3-2_추가/conventions/ai-sw-basic.json --intent "b3-2 추가 과제 AI 코드 설명 도우미의 미충족 요구사항, 버그, 보너스 과제를 구현했다"
+
+[INFO] Git status 수집 완료: 30개 파일 변경 감지
+[INFO] Git diff 수집 완료: 2501줄
+[INFO] 컨벤션: AI-SW-Basic 팀 컨벤션 (b3-2_추가/conventions/ai-sw-basic.json)
+[INFO] 사용자 입력 수집 완료: 수정 의도 51자
+[INFO] safe-mode ON: 마스킹: anthropic_key x5, aws_access_key x1, github_token x1, secret_assignment x4, email x7, phone_kr x4 | 파일 10/30개 전송 | diff 200/2501줄 전송
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 1회차)
+[DONE] 코드 설명 생성 완료
+
+--- Description Title --- (43자)
+Add AI code description helper CLI for b3-2
+
+--- Description Body ---
+## Summary
+- b3-2 추가 과제로 Git 변경 사항과 수정 의도를 Anthropic Claude API에 보내 제목과 4개 섹션의 코드 설명 초안을 출력하는 Python CLI(`main.py describe`)를 새로 추가했습니다.
+- 출력 흐름은 다음과 같습니다(README 기준): Git 수집 → safe-mode 마스킹·전송 제한 → API 호출(형식 오류 시 최대 2회) → 정리·검증·후처리 → 출력.
+- 이번 요청에는 30개 파일 중 10개, 2501줄 중 200줄만 전송되었습니다. 그래서 각 모듈의 실제 구현은 diff로 직접 확인하지 못했고, 리뷰 시 확인이 필요합니다.
+
+## What Changed
+- `b3-2_추가/README.md`: 설치 방법, API Key 설정(환경변수 `AI_API_KEY`/`ANTHROPIC_API_KEY`만 사용), 옵션 표, 출력·오류 예시, 형식 검증 규칙, safe-mode 정책을 문서화했습니다.
+  - 주요 옵션: `--mock`, `--dry-run`, `--safe-mode`, `--effort`, `--convention` 등
+- `b3-2_추가/ai_code_desc/` (`cli.py`, `generator.py`, `safe_mode.py` 등): README에 적힌 역할(재생성 정책, 응답 파싱·검증·후처리, 민감정보 마스킹·전송 제한)로 모듈이 추가되었습니다. 세부 코드는 전송 범위 밖이라 확인이 필요합니다.
+- `b3-2_추가/.gitignore`: `.env`, `.venv/`, `__pycache__/` 등을 제외해 API Key가 들어 있는 `.env` 파일이 커밋되지 않도록 했습니다.
+
+## Why It Was Needed
+- 과제의 미충족 요구사항, 버그, 보너스 과제를 구현하기 위한 변경입니다. 오류 원인별 안내(401/403/404/429/5xx, 시간 초과 등), 형식 검증 후 1회 재생성, safe-mode 전송 제한이 여기에 해당합니다.
+- `제출/results/01~10` 실행 결과와 `제출/실행결과.md`는 평가 항목의 증빙 자료로 추가되었습니다.
+  - 해당 항목: 변경 없음, API Key 미설정, 인증 실패, safe-mode ON/OFF 비교, 컨벤션 적용 전후 비교, 자동 검증 등
+  - 각 파일의 실제 내용은 diff에 포함되지 않아 확인이 필요합니다.
+
+## How to Verify
+- `b3-2_추가`에서 `python -B -m unittest discover -s tests -v`를 실행해 자동 테스트(README 기준 26개)가 통과하는지 확인합니다.
+- 저장소 루트에서 `python3 b3-2_추가/main.py describe --mock --intent "테스트"`로 API 호출 없이 전체 흐름이 출력되는지 확인합니다.
+- `python3 b3-2_추가/main.py describe --dry-run --safe-mode`로 실제 전송될 프롬프트를 확인합니다. 이때 민감정보가 마스킹되었는지, 파일 10개·줄 200개 제한이 적용되었는지 함께 봅니다.
+----------------------
+
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[WARN] 'What Changed' 섹션 불릿이 4개로 권장 3개를 넘습니다.
+[WARN] 'Why It Was Needed' 섹션 불릿이 4개로 권장 3개를 넘습니다.
+[INFO] safe-mode ON | 마스킹: anthropic_key x5, aws_access_key x1, github_token x1, secret_assignment x4, email x7, phone_kr x4 | 파일 10/30개 전송 | diff 200/2501줄 전송
+[INFO] AI API 호출 횟수: 1회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+
+(exit code: 0)
+
+참고: 마지막 [WARN] 2건은 하위 불릿(  - )까지 센 검증기 오류였습니다. 이 실행 뒤에 수정했고, 수정한 검증기로는 경고가 나오지 않습니다.

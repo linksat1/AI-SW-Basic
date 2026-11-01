@@ -1,0 +1,23 @@
+{
+  "name": "AI-SW-Basic 팀 컨벤션",
+  "title_prefixes": ["Add", "Update", "Improve", "Fix", "Move", "Remove", "Organize", "docs"],
+  "title_style": "영어 명령형 동사 + 대상 + 과제 코드 (예: Improve Mini Git validation for b3-2)",
+  "title_recommended_length": 50,
+  "title_max_length": 72,
+  "language": "본문은 한국어, 제목은 영어",
+  "max_bullets_per_section": 3,
+  "rules": [
+    "제목에 과제 코드(b3-2, B2-1 등) 또는 프로젝트 이름(Mini Git 등)을 넣으세요.",
+    "제목 끝에 마침표를 붙이지 마세요.",
+    "What Changed 불릿은 '파일 경로: 변경 내용' 형식으로 쓰세요.",
+    "How to Verify에는 실행 명령(예: python -B -m unittest discover -s tests -v)을 백틱으로 감싸 쓰세요.",
+    "제출/실행결과 등 증빙 파일이 바뀌었으면 Why It Was Needed에 평가 항목과의 관계를 쓰세요."
+  ],
+  "safe_mode": {
+    "max_files": 10,
+    "max_lines": 200,
+    "mask_emails": true,
+    "mask_phones": true,
+    "extra_mask_patterns": ["\\b\\d{6}-[1-4]\\d{6}\\b"]
+  }
+}

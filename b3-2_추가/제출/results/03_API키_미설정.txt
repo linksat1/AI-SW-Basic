@@ -1,0 +1,8 @@
+# API Key 환경변수 미설정
+$ python3 ./main.py describe --intent 로그인 세션 처리를 수정했고, 세션 검증과 예외 처리를 보완했다.
+
+[ERROR] AI_API_KEY 환경변수가 설정되지 않았습니다.
+## 예) export AI_API_KEY="YOUR_KEY"
+## API 없이 흐름만 확인하려면 --mock 옵션을 사용하세요.
+
+(exit code: 1)

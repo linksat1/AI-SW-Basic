@@ -1,0 +1,65 @@
+# safe-mode OFF/ON 비교 (--dry-run: AI로 보낼 프롬프트만 출력, API 미호출)
+정책: 기본 최대 10개 파일, 최대 200줄 / API Key·토큰·비밀번호·이메일·전화번호 마스킹
+
+## OFF: $ main.py describe --dry-run --intent ...
+[INFO] Git status 수집 완료: 14개 파일 변경 감지
+[INFO] Git diff 수집 완료: 125줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 36자
+[INFO] safe-mode OFF: diff 전체를 전송합니다.
+[INFO] dry-run: AI API를 호출하지 않습니다. 전송될 프롬프트는 아래와 같습니다.
+## 변경 파일 목록 (14개, git status)
+diff --git a/session.py b/session.py
+diff --git a/config.py b/config.py
++API_KEY = "sk-ant-api03-abcdefghijklmnopqrstuvwxyz0123"
++ADMIN_EMAIL = "admin@example.com"
++SUPPORT_PHONE = "010-1234-5678"
+diff --git a/handler_1.py b/handler_1.py
+diff --git a/handler_10.py b/handler_10.py
+diff --git a/handler_11.py b/handler_11.py
+diff --git a/handler_12.py b/handler_12.py
+diff --git a/handler_2.py b/handler_2.py
+diff --git a/handler_3.py b/handler_3.py
+diff --git a/handler_4.py b/handler_4.py
+diff --git a/handler_5.py b/handler_5.py
+diff --git a/handler_6.py b/handler_6.py
+diff --git a/handler_7.py b/handler_7.py
+diff --git a/handler_8.py b/handler_8.py
+diff --git a/handler_9.py b/handler_9.py
+
+## ON: $ main.py describe --dry-run --safe-mode --intent ...
+[INFO] Git status 수집 완료: 14개 파일 변경 감지
+[INFO] Git diff 수집 완료: 125줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 36자
+[INFO] safe-mode ON: 마스킹: anthropic_key x1, email x1, phone_kr x1 | 파일 10/14개 전송 | diff 93/125줄 전송
+[INFO] dry-run: AI API를 호출하지 않습니다. 전송될 프롬프트는 아래와 같습니다.
+## 변경 파일 목록 (14개, git status)
+diff --git a/session.py b/session.py
+diff --git a/config.py b/config.py
++API_KEY = "[MASKED_ANTHROPIC_KEY]"
++ADMIN_EMAIL = "[MASKED_EMAIL]"
++SUPPORT_PHONE = "[MASKED_PHONE]"
+diff --git a/handler_1.py b/handler_1.py
+diff --git a/handler_10.py b/handler_10.py
+diff --git a/handler_11.py b/handler_11.py
+diff --git a/handler_12.py b/handler_12.py
+diff --git a/handler_2.py b/handler_2.py
+diff --git a/handler_3.py b/handler_3.py
+diff --git a/handler_4.py b/handler_4.py
+diff --git a/handler_5.py b/handler_5.py
+... (safe-mode: 파일 14개 중 10개만 전송, 전체 125줄 중 93줄만 전송) ...
+
+## ON + 정책 조정: $ main.py describe --dry-run --safe-mode --max-files 3 --max-diff-lines 40 --mask-pattern 'handler_[0-9]+'
+[INFO] Git status 수집 완료: 14개 파일 변경 감지
+[INFO] Git diff 수집 완료: 125줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 36자
+[INFO] safe-mode ON: 마스킹: anthropic_key x1, email x1, phone_kr x1, custom_1 x48 | 파일 3/14개 전송 | diff 37/125줄 전송
+[INFO] dry-run: AI API를 호출하지 않습니다. 전송될 프롬프트는 아래와 같습니다.
+diff --git a/session.py b/session.py
+diff --git a/config.py b/config.py
+diff --git a/[MASKED_CUSTOM].py b/[MASKED_CUSTOM].py
++++ b/[MASKED_CUSTOM].py
++def [MASKED_CUSTOM]():
+... (safe-mode: 파일 14개 중 3개만 전송, 전체 125줄 중 37줄만 전송) ...

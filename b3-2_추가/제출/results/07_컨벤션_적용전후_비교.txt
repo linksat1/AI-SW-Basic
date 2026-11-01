@@ -1,0 +1,52 @@
+# 컨벤션 적용 전/후 비교
+
+## 적용 전 (내장 기본 컨벤션): $ main.py describe --mock --intent ...
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+--- Description Title --- (23자)
+feat: Mini Git 세션 검증 보완
+
+--- Description Body ---
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[INFO] safe-mode OFF
+[INFO] AI API 호출 횟수: 0회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+
+## 적용 후: $ main.py describe --mock --convention conventions/ai-sw-basic.json --intent ...
+[INFO] 컨벤션: AI-SW-Basic 팀 컨벤션 (./conventions/ai-sw-basic.json)
+--- Description Title --- (21자)
+Add Mini Git 세션 검증 보완
+
+--- Description Body ---
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[INFO] safe-mode OFF
+[INFO] AI API 호출 횟수: 0회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+
+## AI에게 전달되는 작성 규칙 차이 (--dry-run 프롬프트의 '## 작성 규칙' 구간)
+### 적용 전
+## 작성 규칙
+- 제목 형식: '<type>: <한국어 요약>' 형식 (예: feat: 사용자 세션 처리 보완)
+- 제목 길이: 50자 이내 권장, 최대 72자
+- 작성 언어: 한국어
+- 각 섹션 불릿 수: 1~3개
+- 제목 접두어(아래 중 하나로 시작): feat, fix, refactor, docs, test, chore
+- What Changed에는 변경된 파일(또는 모듈) 1~3개를 이름으로 언급하세요.
+- How to Verify에는 리뷰어가 실제로 실행할 수 있는 확인 방법을 쓰세요.
+
+### 적용 후
+## 작성 규칙
+- 제목 형식: 영어 명령형 동사 + 대상 + 과제 코드 (예: Improve Mini Git validation for b3-2)
+- 제목 길이: 50자 이내 권장, 최대 72자
+- 작성 언어: 본문은 한국어, 제목은 영어
+- 각 섹션 불릿 수: 1~3개
+- 제목 접두어(아래 중 하나로 시작): Add, Update, Improve, Fix, Move, Remove, Organize, docs
+- 제목에 과제 코드(b3-2, B2-1 등) 또는 프로젝트 이름(Mini Git 등)을 넣으세요.
+- 제목 끝에 마침표를 붙이지 마세요.
+- What Changed 불릿은 '파일 경로: 변경 내용' 형식으로 쓰세요.
+- How to Verify에는 실행 명령(예: python -B -m unittest discover -s tests -v)을 백틱으로 감싸 쓰세요.
+- 제출/실행결과 등 증빙 파일이 바뀌었으면 Why It Was Needed에 평가 항목과의 관계를 쓰세요.
+- What Changed에는 변경된 파일(또는 모듈) 1~3개를 이름으로 언급하세요.
+- How to Verify에는 리뷰어가 실제로 실행할 수 있는 확인 방법을 쓰세요.
+

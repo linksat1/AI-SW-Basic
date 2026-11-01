@@ -1,0 +1,39 @@
+# API 없이 전체 흐름 확인 (--mock, --intent)
+$ python3 ./main.py describe --mock --intent 로그인 세션 처리를 수정했고, 세션 검증과 예외 처리를 보완했다.
+
+[INFO] Git status 수집 완료: 14개 파일 변경 감지
+[INFO] Git diff 수집 완료: 125줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 36자
+[INFO] safe-mode OFF: diff 전체를 전송합니다.
+[INFO] mock 모드: AI API 대신 데모 응답 사용 (1회차)
+[DONE] 코드 설명 생성 완료
+
+--- Description Title --- (21자)
+feat: 로그인 세션 처리를 수정했고
+
+--- Description Body ---
+## Summary
+- 수정 의도 요약: 로그인 세션 처리를 수정했고
+- (mock 응답입니다. 실제 AI 분석 결과가 아닙니다.)
+
+## What Changed
+- `session.py` 변경
+- `config.py` 변경
+- `handler_1.py` 변경
+
+## Why It Was Needed
+- 작성자 입력: 로그인 세션 처리를 수정했고, 세션 검증과 예외 처리를 보완했다.
+
+## How to Verify
+- 변경 파일 14개의 diff를 `git diff`로 확인합니다.
+- API Key를 설정한 뒤 `--mock` 없이 실행해 실제 AI 설명을 생성합니다.
+----------------------
+
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[INFO] safe-mode OFF
+[INFO] AI API 호출 횟수: 0회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+
+(exit code: 0)

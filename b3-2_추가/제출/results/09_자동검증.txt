@@ -1,0 +1,102 @@
+# 자동 테스트
+$ python3 -B -m unittest discover -s tests -v
+
+test_auth_error (test_ai_code_desc.ApiErrorTests.test_auth_error) ... ok
+test_network_error (test_ai_code_desc.ApiErrorTests.test_network_error) ... ok
+test_rate_limit (test_ai_code_desc.ApiErrorTests.test_rate_limit) ... ok
+test_dry_run_safe_mode_masks_prompt (test_ai_code_desc.CliTests.test_dry_run_safe_mode_masks_prompt) ... ok
+test_missing_api_key (test_ai_code_desc.CliTests.test_missing_api_key) ... ok
+test_mock_end_to_end_uses_intent (test_ai_code_desc.CliTests.test_mock_end_to_end_uses_intent) ... ok
+test_no_changes_message (test_ai_code_desc.CliTests.test_no_changes_message) ... ok
+test_options_parse (test_ai_code_desc.CliTests.test_options_parse) ... ok
+test_regenerates_once_then_succeeds (test_ai_code_desc.CliTests.test_regenerates_once_then_succeeds) ... ok
+test_repairs_after_two_bad_responses (test_ai_code_desc.CliTests.test_repairs_after_two_bad_responses) ... ok
+test_default_when_missing (test_ai_code_desc.ConventionTests.test_default_when_missing) ... ok
+test_invalid_convention_file (test_ai_code_desc.ConventionTests.test_invalid_convention_file) ... ok
+test_loads_repo_file_and_applies_rules (test_ai_code_desc.ConventionTests.test_loads_repo_file_and_applies_rules) ... ok
+test_detects_errors_and_warnings (test_ai_code_desc.FormatTests.test_detects_errors_and_warnings) ... ok
+test_nested_bullets_not_counted_toward_limit (test_ai_code_desc.FormatTests.test_nested_bullets_not_counted_toward_limit) ... ok
+test_normalize_header_and_bullet_variants (test_ai_code_desc.FormatTests.test_normalize_header_and_bullet_variants) ... ok
+test_prompt_contains_inputs_and_template (test_ai_code_desc.FormatTests.test_prompt_contains_inputs_and_template) ... ok
+test_repair_fixes_all_required_rules (test_ai_code_desc.FormatTests.test_repair_fixes_all_required_rules) ... ok
+test_valid_response (test_ai_code_desc.FormatTests.test_valid_response) ... ok
+test_must_run_at_repo_root (test_ai_code_desc.GitContextTests.test_must_run_at_repo_root) ... ok
+test_no_changes (test_ai_code_desc.GitContextTests.test_no_changes) ... ok
+test_not_a_repo (test_ai_code_desc.GitContextTests.test_not_a_repo) ... ok
+test_parse_rename (test_ai_code_desc.GitContextTests.test_parse_rename) ... ok
+test_unstaged_staged_untracked_all_collected (test_ai_code_desc.GitContextTests.test_unstaged_staged_untracked_all_collected) ... ok
+test_custom_pattern (test_ai_code_desc.SafeModeTests.test_custom_pattern) ... ok
+test_limits_files_and_lines (test_ai_code_desc.SafeModeTests.test_limits_files_and_lines) ... ok
+test_masks_keys_email_phone_and_assignments (test_ai_code_desc.SafeModeTests.test_masks_keys_email_phone_and_assignments) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 2.662s
+
+OK
+[INFO] Git status 수집 완료: 1개 파일 변경 감지
+[INFO] Git diff 수집 완료: 9줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 1자
+[INFO] safe-mode OFF: diff 전체를 전송합니다.
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 1회차)
+[WARN] 형식 검증 실패 3건: 'What Changed' 섹션 헤더가 없습니다. / 'Why It Was Needed' 섹션 헤더가 없습니다. / 'How to Verify' 섹션 헤더가 없습니다.
+[INFO] 검증 오류를 피드백으로 넣어 1회 재생성합니다.
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 2회차)
+[DONE] 코드 설명 생성 완료
+
+--- Description Title --- (18자)
+feat: 로그인 입력 검증 추가
+
+--- Description Body ---
+## Summary
+- 빈 사용자 입력을 거부합니다.
+## What Changed
+- app.py의 login()에 검증을 추가했습니다.
+## Why It Was Needed
+- 빈 입력이 로그인에 성공하던 문제를 막습니다.
+## How to Verify
+- login("")이 ValueError를 내는지 확인합니다.
+----------------------
+
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[INFO] safe-mode OFF
+[INFO] AI API 호출 횟수: 2회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+[INFO] Git status 수집 완료: 1개 파일 변경 감지
+[INFO] Git diff 수집 완료: 9줄
+[INFO] 컨벤션: 기본 컨벤션 (Conventional Commits) (내장 기본값)
+[INFO] 사용자 입력 수집 완료: 수정 의도 1자
+[INFO] safe-mode OFF: diff 전체를 전송합니다.
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 1회차)
+[WARN] 형식 검증 실패 3건: 'What Changed' 섹션 헤더가 없습니다. / 'Why It Was Needed' 섹션 헤더가 없습니다. / 'How to Verify' 섹션 헤더가 없습니다.
+[INFO] 검증 오류를 피드백으로 넣어 1회 재생성합니다.
+[INFO] AI API 요청 중... (model=claude-opus-5-5, effort=low, max_tokens=16000, 2회차)
+[WARN] 형식 검증 실패 3건: 'What Changed' 섹션 헤더가 없습니다. / 'Why It Was Needed' 섹션 헤더가 없습니다. / 'How to Verify' 섹션 헤더가 없습니다.
+[INFO] 남은 형식 오류를 후처리로 보정합니다.
+[DONE] 코드 설명 생성 완료
+
+--- Description Title --- (7자)
+feat: x
+
+--- Description Body ---
+## Summary
+- a
+
+## What Changed
+- (AI 응답에 없던 항목입니다. 검토 후 직접 작성하세요.)
+
+## Why It Was Needed
+- (AI 응답에 없던 항목입니다. 검토 후 직접 작성하세요.)
+
+## How to Verify
+- (AI 응답에 없던 항목입니다. 검토 후 직접 작성하세요.)
+----------------------
+
+--- Validation ---
+[OK] 제목 길이/섹션 헤더/섹션별 불릿 검증 통과
+[INFO] safe-mode OFF
+[INFO] AI API 호출 횟수: 2회 (최대 2회)
+[NOTE] 생성된 설명은 초안입니다. 내용을 검토한 뒤 적용하세요.
+
+(exit code: 0)

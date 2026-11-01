@@ -1,0 +1,8 @@
+# 저장소 루트가 아닌 곳 / git 저장소가 아닌 곳에서 실행
+$ bash -c cd sub && 'python3' './main.py' describe --mock; echo '(exit code: '$?')'; cd /; 'python3' './main.py' describe --mock
+
+[ERROR] 프로젝트 루트 디렉터리에서 실행하세요. (저장소 루트: <demo-repo>)
+(exit code: 1)
+[ERROR] 현재 디렉터리는 git 저장소가 아닙니다. 프로젝트 루트에서 실행하세요.
+
+(exit code: 1)

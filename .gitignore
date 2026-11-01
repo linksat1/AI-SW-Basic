@@ -30,3 +30,6 @@ b6-1/sql-demo-app/data/.smtp_credentials
 
 # 제출 실행가이드 — SSH 접속 절차 등 비공개 유지
 b5-1/제출_위성궤도주파수/실행가이드.md
+
+# 해커톤 팀 저장소 로컬 사본 — 별도 저장소이므로 커밋 금지
+hackaton-ai-service/
